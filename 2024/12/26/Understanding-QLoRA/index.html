@@ -27,24 +27,19 @@
 <meta property="og:site_name" content="Di&#39;s Blog">
 <meta property="og:description" content="QLoRA is never as simple as a single line of code. Let&#39;s start from the scaling law... Neural Scaling Law In the context of LLMs, a scaling law refers to an empirical relationship that describes how t">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/scalinglaw_3charts.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/gpt4_report_scalinglaw.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/fp32_example.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/summary_5_precision.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/fp8_transformer_current.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/quant_granularity.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/quant_granularity.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/finetune_cost.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/quantile_function.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/double_quant.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/nf4_compare_result.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/qlora_forward.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/qlora_backward.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/quantile_function.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/double_quant.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/qlora_forward.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/qlora_backward.png">
 <meta property="article:published_time" content="2024-12-26T22:05:05.000Z">
 <meta property="article:modified_time" content="2024-12-26T22:05:05.000Z">
 <meta property="article:author" content="Di Zhen">
 <meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/images/scalinglaw_3charts.png">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png">
 
 
 <link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/">
@@ -218,7 +213,9 @@ dataset size, and computational power—are scaled up or down. These laws
 provide insights into how increasing these factors impacts model
 accuracy, efficiency, and generalization capabilities.</p>
 <figure>
-<img src="./images/scalinglaw_3charts.png" alt="scalinglaw_3charts" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/scalinglaw_3charts.png"
+alt="scalinglaw_3charts" />
 <figcaption aria-hidden="true">scalinglaw_3charts</figcaption>
 </figure>
 <p>Compute, dataset size, and model size are not independent of each
@@ -260,7 +257,8 @@ optimal model size that minimizes test loss.</p></li>
 Report</a>, by fitting the scaling law to the loss of smaller models,
 the loss of a bigger model can be predicted accurately.</p>
 <figure>
-<img src="./images/gpt4_report_scalinglaw.png"
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/gpt4_report_scalinglaw.png"
 alt="gpt4_report_scalinglaw" />
 <figcaption aria-hidden="true">gpt4_report_scalinglaw</figcaption>
 </figure></li>
@@ -310,7 +308,8 @@ significant digits of the number.</li>
 \]</span> Following this formula, we can calculate FP32 number. Below is
 an example:</p>
 <figure>
-<img src="./images/fp32_example.png" alt="fp32_example" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png"
+alt="fp32_example" />
 <figcaption aria-hidden="true">fp32_example</figcaption>
 </figure>
 <p>FP32 provides a wider range and higher precision, making it suitable
@@ -386,7 +385,9 @@ like code generation or mathematical reasoning. As a result, training
 LLMs with FP8 precision remains an active area of research and
 exploration.</p>
 <figure>
-<img src="./images/summary_5_precision.png" alt="summary_5_precision" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/summary_5_precision.png"
+alt="summary_5_precision" />
 <figcaption aria-hidden="true">summary_5_precision</figcaption>
 </figure>
 <table>
@@ -512,7 +513,8 @@ computations are performed, the results are promptly converted back to
 BF16.</p></li>
 </ul>
 <figure>
-<img src="./images/fp8_transformer_current.png"
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/fp8_transformer_current.png"
 alt="fp8_transformer_current" />
 <figcaption aria-hidden="true">fp8_transformer_current</figcaption>
 </figure>
@@ -604,7 +606,8 @@ and activations to strike a balance between accuracy and
 efficiency.</li>
 </ol>
 <figure>
-<img src="./images/quant_granularity.png" alt="quant_granularity" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/quant_granularity.png"
+alt="quant_granularity" />
 <figcaption aria-hidden="true">quant_granularity</figcaption>
 </figure>
 <h2 id="qlora">QLoRA</h2>
@@ -686,7 +689,8 @@ description, if the probability of <span class="math inline">\(x &lt;
 1.2\)</span> is 0.9, then 1.2 is the corresponding quantile for a
 cumulative probability of 0.9.</p>
 <figure>
-<img src="./images/quantile_function.png" alt="quantile_function" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/quantile_function.png"
+alt="quantile_function" />
 <figcaption aria-hidden="true">quantile_function</figcaption>
 </figure>
 <p>With this quantile function, the probability range from 0 to 1 is
@@ -758,7 +762,8 @@ class="math inline">\(0.5-0.127=0.373\)</span> bits per
 parameter.</p></li>
 </ol>
 <figure>
-<img src="./images/double_quant.png" alt="double_quant" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/double_quant.png"
+alt="double_quant" />
 <figcaption aria-hidden="true">double_quant</figcaption>
 </figure>
 <p>The authors of paper "<a
@@ -773,7 +778,9 @@ that using FP8 for second-level quantization does not degrade model
 performance, making it an effective trade-off between precision and
 memory efficiency.</p>
 <figure>
-<img src="./images/nf4_compare_result.png" alt="nf4_compare_result" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/nf4_compare_result.png"
+alt="nf4_compare_result" />
 <figcaption aria-hidden="true">nf4_compare_result</figcaption>
 </figure>
 <h4 id="paged-optimizers">Paged Optimizers</h4>
@@ -791,12 +798,14 @@ computations like gradient updates.</p>
 Implementation</h3>
 <p>Forward:</p>
 <figure>
-<img src="./images/qlora_forward.png" alt="qlora_forward" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/qlora_forward.png"
+alt="qlora_forward" />
 <figcaption aria-hidden="true">qlora_forward</figcaption>
 </figure>
 <p>Backward:</p>
 <figure>
-<img src="./images/qlora_backward.png" alt="qlora_backward" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/qlora_backward.png"
+alt="qlora_backward" />
 <figcaption aria-hidden="true">qlora_backward</figcaption>
 </figure>
 <h3 id="qlora-usage">QLora Usage</h3>

@@ -27,15 +27,13 @@
 <meta property="og:site_name" content="Di&#39;s Blog">
 <meta property="og:description" content="I finally got time to have some deep dives. Happy Christmas! RAM Usage During Training Training large-scale machine learning models e.g. LLMs, requires significant compute resources. Here’s a breakdow">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/images/adapter_architecture.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/images/adapter_experiment_results.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/images/lora_diagram.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png">
 <meta property="article:published_time" content="2024-12-25T20:11:11.000Z">
 <meta property="article:modified_time" content="2024-12-25T20:11:11.000Z">
 <meta property="article:author" content="Di Zhen">
 <meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/images/adapter_architecture.png">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png">
 
 
 <link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/">
@@ -274,7 +272,8 @@ Learning for NLP</a>". It's a small, additional module added to a
 pre-trained model to adapt it to a new task without significantly
 changing the original model parameters.</p>
 <figure>
-<img src="./images/adapter_architecture.png"
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_architecture.png"
 alt="adapter_architecture" />
 <figcaption aria-hidden="true">adapter_architecture</figcaption>
 </figure>
@@ -295,7 +294,8 @@ latency.</p>
 significant (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA
 paper</a>):</p>
 <figure>
-<img src="./images/adapter_experiment_results.png"
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_experiment_results.png"
 alt="adapter_experiment_results" />
 <figcaption aria-hidden="true">adapter_experiment_results</figcaption>
 </figure>
@@ -309,7 +309,8 @@ the original model weights frozen. This approach significantly reduces
 the number of trainable parameters and computational requirements
 compared to full fine-tuning, without compromising performance.</p>
 <figure>
-<img src="./images/lora_diagram.png" alt="lora_diagram" />
+<img src="/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png"
+alt="lora_diagram" />
 <figcaption aria-hidden="true">lora_diagram</figcaption>
 </figure>
 <p>LoRA approximates weight updates in neural networks using

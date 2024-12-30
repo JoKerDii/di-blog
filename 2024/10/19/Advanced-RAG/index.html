@@ -28,23 +28,23 @@
 <meta property="og:description" content="There are many enterprise products built almost solely on RAG. Naive RAG The standard RAG workflow consists of three main steps as illustrated in the graph below:  Indexing: Creating an index of docum">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/naive_rag.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/adv_rag.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/query_analysis.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/query_trans2.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/multiquery_retrieval.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/rag_fusion.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/decomposition.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/least_to_most.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/ircot2.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/ircot3.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/hyde.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/data_structure.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/self_query.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/basic_index_retrieval.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/fusion_retrieval.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/sent_window_retrieval.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/parent_retrieval.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/images/hierarchical_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/adv_rag.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/query_analysis.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/query_trans2.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/multiquery_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/rag_fusion.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/decomposition.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/least_to_most.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/ircot2.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/ircot3.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/hyde.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/data_structure.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/self_query.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/basic_index_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/fusion_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/sent_window_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/parent_retrieval.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/hierarchical_retrieval.png">
 <meta property="article:published_time" content="2024-10-20T02:57:45.000Z">
 <meta property="article:modified_time" content="2024-10-20T02:57:45.000Z">
 <meta property="article:author" content="Di Zhen">
@@ -268,7 +268,7 @@ strategies.</p>
 <h2 id="advanced-rag">Advanced RAG</h2>
 <h3 id="overview">Overview</h3>
 <figure>
-<img src="./images/adv_rag.png" alt="adv_rag" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/adv_rag.png" alt="adv_rag" />
 <figcaption aria-hidden="true">adv_rag</figcaption>
 </figure>
 <h3 id="pre-retrieval-enhancements">Pre-Retrieval Enhancements</h3>
@@ -277,12 +277,14 @@ Translation</h4>
 <p>Query transformations are techniques aimed at re-writing or modifying
 the input questions to improve the retrieval process.</p>
 <figure>
-<img src="./images/query_analysis.png" alt="Query Analysis" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/query_analysis.png"
+alt="Query Analysis" />
 <figcaption aria-hidden="true">Query Analysis</figcaption>
 </figure>
 <p>Query transformation types:</p>
 <figure>
-<img src="./images/query_trans2.png" alt="query_trans2" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/query_trans2.png"
+alt="query_trans2" />
 <figcaption aria-hidden="true">query_trans2</figcaption>
 </figure>
 <p>Some notable methods include:</p>
@@ -305,7 +307,7 @@ target="_blank" rel="noopener" href="https://api.python.langchain.com/en/latest/
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JChPi0CRnDY">RAG from Scratch
 (Part 5 - Query Translation: Multi Query)</a>.</p>
 <figure>
-<img src="./images/multiquery_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/multiquery_retrieval.png"
 alt="multiquery_retrieval" />
 <figcaption aria-hidden="true">multiquery_retrieval</figcaption>
 </figure></li>
@@ -327,7 +329,8 @@ Fusion</a></p>
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=77qELPbNgxA">RAG from scratch:
 Part 6 (Query Translation – RAG Fusion)</a></p>
 <figure>
-<img src="./images/rag_fusion.png" alt="rag_fusion" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/rag_fusion.png"
+alt="rag_fusion" />
 <figcaption aria-hidden="true">rag_fusion</figcaption>
 </figure></li>
 <li><p><strong>Step-Back Prompting</strong></p>
@@ -361,7 +364,8 @@ target="_blank" rel="noopener" href="https://python.langchain.com/v0.1/docs/use_
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h0OPWlEOank">RAG from scratch:
 Part 7 (Query Translation – Decomposition)</a></p>
 <figure>
-<img src="./images/decomposition.png" alt="decomposition" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/decomposition.png"
+alt="decomposition" />
 <figcaption aria-hidden="true">decomposition</figcaption>
 </figure>
 <ul>
@@ -377,7 +381,8 @@ Prompting Enables Complex Reasoning in Large Language Models</a></p>
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h0OPWlEOank">RAG from scratch:
 Part 7 (Query Translation – Decomposition)</a></p>
 <figure>
-<img src="./images/least_to_most.png" alt="least_to_most" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/least_to_most.png"
+alt="least_to_most" />
 <figcaption aria-hidden="true">least_to_most</figcaption>
 </figure></li>
 <li><p><strong>IR-Cot</strong></p>
@@ -392,11 +397,11 @@ Multi-Step Questions</a></p>
 <p>IR-CoT Code：<a
 target="_blank" rel="noopener" href="https://github.com/StonyBrookNLP/ircot">https://github.com/StonyBrookNLP/ircot</a></p>
 <figure>
-<img src="./images/ircot2.png" alt="ircot2" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/ircot2.png" alt="ircot2" />
 <figcaption aria-hidden="true">ircot2</figcaption>
 </figure>
 <figure>
-<img src="./images/ircot3.png" alt="ircot3" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/ircot3.png" alt="ircot3" />
 <figcaption aria-hidden="true">ircot3</figcaption>
 </figure></li>
 </ul></li>
@@ -422,7 +427,7 @@ Zero-Shot Dense Retrieval without Relevance Labels</a></p>
 target="_blank" rel="noopener" href="https://github.com/langchain-ai/langchain/blob/master/cookbook/hypothetical_document_embeddings.ipynb">Improve
 document indexing with HyDE</a></p>
 <figure>
-<img src="./images/hyde.png" alt="hyde" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/hyde.png" alt="hyde" />
 <figcaption aria-hidden="true">hyde</figcaption>
 </figure></li>
 <li><p><strong>New queries based on historical dialogues</strong></p>
@@ -451,7 +456,8 @@ target="_blank" rel="noopener" href="https://superlinked.com/vector-db-compariso
 <p>Data can be structured, unstructured or semi-structured (see demo
 below). This requires LLMs to have capability of query construction.</p>
 <figure>
-<img src="./images/data_structure.png" alt="data_structure" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/data_structure.png"
+alt="data_structure" />
 <figcaption aria-hidden="true">data_structure</figcaption>
 </figure>
 <table>
@@ -523,7 +529,8 @@ target="_blank" rel="noopener" href="https://python.langchain.com/v0.2/docs/inte
 retrievers</a> -&gt; <a
 target="_blank" rel="noopener" href="https://python.langchain.com/v0.1/docs/integrations/retrievers/self_query/qdrant_self_query/">Qdrant</a></p>
 <figure>
-<img src="./images/self_query.png" alt="self_query.png" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/self_query.png"
+alt="self_query.png" />
 <figcaption aria-hidden="true">self_query.png</figcaption>
 </figure>
 <p><strong>Text-to-metadata-filter</strong>: VectorStores equipped with
@@ -603,7 +610,7 @@ Techniques</h3>
 uses a vector database to store document embeddings and retrieve
 documents based on their proximity to the query embedding.</p>
 <figure>
-<img src="./images/basic_index_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/basic_index_retrieval.png"
 alt="basic_index_retrieval" />
 <figcaption aria-hidden="true">basic_index_retrieval</figcaption>
 </figure></li>
@@ -622,7 +629,8 @@ target="_blank" rel="noopener" href="https://api.python.langchain.com/en/latest/
 <p>Code: <a
 target="_blank" rel="noopener" href="https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/retrievers/ensemble.py#L57">EnsembleRetriever</a></p>
 <figure>
-<img src="./images/fusion_retrieval.png" alt="fusion_retrieval" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/fusion_retrieval.png"
+alt="fusion_retrieval" />
 <figcaption aria-hidden="true">fusion_retrieval</figcaption>
 </figure>
 <p>The <strong>EnsembleRetriever</strong> is a retrieval strategy that
@@ -699,7 +707,7 @@ target="_blank" rel="noopener" href="https://github.com/dorianbrown/rank_bm25">r
 context pre and post the relevant context, rather than only retrieving
 the relevant context, which can reduce information lost.</p>
 <figure>
-<img src="./images/sent_window_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/sent_window_retrieval.png"
 alt="sent_window_retrieval" />
 <figcaption aria-hidden="true">sent_window_retrieval</figcaption>
 </figure></li>
@@ -709,7 +717,8 @@ their larger parent chunk. This allows for more contextualized
 information to be fed to the LLM, giving it a broader and more coherent
 set of data to generate an answer.</p>
 <figure>
-<img src="./images/parent_retrieval.png" alt="parent_retrieval" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/parent_retrieval.png"
+alt="parent_retrieval" />
 <figcaption aria-hidden="true">parent_retrieval</figcaption>
 </figure>
 <p>LangChain Doc: <a
@@ -725,7 +734,7 @@ detailed search—this hierarchical approach increases efficiency, making
 it easier to find and synthesize relevant information, especially when
 dealing with large document sets.</p>
 <figure>
-<img src="./images/hierarchical_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/hierarchical_retrieval.png"
 alt="hierarchical_retrieval" />
 <figcaption aria-hidden="true">hierarchical_retrieval</figcaption>
 </figure></li>

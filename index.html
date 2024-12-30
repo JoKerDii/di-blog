@@ -1481,7 +1481,9 @@ dataset size, and computational power—are scaled up or down. These laws
 provide insights into how increasing these factors impacts model
 accuracy, efficiency, and generalization capabilities.</p>
 <figure>
-<img src="./images/scalinglaw_3charts.png" alt="scalinglaw_3charts" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/scalinglaw_3charts.png"
+alt="scalinglaw_3charts" />
 <figcaption aria-hidden="true">scalinglaw_3charts</figcaption>
 </figure>
 <p>Compute, dataset size, and model size are not independent of each
@@ -1523,7 +1525,8 @@ optimal model size that minimizes test loss.</p></li>
 Report</a>, by fitting the scaling law to the loss of smaller models,
 the loss of a bigger model can be predicted accurately.</p>
 <figure>
-<img src="./images/gpt4_report_scalinglaw.png"
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/gpt4_report_scalinglaw.png"
 alt="gpt4_report_scalinglaw" />
 <figcaption aria-hidden="true">gpt4_report_scalinglaw</figcaption>
 </figure></li>
@@ -1573,7 +1576,8 @@ significant digits of the number.</li>
 \]</span> Following this formula, we can calculate FP32 number. Below is
 an example:</p>
 <figure>
-<img src="./images/fp32_example.png" alt="fp32_example" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png"
+alt="fp32_example" />
 <figcaption aria-hidden="true">fp32_example</figcaption>
 </figure>
 <p>FP32 provides a wider range and higher precision, making it suitable
@@ -1649,7 +1653,9 @@ like code generation or mathematical reasoning. As a result, training
 LLMs with FP8 precision remains an active area of research and
 exploration.</p>
 <figure>
-<img src="./images/summary_5_precision.png" alt="summary_5_precision" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/summary_5_precision.png"
+alt="summary_5_precision" />
 <figcaption aria-hidden="true">summary_5_precision</figcaption>
 </figure>
 <table>
@@ -1775,7 +1781,8 @@ computations are performed, the results are promptly converted back to
 BF16.</p></li>
 </ul>
 <figure>
-<img src="./images/fp8_transformer_current.png"
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/fp8_transformer_current.png"
 alt="fp8_transformer_current" />
 <figcaption aria-hidden="true">fp8_transformer_current</figcaption>
 </figure>
@@ -1867,7 +1874,8 @@ and activations to strike a balance between accuracy and
 efficiency.</li>
 </ol>
 <figure>
-<img src="./images/quant_granularity.png" alt="quant_granularity" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/quant_granularity.png"
+alt="quant_granularity" />
 <figcaption aria-hidden="true">quant_granularity</figcaption>
 </figure>
 <h2 id="qlora">QLoRA</h2>
@@ -1949,7 +1957,8 @@ description, if the probability of <span class="math inline">\(x &lt;
 1.2\)</span> is 0.9, then 1.2 is the corresponding quantile for a
 cumulative probability of 0.9.</p>
 <figure>
-<img src="./images/quantile_function.png" alt="quantile_function" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/quantile_function.png"
+alt="quantile_function" />
 <figcaption aria-hidden="true">quantile_function</figcaption>
 </figure>
 <p>With this quantile function, the probability range from 0 to 1 is
@@ -2021,7 +2030,8 @@ class="math inline">\(0.5-0.127=0.373\)</span> bits per
 parameter.</p></li>
 </ol>
 <figure>
-<img src="./images/double_quant.png" alt="double_quant" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/double_quant.png"
+alt="double_quant" />
 <figcaption aria-hidden="true">double_quant</figcaption>
 </figure>
 <p>The authors of paper "<a
@@ -2036,7 +2046,9 @@ that using FP8 for second-level quantization does not degrade model
 performance, making it an effective trade-off between precision and
 memory efficiency.</p>
 <figure>
-<img src="./images/nf4_compare_result.png" alt="nf4_compare_result" />
+<img
+src="/di-blog/2024/12/26/Understanding-QLoRA/nf4_compare_result.png"
+alt="nf4_compare_result" />
 <figcaption aria-hidden="true">nf4_compare_result</figcaption>
 </figure>
 <h4 id="paged-optimizers">Paged Optimizers</h4>
@@ -2054,12 +2066,14 @@ computations like gradient updates.</p>
 Implementation</h3>
 <p>Forward:</p>
 <figure>
-<img src="./images/qlora_forward.png" alt="qlora_forward" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/qlora_forward.png"
+alt="qlora_forward" />
 <figcaption aria-hidden="true">qlora_forward</figcaption>
 </figure>
 <p>Backward:</p>
 <figure>
-<img src="./images/qlora_backward.png" alt="qlora_backward" />
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/qlora_backward.png"
+alt="qlora_backward" />
 <figcaption aria-hidden="true">qlora_backward</figcaption>
 </figure>
 <h3 id="qlora-usage">QLora Usage</h3>
@@ -2236,7 +2250,8 @@ Learning for NLP</a>". It's a small, additional module added to a
 pre-trained model to adapt it to a new task without significantly
 changing the original model parameters.</p>
 <figure>
-<img src="./images/adapter_architecture.png"
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_architecture.png"
 alt="adapter_architecture" />
 <figcaption aria-hidden="true">adapter_architecture</figcaption>
 </figure>
@@ -2257,7 +2272,8 @@ latency.</p>
 significant (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA
 paper</a>):</p>
 <figure>
-<img src="./images/adapter_experiment_results.png"
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_experiment_results.png"
 alt="adapter_experiment_results" />
 <figcaption aria-hidden="true">adapter_experiment_results</figcaption>
 </figure>
@@ -2271,7 +2287,8 @@ the original model weights frozen. This approach significantly reduces
 the number of trainable parameters and computational requirements
 compared to full fine-tuning, without compromising performance.</p>
 <figure>
-<img src="./images/lora_diagram.png" alt="lora_diagram" />
+<img src="/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png"
+alt="lora_diagram" />
 <figcaption aria-hidden="true">lora_diagram</figcaption>
 </figure>
 <p>LoRA approximates weight updates in neural networks using
@@ -4777,7 +4794,7 @@ strategies.</p>
 <h2 id="advanced-rag">Advanced RAG</h2>
 <h3 id="overview">Overview</h3>
 <figure>
-<img src="./images/adv_rag.png" alt="adv_rag" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/adv_rag.png" alt="adv_rag" />
 <figcaption aria-hidden="true">adv_rag</figcaption>
 </figure>
 <h3 id="pre-retrieval-enhancements">Pre-Retrieval Enhancements</h3>
@@ -4786,12 +4803,14 @@ Translation</h4>
 <p>Query transformations are techniques aimed at re-writing or modifying
 the input questions to improve the retrieval process.</p>
 <figure>
-<img src="./images/query_analysis.png" alt="Query Analysis" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/query_analysis.png"
+alt="Query Analysis" />
 <figcaption aria-hidden="true">Query Analysis</figcaption>
 </figure>
 <p>Query transformation types:</p>
 <figure>
-<img src="./images/query_trans2.png" alt="query_trans2" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/query_trans2.png"
+alt="query_trans2" />
 <figcaption aria-hidden="true">query_trans2</figcaption>
 </figure>
 <p>Some notable methods include:</p>
@@ -4814,7 +4833,7 @@ target="_blank" rel="noopener" href="https://api.python.langchain.com/en/latest/
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JChPi0CRnDY">RAG from Scratch
 (Part 5 - Query Translation: Multi Query)</a>.</p>
 <figure>
-<img src="./images/multiquery_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/multiquery_retrieval.png"
 alt="multiquery_retrieval" />
 <figcaption aria-hidden="true">multiquery_retrieval</figcaption>
 </figure></li>
@@ -4836,7 +4855,8 @@ Fusion</a></p>
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=77qELPbNgxA">RAG from scratch:
 Part 6 (Query Translation – RAG Fusion)</a></p>
 <figure>
-<img src="./images/rag_fusion.png" alt="rag_fusion" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/rag_fusion.png"
+alt="rag_fusion" />
 <figcaption aria-hidden="true">rag_fusion</figcaption>
 </figure></li>
 <li><p><strong>Step-Back Prompting</strong></p>
@@ -4870,7 +4890,8 @@ target="_blank" rel="noopener" href="https://python.langchain.com/v0.1/docs/use_
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h0OPWlEOank">RAG from scratch:
 Part 7 (Query Translation – Decomposition)</a></p>
 <figure>
-<img src="./images/decomposition.png" alt="decomposition" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/decomposition.png"
+alt="decomposition" />
 <figcaption aria-hidden="true">decomposition</figcaption>
 </figure>
 <ul>
@@ -4886,7 +4907,8 @@ Prompting Enables Complex Reasoning in Large Language Models</a></p>
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h0OPWlEOank">RAG from scratch:
 Part 7 (Query Translation – Decomposition)</a></p>
 <figure>
-<img src="./images/least_to_most.png" alt="least_to_most" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/least_to_most.png"
+alt="least_to_most" />
 <figcaption aria-hidden="true">least_to_most</figcaption>
 </figure></li>
 <li><p><strong>IR-Cot</strong></p>
@@ -4901,11 +4923,11 @@ Multi-Step Questions</a></p>
 <p>IR-CoT Code：<a
 target="_blank" rel="noopener" href="https://github.com/StonyBrookNLP/ircot">https://github.com/StonyBrookNLP/ircot</a></p>
 <figure>
-<img src="./images/ircot2.png" alt="ircot2" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/ircot2.png" alt="ircot2" />
 <figcaption aria-hidden="true">ircot2</figcaption>
 </figure>
 <figure>
-<img src="./images/ircot3.png" alt="ircot3" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/ircot3.png" alt="ircot3" />
 <figcaption aria-hidden="true">ircot3</figcaption>
 </figure></li>
 </ul></li>
@@ -4931,7 +4953,7 @@ Zero-Shot Dense Retrieval without Relevance Labels</a></p>
 target="_blank" rel="noopener" href="https://github.com/langchain-ai/langchain/blob/master/cookbook/hypothetical_document_embeddings.ipynb">Improve
 document indexing with HyDE</a></p>
 <figure>
-<img src="./images/hyde.png" alt="hyde" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/hyde.png" alt="hyde" />
 <figcaption aria-hidden="true">hyde</figcaption>
 </figure></li>
 <li><p><strong>New queries based on historical dialogues</strong></p>
@@ -4960,7 +4982,8 @@ target="_blank" rel="noopener" href="https://superlinked.com/vector-db-compariso
 <p>Data can be structured, unstructured or semi-structured (see demo
 below). This requires LLMs to have capability of query construction.</p>
 <figure>
-<img src="./images/data_structure.png" alt="data_structure" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/data_structure.png"
+alt="data_structure" />
 <figcaption aria-hidden="true">data_structure</figcaption>
 </figure>
 <table>
@@ -5032,7 +5055,8 @@ target="_blank" rel="noopener" href="https://python.langchain.com/v0.2/docs/inte
 retrievers</a> -&gt; <a
 target="_blank" rel="noopener" href="https://python.langchain.com/v0.1/docs/integrations/retrievers/self_query/qdrant_self_query/">Qdrant</a></p>
 <figure>
-<img src="./images/self_query.png" alt="self_query.png" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/self_query.png"
+alt="self_query.png" />
 <figcaption aria-hidden="true">self_query.png</figcaption>
 </figure>
 <p><strong>Text-to-metadata-filter</strong>: VectorStores equipped with
@@ -5112,7 +5136,7 @@ Techniques</h3>
 uses a vector database to store document embeddings and retrieve
 documents based on their proximity to the query embedding.</p>
 <figure>
-<img src="./images/basic_index_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/basic_index_retrieval.png"
 alt="basic_index_retrieval" />
 <figcaption aria-hidden="true">basic_index_retrieval</figcaption>
 </figure></li>
@@ -5131,7 +5155,8 @@ target="_blank" rel="noopener" href="https://api.python.langchain.com/en/latest/
 <p>Code: <a
 target="_blank" rel="noopener" href="https://github.com/langchain-ai/langchain/blob/master/libs/langchain/langchain/retrievers/ensemble.py#L57">EnsembleRetriever</a></p>
 <figure>
-<img src="./images/fusion_retrieval.png" alt="fusion_retrieval" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/fusion_retrieval.png"
+alt="fusion_retrieval" />
 <figcaption aria-hidden="true">fusion_retrieval</figcaption>
 </figure>
 <p>The <strong>EnsembleRetriever</strong> is a retrieval strategy that
@@ -5208,7 +5233,7 @@ target="_blank" rel="noopener" href="https://github.com/dorianbrown/rank_bm25">r
 context pre and post the relevant context, rather than only retrieving
 the relevant context, which can reduce information lost.</p>
 <figure>
-<img src="./images/sent_window_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/sent_window_retrieval.png"
 alt="sent_window_retrieval" />
 <figcaption aria-hidden="true">sent_window_retrieval</figcaption>
 </figure></li>
@@ -5218,7 +5243,8 @@ their larger parent chunk. This allows for more contextualized
 information to be fed to the LLM, giving it a broader and more coherent
 set of data to generate an answer.</p>
 <figure>
-<img src="./images/parent_retrieval.png" alt="parent_retrieval" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/parent_retrieval.png"
+alt="parent_retrieval" />
 <figcaption aria-hidden="true">parent_retrieval</figcaption>
 </figure>
 <p>LangChain Doc: <a
@@ -5234,7 +5260,7 @@ detailed search—this hierarchical approach increases efficiency, making
 it easier to find and synthesize relevant information, especially when
 dealing with large document sets.</p>
 <figure>
-<img src="./images/hierarchical_retrieval.png"
+<img src="/di-blog/2024/10/19/Advanced-RAG/hierarchical_retrieval.png"
 alt="hierarchical_retrieval" />
 <figcaption aria-hidden="true">hierarchical_retrieval</figcaption>
 </figure></li>
