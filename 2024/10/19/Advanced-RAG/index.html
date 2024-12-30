@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
 
-    <meta name="description" content="There are many products built almost solely on RAG. I realized that a lack of knowledge of RAG is one of the main reasons why it’s been slow to widely adopt Gen AI in enterprises. Therefore, I have co">
+    <meta name="description" content="There are many enterprise products built almost solely on RAG.  Naive RAGThe standard RAG workflow consists of three main steps as illustrated in the graph below:  Indexing: Creating an index of docum">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Advanced RAG">
 <meta property="og:url" content="https://jokerdii.github.io/di-blog/2024/10/19/Advanced-RAG/index.html">
 <meta property="og:site_name" content="Di&#39;s Blog">
-<meta property="og:description" content="There are many products built almost solely on RAG. I realized that a lack of knowledge of RAG is one of the main reasons why it’s been slow to widely adopt Gen AI in enterprises. Therefore, I have co">
+<meta property="og:description" content="There are many enterprise products built almost solely on RAG.  Naive RAGThe standard RAG workflow consists of three main steps as illustrated in the graph below:  Indexing: Creating an index of docum">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/images/naive_rag.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/images/adv_rag.png">
@@ -124,7 +124,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Naive-RAG"><span class="nav-number">1.</span> <span class="nav-text">Naive RAG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-RAG"><span class="nav-number">2.</span> <span class="nav-text">Advanced RAG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-Retrieval-Enhancements"><span class="nav-number">2.2.</span> <span class="nav-text">Pre-Retrieval Enhancements</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Query-Transformations-Translation"><span class="nav-number">2.2.1.</span> <span class="nav-text">Query Transformations &#x2F; Translation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Query-Construction"><span class="nav-number">2.2.2.</span> <span class="nav-text">Query Construction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advanced-Retrieval-Techniques"><span class="nav-number">2.3.</span> <span class="nav-text">Advanced Retrieval Techniques</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-Retrieval-Enhancements"><span class="nav-number">2.4.</span> <span class="nav-text">Post-Retrieval Enhancements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next-Topic-Prompt-Engineering"><span class="nav-number">4.</span> <span class="nav-text">Next Topic - Prompt Engineering</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Naive-RAG"><span class="nav-number">1.</span> <span class="nav-text">Naive RAG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-RAG"><span class="nav-number">2.</span> <span class="nav-text">Advanced RAG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">2.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-Retrieval-Enhancements"><span class="nav-number">2.2.</span> <span class="nav-text">Pre-Retrieval Enhancements</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Query-Transformations-Translation"><span class="nav-number">2.2.1.</span> <span class="nav-text">Query Transformations &#x2F; Translation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Query-Construction"><span class="nav-number">2.2.2.</span> <span class="nav-text">Query Construction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advanced-Retrieval-Techniques"><span class="nav-number">2.3.</span> <span class="nav-text">Advanced Retrieval Techniques</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-Retrieval-Enhancements"><span class="nav-number">2.4.</span> <span class="nav-text">Post-Retrieval Enhancements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -137,7 +137,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/di-blog/archives/">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -210,7 +210,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>There are many products built almost solely on RAG. I realized that a lack of knowledge of RAG is one of the main reasons why it’s been slow to widely adopt Gen AI in enterprises. Therefore, I have conducted a research about naive RAG and advanced RAG, and have my notes written here.</p>
+    <div class="post-body" itemprop="articleBody"><p>There are many enterprise products built almost solely on RAG. </p>
 <h2 id="Naive-RAG"><a href="#Naive-RAG" class="headerlink" title="Naive RAG"></a>Naive RAG</h2><p>The standard RAG workflow consists of three main steps as illustrated in the graph below:</p>
 <ol>
 <li><strong>Indexing</strong>: Creating an index of documents for retrieval.</li>
@@ -467,12 +467,6 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/NirDiamant/RAG_Techniques">RAG System Techniques</a></li>
 <li><a target="_blank" rel="noopener" href="https://python.langchain.com/v0.1/docs/get_started/introduction">LangChain</a></li>
 </ol>
-<h2 id="Next-Topic-Prompt-Engineering"><a href="#Next-Topic-Prompt-Engineering" class="headerlink" title="Next Topic - Prompt Engineering"></a>Next Topic - Prompt Engineering</h2><p><a target="_blank" rel="noopener" href="https://platform.openai.com/docs/guides/prompt-engineering/strategy-write-clear-instructions">A comprehensive OpenAI prompt engineering guide</a>.</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/anthropics/courses/tree/master/prompt_evaluations">Prompt Evaluations - Anthropic</a></p>
-<blockquote>
-<p><em>The quality of the output of a large language model (LLM) is very sensitive to the quality of the prompt. Ambiguous or not well-formed questions will make the AI try to guess the question you are really asking, which in turn increases the probability of getting an imprecise or even totally made-up answer (a phenomenon that’s often referred to as “hallucination”). Because of that, one would have to first and foremost master reasoning, logic, and first-principles thinking to get the most out of AI — all foundational skills developed through philosophical training. The question “Can you code?” will become “Can you get the best code out of your AI by asking the right question?”</em></p>
-<p><strong>― Why Engineers Should Study Philosophy ― Harvard Business Review</strong> [<a target="_blank" rel="noopener" href="https://hbr.org/2024/04/why-engineers-should-study-philosophy?utm_medium=email&utm_source=circ_other&utm_campaign=subbenemail_digitalcontent_monthinreview&hideIntromercial=true&tpcc=subbenemail&deliveryName=SUB_Ben_DigitialContent_MonthInReview_20240507">Link</a>]</p>
-</blockquote>
 
     </div>
 
