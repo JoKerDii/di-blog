@@ -186,8 +186,9 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>Happy New Year (/≧▽≦)/</p>
-<p>There is a lot to talk about Reinforcement Learning Human Feedback
-(RLHF). How about starting with Reinforcement Learning (RL) basics.</p>
+<p>There is a lot to talk about Reinforcement Learning from Human
+Feedback (RLHF). How about starting with Reinforcement Learning (RL)
+basics.</p>
 <p><em>Warning: Extremely long article ahead :)</em></p>
 <h2 id="overview">Overview</h2>
 <p>The process of training a model using reinforcement learning from
@@ -750,7 +751,8 @@ expected rewards.</p></li>
 diagram below. The evaluation process usually takes a long time while
 the improvement process is usually fast.</p>
 <figure>
-<img src="./images/policy_iteration_eval_impro_demo.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/policy_iteration_eval_impro_demo.png"
 alt="policy_iteration_eval_impro_demo" />
 <figcaption
 aria-hidden="true">policy_iteration_eval_impro_demo</figcaption>
@@ -1019,7 +1021,8 @@ class="math display">\[
 target="_blank" rel="noopener" href="https://www.amazon.com/Reinforcement-Learning-Introduction-Adaptive-Computation/dp/0262039249">Reinforcement
 Learning by Sutton and Barto</a>)</p>
 <figure>
-<img src="./images/gradient_montecarlo_v.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/gradient_montecarlo_v.png"
 alt="gradient_montecarlo_v" />
 <figcaption aria-hidden="true">gradient_montecarlo_v</figcaption>
 </figure>
@@ -1252,6 +1255,7 @@ s)||\pi_\theta(\cdot|s)\Big)\Big] \leq \delta
 optimization problem can be computationally intensive, especially for
 large state and action spaces.</p>
 <h2 id="ppo">PPO</h2>
+<h3 id="ppo-objective">PPO Objective</h3>
 <p>To address the computational expense of the constrained optimization
 in TRPO, researchers introduced the <strong>CLIP objective</strong> in
 policy gradient methods. The CLIP objective simplifies the optimization
@@ -1310,9 +1314,9 @@ Spinning Up - Proximal Policy Optimization</a>)</p>
 alt="ppo_clip_algo" />
 <figcaption aria-hidden="true">ppo_clip_algo</figcaption>
 </figure>
-<h2 id="ppo-usage">PPO Usage</h2>
-<h3 id="state-action-and-reward-in-the-context-of-llms"><strong>State,
-Action, and Reward in the Context of LLMs</strong></h3>
+<h3 id="ppo-usage">PPO Usage</h3>
+<h4 id="state-action-and-reward-in-the-context-of-llms"><strong>State,
+Action, and Reward in the Context of LLMs</strong></h4>
 <p>In the context of LLMs, the components of reinforcement learning are
 defined as follows:</p>
 <ol type="1">
@@ -1333,8 +1337,8 @@ the LLM generates responses and is optimized to maximize a reward
 signal, such as alignment with human preferences or task-specific
 objectives.</li>
 </ol>
-<h3 id="steps-of-rlhf-using-ppo"><strong>Steps of RLHF Using
-PPO</strong></h3>
+<h4 id="steps-of-rlhf-using-ppo"><strong>Steps of RLHF Using
+PPO</strong></h4>
 <p>The RLHF process using PPO involves three main stages:</p>
 <ol type="1">
 <li><p><strong>Training a Reward Model</strong>: A reward model is
@@ -1403,6 +1407,384 @@ unseen prompts to ensure it generates outputs aligned with human
 preferences. Optionally, collect additional human feedback to further
 refine both the reward model and policy.</p></li>
 </ol>
+<p>The following diagrams summarizes the high-level RLHF process with
+PPO, from preference data creation, to training a reward model, and
+using reward model in an RL loop to fine tune LLM.</p>
+<figure>
+<img src="/di-blog/2024/12/29/Understanding-RLHF/PPO_RLHF_flowchart.png"
+alt="PPO_RLHF_flowchart" />
+<figcaption aria-hidden="true">PPO_RLHF_flowchart</figcaption>
+</figure>
+<p>More specifically, the following workflow chart illustrates the
+training process of RLHF with PPO. (Source: <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.04964">Secrets of RLHF in Large
+Language Models Part I: PPO</a>)</p>
+<figure>
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/RLHF_training_realworld.png"
+alt="RLHF_training_realworld" />
+<figcaption aria-hidden="true">RLHF_training_realworld</figcaption>
+</figure>
+<h4 id="rlhf-training-tricks">RLHF Training Tricks</h4>
+<p>There are practical challenges that arise during RLHF training. These
+challenges stem from the inherent complexities of RL, especially when
+applied to aligning LLMs with human preferences. Therefore, tricks are
+essential for addressing the practical limitations of RLHF, ensuring the
+training process remains efficient, stable, and aligned with human
+preferences while minimizing the impact of inherent challenges in RL
+systems. (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.04964">Secrets of
+RLHF in Large Language Models Part I: PPO</a>)</p>
+<figure>
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/RLHF_training_tricks.png"
+alt="RLHF_training_tricks" />
+<figcaption aria-hidden="true">RLHF_training_tricks</figcaption>
+</figure>
+<h2 id="dpo">DPO</h2>
+<h3 id="bradley-terry-and-plackett-luce-reward-model">Bradley-Terry and
+Plackett-Luce Reward Model</h3>
+<p>The <strong>Bradley-Terry (BT) model</strong> is a probabilistic
+model used to compare pairwise preferences. It assumes that each item
+(e.g., a response or completion) has an intrinsic quality score, and the
+probability of one item being preferred over another depends on the
+relative difference in their scores.</p>
+<p>Mathematically, the probability of option <span
+class="math inline">\(y_1\)</span> being preferred over option <span
+class="math inline">\(y_2\)</span> is given by: <span
+class="math display">\[
+P(y_1 \succ y_2|x) = {\exp(r(x,y_1)) \over \exp(r(x,y_1)) +
+\exp(r(x,y_2))}
+\]</span> The loss of this reward model is <span class="math display">\[
+L_R(r_{\phi},D) = -E_{(x,y_w,y_l)\sim D} \Big[\log
+\sigma\Big(r_{\phi}(x,y_w) - r_{\phi}(x,y_l)\Big)\Big]
+\]</span> However, the BT model has some limitations:</p>
+<ul>
+<li>It assumes transitivity in preferences (if <span
+class="math inline">\(A&gt;B\)</span> and <span
+class="math inline">\(B&gt;C\)</span>, then <span
+class="math inline">\(A &gt;C\)</span>), which may not always hold in
+real-world data.</li>
+<li>It only handles pairwise comparisons and does not naturally extend
+to rankings involving more than two items.</li>
+</ul>
+<p>The <strong>Plackett-Luce (PL) model</strong> generalizes the
+Bradley-Terry model to handle rankings of multiple items, not just
+pairwise comparisons. It models the probability of a ranking as a
+sequence of choices. The first-ranked item is chosen based on its
+relative worth compared to all other items. The second-ranked item is
+chosen from the remaining items, and so on.</p>
+<p>Mathematically, for a ranking $i_1i_2 ... i_J <span
+class="math inline">\(, the probability is given by:\)</span>$ P(i_1i_2
+... i_J ) = ^j_{j=1}{<em>{i_j}^J</em>{k=j} _{i_k}} $$ where <span
+class="math inline">\(\alpha_{i_j}\)</span> is the worth or quality
+score of item <span class="math inline">\(i_j\)</span>. The denominator
+normalizes over all remaining items at each step.</p>
+<p>The PL model has several advantages over the BT model:</p>
+<ul>
+<li>Unlike BT, which only works with pairwise comparisons, PL can handle
+rankings involving multiple items.</li>
+<li>PL can accommodate partial rankings (e.g., ranking only the top n
+items), making it more versatile in scenarios where full rankings are
+unavailable.</li>
+<li>When human feedback involves ranking multiple responses rather than
+just picking one as better, PL captures this richer information better
+than BT.</li>
+</ul>
+<h3 id="dpo-objective">DPO Objective</h3>
+<p>The main reason why RLHF with PPO is hard is that it takes a lot of
+redundant effort. Policy Model is all we need, all other efforts are not
+necessary. <strong>DPO (Direct Preference Optimization)</strong> is a
+novel alternative to traditional RLHF for fine-tuning LLMs. It
+simplifies the RLHF process by eliminating the need for complex reward
+models and RL algorithms. Instead, DPO reframes the problem of aligning
+LLMs with human preferences as a classification problem using
+human-labeled preference data.</p>
+<p>The idea is DPO and difference between DPO and PPO are shown in the
+figure below (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">Direct
+Preference Optimization: Your Language Model is Secretly a Reward
+Model</a>)</p>
+<figure>
+<img src="/di-blog/2024/12/29/Understanding-RLHF/DPO_idea.png"
+alt="DPO_idea" />
+<figcaption aria-hidden="true">DPO_idea</figcaption>
+</figure>
+<p>Recall the Bradley-Terry reward model: <span class="math display">\[
+\begin{aligned}
+P(y_1 \succ y_2|x) &amp;= {\exp(r(x,y_1)) \over \exp(r(x,y_1)) +
+\exp(r(x,y_2))}\\
+L_R(r_{\phi},D) &amp;= -E_{(x,y_w,y_l)\sim D} \Big[\log
+\sigma\Big(r_{\phi}(x,y_w) - r_{\phi}(x,y_l)\Big)\Big]
+\end{aligned}
+\]</span> <strong>RLHF objective</strong> is defined as follows. Keep in
+mind that no matter whether DPO or PPO is used, the objective is always
+like this. <span class="math display">\[
+\max_{\pi_\theta} E_{x \sim D, y \sim \pi_\theta(y|x)}\Big[r_{\phi}(x,y)
+- \beta D_{KL}\big[\pi_\theta(y|x) || \pi_{ref}(y|x)\big]\Big]
+\]</span> where <span class="math inline">\(\beta
+D_{KL}\big[\pi_\theta(y|x) || \pi_{ref}(y|x)\big]\)</span> is a
+regularization term. When applying RL to NLP, regularization is often
+needed. Otherwise RL would explore every possible situation and find out
+hidden tricks which deviate from a language model.</p>
+<p>The optimal policy <span class="math inline">\(\pi_r(y|x)\)</span>
+that maximizes the objective is <span class="math display">\[
+\begin{aligned}
+\pi_r(y|x) &amp;= {1\over Z(x)}\pi_{ref}(y|x)\exp\Big({1\over
+\beta}r(x,y)\Big)\\
+Z(x) &amp;= \sum_y \pi_{ref}(y|x) \exp\Big({1\over \beta}r(x,y)\Big)
+\end{aligned}
+\]</span> where <span class="math inline">\(\pi_r(y|x)\)</span> is a
+probability distribution.</p>
+<p>Based on this optimal policy, we can derive the reward function for
+the optimal policy <span class="math display">\[
+r(x,y)=\beta \log{\pi_r(y|x)\over \pi_{ref}(y|x)} + \beta \log Z(x)
+\]</span> If we put this reward function in the Bradley-Terry model, we
+obtain a probability of <span class="math inline">\(y_1\)</span> being
+prefered to <span class="math inline">\(y_2\)</span>. <span
+class="math display">\[
+\begin{aligned}
+P^*(y_1 \succ y_2|x) &amp;= {\exp^*(r(x,y_1)) \over \exp^*(r(x,y_1)) +
+\exp^*(r(x,y_2))}\\
+&amp;={\exp(\beta \log{\pi^*_r(y_1|x)\over \pi_{ref}(y_1|x)} + \beta
+\log Z(x)) \over \exp(\beta \log{\pi^*_r(y_1|x)\over \pi_{ref}(y_1|x)} +
+\beta \log Z(x)) + \exp(\beta \log{\pi^*_r(y_2|x)\over \pi_{ref}(y_2|x)}
++ \beta \log Z(x))}\\
+&amp;={1\over 1+\exp\Big(\beta \log {\pi^*(y_2|x) \over
+\pi_{ref}(y_2|x)} - \beta\log {\pi^*(y_1|x)\over
+\pi_{ref}(y_1|x)}\Big)}\\
+&amp;=\sigma\Big(\beta \log {\pi^*(y_1|x)\over \pi_{ref}(y_1|x)} - \beta
+\log {\pi^*(y_2|x)\over \pi_{ref}(y_2|x)}\Big)\\
+\end{aligned}
+\]</span> With this probability, we have <strong>DPO's objective
+function</strong> below. We can optimize this loss function by
+<strong>Maximum Likelihood Extimation</strong>: <span
+class="math display">\[
+L_{DPO}(\pi_\theta; \pi_{ref}) = -E_{(x,y_w,y_l) \sim D} \Big[\log
+\sigma \Big(\beta \log {\pi_{\theta}(y_w|x)\over \pi_{ref}(y_w|x)} -
+\beta \log {\pi_{\theta}(y_l|x)\over \pi_{ref}(y_l|x)}\Big)\Big)\Big]
+\]</span> <strong>Key Ideas of DPO Objective</strong>:</p>
+<ul>
+<li>DPO's objective aims to increase the likelihood of generating
+preferred responses over less preferred ones. By focusing directly on
+preference data, DPO eliminates the need to first fit a reward model
+that predicts scalar rewards based on human preferences. This simplifies
+the training pipeline and reduces computational overhead.</li>
+<li>Value functions exist to help reduce the variance of the reward
+model. In DPO, the value function is not involved because DPO does not
+rely on a traditional RL framework, such as Actor-Critic methods.
+Instead, DPO directly optimizes the policy using human preference data
+as a <strong>classification task</strong>, skipping the intermediate
+steps of training a reward model or estimating value functions.</li>
+<li>DPO was originally designed to work with <strong>pairwise</strong>
+preference data, however, recent advancements and adaptations have
+extended its applicability to ranking preference data as well (e.g
+RankDPO).</li>
+</ul>
+<p>DPO paper has provided detailed steps of deriving the gradient of the
+DPO objective: (Source: <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">Direct Preference Optimization:
+Your Language Model is Secretly a Reward Model</a>)</p>
+<figure>
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/dpo_gradients_derivation_paper.png"
+alt="dpo_gradients_derivation_paper" />
+<figcaption
+aria-hidden="true">dpo_gradients_derivation_paper</figcaption>
+</figure>
+<p>The simplified version of the DPO gradient for better understanding
+is written as follows. Intuitively, when the difference between $
+<em>{}(x, y_l) $ and $ </em>{}(x, y_w) $ is large, the gradient takes a
+larger step during optimization. Conversely, when the difference is
+small, the objective is optimized with a smaller adjustment.</p>
+<figure>
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/DPO_gradient_simple_version.png"
+alt="DPO_gradient_simple_version" />
+<figcaption aria-hidden="true">DPO_gradient_simple_version</figcaption>
+</figure>
+<h3 id="dpo-usage">DPO Usage</h3>
+<p>Here's how DPO is applied step by step:</p>
+<p><strong>1. Initial Setup and Supervised Fine-Tuning (SFT)</strong>:
+Begin by fine-tuning a pre-trained LLM using supervised learning on a
+dataset that is representative of the tasks the model will perform. This
+step ensures the model has a strong foundation in the relevant domain,
+preparing it for preference-based optimization.</p>
+<p><strong>2. Collect Preference Data</strong>: Gather human feedback in
+the form of pairwise preferences or rankings. Annotators evaluate
+responses generated by the model and indicate which ones they prefer.
+Construct a dataset of prompts and corresponding preferred and
+less-preferred responses.</p>
+<p><strong>3. Iterative Rounds of DPO</strong></p>
+<ul>
+<li><p><strong>Sampling and Annotation</strong>: In each round, sample a
+set of responses from the model for given prompts. Collect new
+preference annotations based on these samples, allowing for dynamic
+updates to the preference dataset. (Public preference data works as
+well. Off-policy and on-policy data both work).</p></li>
+<li><p><strong>Preference Optimization</strong>: Use DPO to adjust the
+model's outputs based on collected preference data:</p></li>
+<li><p><strong>Model Update</strong>: Fine-tune the model using this
+loss function to increase the likelihood of generating preferred
+responses.</p></li>
+</ul>
+<p><strong>4. Evaluation and Iteration</strong></p>
+<ul>
+<li><p><strong>Performance Assessment</strong>: After each round,
+evaluate the model’s performance on new prompts to ensure it aligns with
+human preferences. Use feedback from these evaluations to inform
+subsequent rounds of sampling and optimization.</p></li>
+<li><p><strong>Iterative Refinement</strong>: Continue this loop process
+over multiple rounds, iteratively refining the model's alignment with
+human preferences through continuous sampling and preference
+optimization.</p></li>
+</ul>
+<h3 id="dpo-performance">DPO Performance</h3>
+<p>(Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">Direct Preference
+Optimization: Your Language Model is Secretly a Reward Model</a>)</p>
+<figure>
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/DPO_performance_paper.png"
+alt="DPO_performance_paper" />
+<figcaption aria-hidden="true">DPO_performance_paper</figcaption>
+</figure>
+<h3 id="dpo-objective-pseudocode">DPO Objective Pseudocode</h3>
+<p><span class="math display">\[
+L_{DPO}(\pi_\theta; \pi_{ref}) = -E_{(x,y_w,y_l) \sim D} \Big[\log
+\sigma \Big(\beta \log {\pi_{\theta}(y_w|x)\over \pi_{ref}(y_w|x)} -
+\beta \log {\pi_{\theta}(y_l|x)\over \pi_{ref}(y_l|x)}\Big)\Big)\Big]
+\]</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dpo_loss</span>(<span class="params">pi_logps, ref_logps, yw_idxs, yl_idxs, beta</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    pi_logps: policy logprobs, shape (B,)</span></span><br><span class="line"><span class="string">    ref_logps: reference model logprobs, shape (B,)</span></span><br><span class="line"><span class="string">    yw_idxs: preferred completion indices in [0, B-1], shape (T,)</span></span><br><span class="line"><span class="string">    yl_idxs: dispreferred completion indices in [0, B-1], shape (T,)</span></span><br><span class="line"><span class="string">    beta: temperature controlling strength of KL penalty</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Each pair of (yw_idxs[i], yl_idxs[i]) represents the</span></span><br><span class="line"><span class="string">    indices of a single preference pair.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    pi_yw_logps, pi_yl_logps = pi_logps[yw_idxs], pi_logps[yl_idxs]</span><br><span class="line">    ref_yw_logps, ref_yl_logps = ref_logps[yw_idxs], ref_logps[yl_idxs]</span><br><span class="line"></span><br><span class="line">    pi_logratios = pi_yw_logps - pi_yl_logps</span><br><span class="line">    ref_logratios = ref_yw_logps - ref_yl_logps</span><br><span class="line"></span><br><span class="line">    losses = -F.logsigmoid(beta * (pi_logratios - ref_logratios))</span><br><span class="line">    rewards = beta * (pi_logps - ref_logps).detach()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> losses, rewards</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="dpo-variants">DPO Variants</h3>
+<p>The key area of research involves developing variants of DPO and
+conducting theoretical analyses to understand its limitations and
+potential improvements. This includes exploring different loss functions
+or optimization strategies that can be applied within the DPO
+framework.</p>
+<ul>
+<li><p>One significant area of research focuses on refining the loss
+function used in DPO. This includes exploring ways to eliminate the need
+for a reference model, which can simplify the optimization process.</p>
+<p>Examples:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.07691">ORPO: Monolithic
+Preference Optimization without Reference Model</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.14734">SimPO: Simple
+Preference Optimization with a Reference-Free Reward</a></p></li>
+</ul></li>
+<li><p>Another key direction involves leveraging existing supervised
+fine-tuning data as preference data for DPO. This strategy aims to
+enhance the quality of preference data by utilizing high-quality labeled
+datasets that may already exist from previous SFT processes.</p>
+<p>Examples:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.08005v1">Refined Direct
+Preference Optimization with Synthetic Data for Behavioral Alignment of
+LLMs</a></li>
+</ul></li>
+</ul>
+<h2 id="main-difficulties-in-rlhf">Main Difficulties in RLHF</h2>
+<h3 id="data-collection"><strong>Data Collection</strong></h3>
+<p>In practice, people noticed that the collection of human feedback in
+the form of the preference dataset is a slow manual process that needs
+to be repeated whenever alignment criteria change. And there is
+increasing difficulty in annotating preference data as models become
+more advanced, particularly because distinguishing between outputs
+becomes more nuanced and subjective.</p>
+<ul>
+<li>The paper “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2411.02481">CDR:
+Customizable Density Ratios of Strong-over-weak LLMs for Preference
+Annotation</a>” explains that as models become more advanced, it becomes
+harder to identify which output is better due to subtle differences in
+quality. This makes preference data annotation increasingly difficult
+and subjective.</li>
+<li>Another paper, “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.14916">Improving
+Context-Aware Preference Modeling for Language Models</a>,” discusses
+how the underspecified nature of natural language and multidimensional
+criteria make direct preference feedback difficult to interpret. This
+highlights the challenge of providing consistent annotations when
+outputs are highly sophisticated and nuanced.</li>
+<li>“<a target="_blank" rel="noopener" href="https://www.arxiv.org/abs/2408.12799">Less for More:
+Enhancing Preference Learning in Generative Language Models</a>” also
+notes that ambiguity among annotators leads to inconsistently annotated
+datasets, which becomes a greater issue as model outputs grow more
+complex.</li>
+</ul>
+<h3 id="reward-hacking"><strong>Reward Hacking</strong></h3>
+<p>Reward hacking is a common problem in reinforcement learning, where
+the agent learns to exploit the system by maximizing its reward through
+actions that deviate from the intended goal. In the context of RLHF,
+reward hacking occurs when training settles in an unintended region of
+the loss landscape. In this scenario, the model generates responses that
+achieve high reward scores, but these responses may fail to be
+meaningful or useful to the user.</p>
+<p>In PPO, reward hacking occurs when the model exploits flaws or
+ambiguities in the <strong>reward model</strong> to achieve high rewards
+without genuinely aligning with human intentions. This is because PPO
+relies on a learned reward model to guide policy updates, and any
+inaccuracies or biases in this model can lead to unintended behaviors
+being rewarded. PPO is particularly vulnerable to reward hacking if the
+reward model is not robustly designed or if it fails to capture the true
+objectives of human feedback. The iterative nature of PPO, which
+involves continuous policy updates based on reward signals, can
+exacerbate this issue if not carefully managed.</p>
+<p>DPO avoids explicit reward modeling by directly optimizing policy
+based on preference data. However, it can still encounter issues similar
+to reward hacking if the preference data is <strong>biased</strong> or
+if the optimization process leads to <strong>overfitting</strong>
+specific patterns in the data that do not generalize well. While DPO
+does not suffer from reward hacking in the traditional sense (since it
+lacks a separate reward model), it can still find biased solutions that
+exploit <strong>out-of-distribution responses</strong> or deviate from
+intended behavior due to distribution shifts between training and
+deployment contexts.</p>
+<ul>
+<li>The article "<a
+target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2024-11-28-reward-hacking/">Reward
+Hacking in Reinforcement Learning</a>" by Lilian Weng discusses how
+reward hacking occurs when a RL agent exploits flaws or ambiguities in
+the reward function to achieve high rewards without genuinely learning
+the intended task. It highlights that in RLHF for language models,
+reward hacking is a critical challenge, as models might learn to exploit
+unit tests or mimic biases to achieve high rewards, which can hinder
+real-world deployment.</li>
+<li>The research "<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.10760">Scaling
+Laws for Reward Model Overoptimization</a>" explores how optimizing
+against reward models trained to predict human preferences can lead to
+overoptimization, hindering the actual objective.
+<ol type="1">
+<li><strong>Impact of Policy Model Size</strong>: Holding the RM size
+constant, experiments showed that larger policy models exhibited similar
+overoptimization trends as smaller models, despite achieving higher
+initial gold scores. This implies that their higher performance on gold
+rewards does not lead to excessive optimization pressure on the RM.</li>
+<li><strong>Relationship with RM Data Size</strong>: Data size had a
+notable effect on RM performance and overoptimization. Models trained on
+fewer than ~2,000 comparison labels showed near-chance performance, with
+limited improvement in gold scores. Beyond this threshold, all RMs,
+regardless of size, benefited from increased data, with larger RMs
+showing greater improvements in gold rewards compared to smaller
+ones.</li>
+<li><strong>Scaling Laws for RM Parameters and Data Size</strong>:
+Overoptimization patterns scaled smoothly with both RM parameter count
+and data size. Larger RMs demonstrated better alignment with gold
+rewards and less susceptibility to overoptimization when trained on
+sufficient data, indicating improved robustness.</li>
+<li><strong>Proxy vs. Gold Reward Trends</strong>: For small data sizes,
+proxy reward scores deviated significantly from gold reward scores,
+highlighting overoptimization risks. As data size increased, the gap
+between proxy and gold rewards narrowed, reducing overoptimization
+effects.</li>
+</ol></li>
+</ul>
+<p>Note that the KL divergence term in the RLHF objective is intended to
+prevent the policy from deviating too much from a reference model,
+thereby maintaining stability during training. However, it does not
+fully prevent reward hacking. Reward hacking occurs when an agent
+exploits flaws or ambiguities in the reward model to achieve high
+rewards without genuinely aligning with human intentions. The KL
+divergence penalty does not correct these flaws in the reward model
+itself, meaning that if the reward model is misaligned, the agent can
+still find ways to exploit it. KL does not directly address whether the
+actions align with the true objectives or desired outcomes.</p>
 
       
     </div>
@@ -2945,7 +3327,8 @@ towards building commercially relevant quantum computers that can
 revolutionize fields like medicine, energy, and AI.</p>
 <p>Quantum Computing Roadmap:</p>
 <figure>
-<img src="./images/google_quantum_ai_roadmap.png"
+<img
+src="/di-blog/2024/12/01/2024-December/google_quantum_ai_roadmap.png"
 alt="google_quantum_ai_roadmap" />
 <figcaption aria-hidden="true">google_quantum_ai_roadmap</figcaption>
 </figure>
@@ -3030,7 +3413,7 @@ verification; encourage contextual awareness.</li>
 </ul></li>
 </ul>
 <figure>
-<img src="./images/mitigate_halluciation.png"
+<img src="/di-blog/2024/12/01/2024-December/mitigate_halluciation.png"
 alt="mitigate_halluciation" />
 <figcaption aria-hidden="true">mitigate_halluciation</figcaption>
 </figure>
@@ -3089,7 +3472,7 @@ target="_blank" rel="noopener" href="https://techcommunity.microsoft.com/blog/ai
 <p>Andreessen Horowitz published a new list of requests for startups to
 build.</p>
 <figure>
-<img src="./images/a16z_ideas_in_tech_2025.png"
+<img src="/di-blog/2024/12/01/2024-December/a16z_ideas_in_tech_2025.png"
 alt="a16z_ideas_in_tech_2025" />
 <figcaption aria-hidden="true">a16z_ideas_in_tech_2025</figcaption>
 </figure>
@@ -3221,7 +3604,8 @@ target="_blank" rel="noopener" href="https://blog.samaltman.com/how-to-be-succes
 20s</strong></p>
 </blockquote>
 <figure>
-<img src="./images/yc_make_the_most_out_of_20s.png"
+<img
+src="/di-blog/2024/12/01/2024-December/yc_make_the_most_out_of_20s.png"
 alt="yc_make_the_most_out_of_20s" />
 <figcaption aria-hidden="true">yc_make_the_most_out_of_20s</figcaption>
 </figure>
@@ -3229,7 +3613,8 @@ alt="yc_make_the_most_out_of_20s" />
 <p><strong>Marc Andreessen's Guide to Personal Productivity</strong></p>
 </blockquote>
 <figure>
-<img src="./images/marc_guide_personal_productivity.png"
+<img
+src="/di-blog/2024/12/01/2024-December/marc_guide_personal_productivity.png"
 alt="marc_guide_personal_productivity" />
 <figcaption
 aria-hidden="true">marc_guide_personal_productivity</figcaption>
@@ -3657,9 +4042,10 @@ integrated into complex decision-making contexts.</p>
 <p><em>Meta’s early AR unveiling may come with competitive trade-offs.
 According to Bloomberg, Apple has launched its own smart glasses
 initiative, a market study called “Atlas,” signaling a potential shift
-from its high-end $3,500 Vision Pro VR headset. Apple recently cut its
-Vision Pro shipment target to less than half a million units in the
-first year—down from an initial target of 3 million.</em></p>
+from its high-end <span class="math inline">\(\$3,500\)</span> Vision
+Pro VR headset. Apple recently cut its Vision Pro shipment target to
+less than half a million units in the first year—down from an initial
+target of 3 million.</em></p>
 <p><em>Meta is pursuing a two-pronged approach to AR glasses:</em></p>
 <ul>
 <li><em>Orion has a hardware challenge (powerful but still
@@ -3722,9 +4108,10 @@ target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/google
 <li>Browser based Agent - Project Jarvis: an AI technology that can
 autonomously take over a web browser to handle tasks like research and
 shopping.</li>
-<li>Waymo - closed massive funding round and has secured $5.6B. mMajor
-backers are Andreessen Horowitz, Fidelity, and T. Rowe Price. Expansion
-would be driven by new funding through partnership with Uber.</li>
+<li>Waymo - closed massive funding round and has secured <span
+class="math inline">\(\$5.6\)</span>B. mMajor backers are Andreessen
+Horowitz, Fidelity, and T. Rowe Price. Expansion would be driven by new
+funding through partnership with Uber.</li>
 <li>AI power - Alphabet is partnering with Kairos Tech to harness small
 nuclear reactors to power AI data centers.</li>
 <li>Search and competition: Google’s losing market share to TikTok and
@@ -3798,8 +4185,9 @@ while Waymo operates at level 4.</li>
 <li>Tesla relies on cameras and AI while Waymo relies on heavy hardware
 (LiDAR, radar, cameras).</li>
 <li>Waymo’s reliance on expensive hardware limits its ability to scale
-quickly ($ 200K per vehicle). Tesla aims to scale faster by leveraging
-its existing fleet to train its AI models.</li>
+quickly (<span class="math inline">\(\$ 200\)</span>K per vehicle).
+Tesla aims to scale faster by leveraging its existing fleet to train its
+AI models.</li>
 <li>Waymo has built trust with regulators by gradually deploying its
 vehicles, whileTesla faces regulatory hurdles particularly with the
 Cybercab.</li>
@@ -4212,7 +4600,7 @@ problem.</li>
 <li>Testing the inferred solutions via an evaluator LLM.</li>
 </ol>
 <figure>
-<img src="./images/automatic_prompt_opt.png"
+<img src="/di-blog/2024/11/01/2024-November/automatic_prompt_opt.png"
 alt="automatic_prompt_opt" />
 <figcaption aria-hidden="true">automatic_prompt_opt</figcaption>
 </figure>
@@ -4487,7 +4875,8 @@ M = ({P \times 4B \over {32/Q}}) \times 1.2
 the number of bits for loading the model (16 bit or 32 bit). 1.2
 accounts for a 20% overhead.</p>
 <figure>
-<img src="./images/gpu_for_llm.png" alt="gpu_for_llm" />
+<img src="/di-blog/2024/11/01/2024-November/gpu_for_llm.png"
+alt="gpu_for_llm" />
 <figcaption aria-hidden="true">gpu_for_llm</figcaption>
 </figure>
 <blockquote>
@@ -4495,7 +4884,8 @@ accounts for a 20% overhead.</p>
 target="_blank" rel="noopener" href="https://www.linkedin.com/posts/charles-packer_introducing-the-ai-agents-stack-breaking-activity-7262857283871645699-ibWH/">Link</a>]</p>
 </blockquote>
 <figure>
-<img src="./images/ai_agent_stack.png" alt="ai_agent_stack" />
+<img src="/di-blog/2024/11/01/2024-November/ai_agent_stack.png"
+alt="ai_agent_stack" />
 <figcaption aria-hidden="true">ai_agent_stack</figcaption>
 </figure>
 <h3 id="github">GitHub</h3>
@@ -4779,7 +5169,8 @@ content).</li>
 </ul></li>
 </ol>
 <figure>
-<img src="./images/naive_rag.png" alt="naive-rag" />
+<img src="/di-blog/2024/10/19/Advanced-RAG/naive_rag.png"
+alt="naive-rag" />
 <figcaption aria-hidden="true">naive-rag</figcaption>
 </figure>
 <p>This paper <a
@@ -5454,10 +5845,11 @@ relevant and helpful images in your notes, you may increase learning by
 remembering what you study with the help of these images.</p></li>
 </ol>
 <blockquote>
-<p><em>The $120 billion wagered on sports betting in America in 2023
-translated into nearly $11 billion in revenue for sports betting
-companies. This corresponds to the ~9% fee sportsbooks keep after all
-bets have been settled.</em></p>
+<p><em>The <span class="math inline">\(\$120\)</span> billion wagered on
+sports betting in America in 2023 translated into nearly <span
+class="math inline">\(\$11\)</span> billion in revenue for sports
+betting companies. This corresponds to the ~9% fee sportsbooks keep
+after all bets have been settled.</em></p>
 <ul>
 <li><em>Flutter: Leverages FanDuel’s dominance and global
 expertise.</em></li>
@@ -5609,12 +6001,14 @@ hard to separate brand value in companies with multiple advantages.</p>
 target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/spotify-layoffs-pay-off">Link</a>]</p>
 </blockquote>
 <p>Key business highlights: 1) Spotify’s new subscription plans -
-Spotify’s Audiobooks Access ($9.99/month for 15 hours) and Basic
+Spotify’s Audiobooks Access ( <span
+class="math inline">\(\$9.99\)</span> per month for 15 hours) and Basic
 (removing audiobooks from Premium) diversify its offerings, 2) Spotify
 is incorporating social-style discovery features, like Live Listening
 Parties and prompt-based AI playlists, but remains behind YouTube and
 Meta in algorithm sophistication and live content, 3) Spotify’s
-ad-supported ARPU is low (€1.15 vs. Meta’s $11.89 in Q2), limiting ad
+ad-supported ARPU is low (€1.15 vs. Meta’s <span
+class="math inline">\(\$11.89\)</span> dollars in Q2), limiting ad
 revenue potential. A new in-house creative agency may improve brand
 experiences but is challenging to scale profitably, 4) Spotify pivoted
 from broad podcasting investments to a case-by-case approach, now
@@ -5891,7 +6285,7 @@ Dolgov - U-M Computer Science and Engineering</strong> [<a
 target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=s_wGhKBjH_U&amp;t=2227s&amp;ab_channel=U-MComputerScienceandEngineering">Link</a>]</p>
 </blockquote>
 <figure>
-<img src="./images/waymo_foundation_model.png"
+<img src="/di-blog/2024/10/01/2024-October/waymo_foundation_model.png"
 alt="waymo_foundation_model" />
 <figcaption aria-hidden="true">waymo_foundation_model</figcaption>
 </figure>
@@ -6527,7 +6921,8 @@ target="_blank" rel="noopener" href="https://gist.github.com/philschmid/3a0ecc9e
 <p>Leaked OpenAI meta prompt: optimizing GPT instructions for better
 results.</p>
 <figure>
-<img src="./images/leaked-openai-meta-prompt.png"
+<img
+src="/di-blog/2024/10/01/2024-October/leaked-openai-meta-prompt.png"
 alt="leaked-openai-meta-prompt" />
 <figcaption aria-hidden="true">leaked-openai-meta-prompt</figcaption>
 </figure>
