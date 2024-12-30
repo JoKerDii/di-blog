@@ -27,33 +27,16 @@
 <meta property="og:site_name" content="Di&#39;s Blog">
 <meta property="og:description" content="Happy New Year (&#x2F;≧▽≦)&#x2F; There is a lot to talk about Reinforcement Learning Human Feedback (RLHF). How about starting with Reinforcement Learning (RL) basics. Warning: Extremely long article ahead :) O">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/instructGPT_overview_RLHF.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/agent_env_rewards_RL_intro.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/doctor_treatment_example.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/epsilon_greedy_method.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/bellman_equation_huggingface.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/bellman_equation_tree.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/action_value_equation_huggingface.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/action_value_bellman_equation_tree.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/policy_iteration_pseudocode.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/policy_iteration_eval_impro_demo.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/generalized_policy_iteration.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/montecarlo_statevalue.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/montecarlo_algo_dynamic_program.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/mc_action_value_update_res.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/monte_carlo_action_value.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/mc_control_epsilon_pi.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/td_learning_for_v.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/td_learning_for_v.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/gradient_montecarlo_v.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/average_reward_policy.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/montecarlo_policy_gradient_pi.png">
-<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/ppo_clip_algo.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/ppo_clip_algo.png">
 <meta property="article:published_time" content="2024-12-29T18:14:49.000Z">
 <meta property="article:modified_time" content="2024-12-29T18:14:49.000Z">
 <meta property="article:author" content="Di Zhen">
 <meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/instructGPT_overview_RLHF.png">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/images/policy_iteration_eval_impro_demo.png">
 
 
 <link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/12/29/Understanding-RLHF/">
@@ -233,7 +216,8 @@ human feedback (RLHF) involves three key steps, as outlined in the paper
 titled “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">Training language
 models to follow instructions with human feedback</a>” by OpenAI.</p>
 <figure>
-<img src="./images/instructGPT_overview_RLHF.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/instructGPT_overview_RLHF.png"
 alt="instructGPT_overview_RLHF" />
 <figcaption aria-hidden="true">instructGPT_overview_RLHF</figcaption>
 </figure>
@@ -281,7 +265,8 @@ class="math inline">\(\pi^*\)</span> that maximizes cumulative rewards
 long-term planning using trial-and-error interactions with the
 environment.</p>
 <figure>
-<img src="./images/agent_env_rewards_RL_intro.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/agent_env_rewards_RL_intro.png"
 alt="agent_env_rewards_RL_intro" />
 <figcaption aria-hidden="true">agent_env_rewards_RL_intro</figcaption>
 </figure>
@@ -451,7 +436,8 @@ class="math inline">\(1\)</span>, then its action value is updated to be
 is <span class="math inline">\(Q_t&#39;(1) =  (0+1+1+0+1)/5
 =0.6\)</span>.</p>
 <figure>
-<img src="./images/doctor_treatment_example.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/doctor_treatment_example.png"
 alt="doctor_treatment_example" />
 <figcaption aria-hidden="true">doctor_treatment_example</figcaption>
 </figure>
@@ -475,7 +461,8 @@ in the n+1 iteration}\\
 the more opportunities given to actions, and the higher average
 reward.</p>
 <figure>
-<img src="./images/epsilon_greedy_method.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/epsilon_greedy_method.png"
 alt="epsilon_greedy_method" />
 <figcaption aria-hidden="true">epsilon_greedy_method</figcaption>
 </figure>
@@ -617,7 +604,8 @@ id="state-value-bellman-equation-and-action-value-bellman-equation">State-Value
 Bellman Equation and Action-Value Bellman Equation</h4>
 <p><strong>State-Value Bellman Equation</strong>:</p>
 <figure>
-<img src="./images/bellman_equation_huggingface.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/bellman_equation_huggingface.png"
 alt="bellman_equation_huggingface" />
 <figcaption aria-hidden="true">bellman_equation_huggingface</figcaption>
 </figure>
@@ -641,13 +629,15 @@ result in multiple possible states, each with a certain probability.
 These probabilities are determined by the environment, which we
 typically do not have direct access to.</p>
 <figure>
-<img src="./images/bellman_equation_tree.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/bellman_equation_tree.png"
 alt="bellman_equation_tree" />
 <figcaption aria-hidden="true">bellman_equation_tree</figcaption>
 </figure>
 <p><strong>Action-Value Bellman Equation</strong>:</p>
 <figure>
-<img src="./images/action_value_equation_huggingface.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/action_value_equation_huggingface.png"
 alt="action_value_equation_huggingface" />
 <figcaption
 aria-hidden="true">action_value_equation_huggingface</figcaption>
@@ -665,7 +655,8 @@ P(s&#39;,r|s,a)[r+\gamma\sum_{a&#39;}\pi(a&#39;|s&#39;)Q_\pi(s&#39;,a&#39;)]
 \]</span> The tree structure below as an example can help understand the
 recursive property of the Action-Value Bellman Equation.</p>
 <figure>
-<img src="./images/action_value_bellman_equation_tree.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/action_value_bellman_equation_tree.png"
 alt="action_value_bellman_equation_tree" />
 <figcaption
 aria-hidden="true">action_value_bellman_equation_tree</figcaption>
@@ -713,7 +704,8 @@ refining the policy until convergence.</p>
 target="_blank" rel="noopener" href="https://lcalem.github.io/blog/2018/09/24/sutton-chap04-dp">Sutton
 &amp; Barto summary chap 04 - Dynamic Programming</a>):</p>
 <figure>
-<img src="./images/policy_iteration_pseudocode.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/policy_iteration_pseudocode.png"
 alt="policy_iteration_pseudocode" />
 <figcaption aria-hidden="true">policy_iteration_pseudocode</figcaption>
 </figure>
@@ -792,7 +784,8 @@ incrementally or partially. GPI speeds up the process of finding an
 optimal policy by relaxing the strict requirements of full convergence
 in policy evaluation.</p>
 <figure>
-<img src="./images/generalized_policy_iteration.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/generalized_policy_iteration.png"
 alt="generalized_policy_iteration" />
 <figcaption aria-hidden="true">generalized_policy_iteration</figcaption>
 </figure>
@@ -861,7 +854,8 @@ follows (Source: <a
 target="_blank" rel="noopener" href="https://www.amazon.com/Reinforcement-Learning-Introduction-Adaptive-Computation/dp/0262039249">Reinforcement
 Learning by Sutton and Barto</a>, Chapter 5):</p>
 <figure>
-<img src="./images/montecarlo_statevalue.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/montecarlo_statevalue.png"
 alt="montecarlo_statevalue" />
 <figcaption aria-hidden="true">montecarlo_statevalue</figcaption>
 </figure>
@@ -871,7 +865,8 @@ episode. This allows for dynamic programming where some values can be
 stored and do not need to be re-calculated (see a simple demonstration
 below).</p>
 <figure>
-<img src="./images/montecarlo_algo_dynamic_program.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/montecarlo_algo_dynamic_program.png"
 alt="montecarlo_algo_dynamic_program" />
 <figcaption
 aria-hidden="true">montecarlo_algo_dynamic_program</figcaption>
@@ -919,7 +914,8 @@ facilitates Epsilon Greedy Algorithm.</li>
 <p>The final updating result of the above example is in the diagram
 below.</p>
 <figure>
-<img src="./images/mc_action_value_update_res.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/mc_action_value_update_res.png"
 alt="mc_action_value_update_res" />
 <figcaption aria-hidden="true">mc_action_value_update_res</figcaption>
 </figure>
@@ -928,12 +924,14 @@ action-value function is as follows (Source: <a
 target="_blank" rel="noopener" href="https://www.amazon.com/Reinforcement-Learning-Introduction-Adaptive-Computation/dp/0262039249">Reinforcement
 Learning by Sutton and Barto</a>, Chapter 5):</p>
 <figure>
-<img src="./images/monte_carlo_action_value.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/monte_carlo_action_value.png"
 alt="monte_carlo_action_value" />
 <figcaption aria-hidden="true">monte_carlo_action_value</figcaption>
 </figure>
 <figure>
-<img src="./images/mc_control_epsilon_pi.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/mc_control_epsilon_pi.png"
 alt="mc_control_epsilon_pi" />
 <figcaption aria-hidden="true">mc_control_epsilon_pi</figcaption>
 </figure>
@@ -967,7 +965,8 @@ V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(R_{t+1}) - V(S_t)]
 target="_blank" rel="noopener" href="https://lcalem.github.io/blog/2018/10/31/sutton-chap06-td">Sutton
 &amp; Barto summary chap 06 - Temporal Difference Learning</a>)</p>
 <figure>
-<img src="./images/td_learning_for_v.png" alt="td_learning_for_v" />
+<img src="/di-blog/2024/12/29/Understanding-RLHF/td_learning_for_v.png"
+alt="td_learning_for_v" />
 <figcaption aria-hidden="true">td_learning_for_v</figcaption>
 </figure>
 <h4 id="from-table-to-function-approximation"><strong>From table to
@@ -1068,7 +1067,8 @@ S_0, A_{0:t-1} \sim \pi\Big]
 \]</span> This simple example shows how average reward is
 calculated:</p>
 <figure>
-<img src="./images/average_reward_policy.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/average_reward_policy.png"
 alt="average_reward_policy" />
 <figcaption aria-hidden="true">average_reward_policy</figcaption>
 </figure>
@@ -1144,7 +1144,8 @@ Monte-Carlo Policy-Gradient algorithm</strong> is defined as follows.
 target="_blank" rel="noopener" href="https://lcalem.github.io/blog/2019/03/21/sutton-chap13">Sutton
 &amp; Barto summary chap 13 - Policy Gradient Methods</a>)</p>
 <figure>
-<img src="./images/montecarlo_policy_gradient_pi.png"
+<img
+src="/di-blog/2024/12/29/Understanding-RLHF/montecarlo_policy_gradient_pi.png"
 alt="montecarlo_policy_gradient_pi" />
 <figcaption
 aria-hidden="true">montecarlo_policy_gradient_pi</figcaption>
@@ -1326,7 +1327,8 @@ determines the weight of this entropy term.</li>
 target="_blank" rel="noopener" href="https://spinningup.openai.com/en/latest/algorithms/ppo.html">OpenAI
 Spinning Up - Proximal Policy Optimization</a>)</p>
 <figure>
-<img src="./images/ppo_clip_algo.png" alt="ppo_clip_algo" />
+<img src="/di-blog/2024/12/29/Understanding-RLHF/ppo_clip_algo.png"
+alt="ppo_clip_algo" />
 <figcaption aria-hidden="true">ppo_clip_algo</figcaption>
 </figure>
 <h2 id="ppo-usage">PPO Usage</h2>
