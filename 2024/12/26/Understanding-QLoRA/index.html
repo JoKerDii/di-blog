@@ -27,6 +27,7 @@
 <meta property="og:site_name" content="Di&#39;s Blog">
 <meta property="og:description" content="QLoRA is never as simple as a single line of code. Let&#39;s start from the scaling law... Neural Scaling Law In the context of LLMs, a scaling law refers to an empirical relationship that describes how t">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/nvidia_moorelaw.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/quant_granularity.png">
 <meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/finetune_cost.png">
@@ -39,7 +40,7 @@
 <meta property="article:author" content="Di Zhen">
 <meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/fp32_example.png">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/nvidia_moorelaw.png">
 
 
 <link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/12/26/Understanding-QLoRA/">
@@ -287,8 +288,12 @@ faster than Moore’s law. It can be noticed that in the graph they show
 TFLOPs on FP8 precision in 2022 and TFLOPs on FP4 precision in 2024.
 This is a trick because it's easier to achieve higher TFLOPs when the
 precision is lower. And it shows that there is a trend in hardware
-industry to achieve higher TFLOPs in low precision. <img
-src="./images/nvidia_moorelaw.png" alt="nvidia_moorelaw" /></p>
+industry to achieve higher TFLOPs in low precision.</p>
+<figure>
+<img src="/di-blog/2024/12/26/Understanding-QLoRA/nvidia_moorelaw.png"
+alt="nvidia_moorelaw" />
+<figcaption aria-hidden="true">nvidia_moorelaw</figcaption>
+</figure>
 <h3 id="data-structure---fp32">Data Structure - FP32</h3>
 <p>The <strong>IEEE 754 single-precision floating-point format
 (FP32)</strong> represents a 32-bit number in binary form. It is used
@@ -882,7 +887,7 @@ precision, so high precision is required.</p>
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
