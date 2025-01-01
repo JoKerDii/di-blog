@@ -1308,9 +1308,11 @@ overly large policy updates by removing the lower bound when <span
 class="math inline">\(r(\theta)\)</span> is outside the clipping
 range.</p>
 <p>The <strong>Proximal Policy Optimization (PPO)</strong> algorithm
-extends the CLIP objective by incorporating additional terms for value
-function optimization and entropy regularization. The full PPO objective
-is defined as: <span class="math display">\[
+(Paper: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1707.06347">Proximal Policy
+Optimization Algorithms</a>) extends the CLIP objective by incorporating
+additional terms for value function optimization and entropy
+regularization. The full PPO objective is defined as: <span
+class="math display">\[
 J^{PPO}(\theta) = E[J^{CLIP}(\theta) - c_1(V_\theta(s)-V_{target})^2 +
 c_2 H(s,\pi_\theta(\cdot))]
 \]</span> where</p>
@@ -1437,8 +1439,8 @@ using reward model in an RL loop to fine tune LLM.</p>
 alt="PPO_RLHF_flowchart" />
 <figcaption aria-hidden="true">PPO_RLHF_flowchart</figcaption>
 </figure>
-<p>More specifically, the following workflow chart illustrates the
-training process of RLHF with PPO. (Source: <a
+<p>The following workflow chart illustrates the more detailed training
+process of RLHF with PPO. (Source: <a
 target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.04964">Secrets of RLHF in Large
 Language Models Part I: PPO</a>)</p>
 <figure>
@@ -1495,12 +1497,14 @@ pairwise comparisons. It models the probability of a ranking as a
 sequence of choices. The first-ranked item is chosen based on its
 relative worth compared to all other items. The second-ranked item is
 chosen from the remaining items, and so on.</p>
-<p>Mathematically, for a ranking $i_1i_2 ... i_J <span
-class="math inline">\(, the probability is given by:\)</span>$ P(i_1i_2
-... i_J ) = ^j_{j=1}{<em>{i_j}^J</em>{k=j} _{i_k}} $$ where <span
-class="math inline">\(\alpha_{i_j}\)</span> is the worth or quality
-score of item <span class="math inline">\(i_j\)</span>. The denominator
-normalizes over all remaining items at each step.</p>
+<p>Mathematically, for a ranking <span class="math inline">\(i_1\succ
+i_2 \succ ... \succ i_J\)</span>, the probability is given by: <span
+class="math display">\[
+P(i_1\succ i_2 \succ ... \succ i_J ) = \prod^j_{j=1}{\alpha_{i_j}\over
+\sum^J_{k=j} \alpha_{i_k}}
+\]</span> where <span class="math inline">\(\alpha_{i_j}\)</span> is the
+worth or quality score of item <span class="math inline">\(i_j\)</span>.
+The denominator normalizes over all remaining items at each step.</p>
 <p>The PL model has several advantages over the BT model:</p>
 <ul>
 <li>Unlike BT, which only works with pairwise comparisons, PL can handle
@@ -1613,10 +1617,12 @@ alt="dpo_gradients_derivation_paper" />
 aria-hidden="true">dpo_gradients_derivation_paper</figcaption>
 </figure>
 <p>The simplified version of the DPO gradient for better understanding
-is written as follows. Intuitively, when the difference between $
-<em>{}(x, y_l) $ and $ </em>{}(x, y_w) $ is large, the gradient takes a
-larger step during optimization. Conversely, when the difference is
-small, the objective is optimized with a smaller adjustment.</p>
+is written as follows. Intuitively, when the difference between <span
+class="math inline">\(\hat{r}_{\theta}(x, y_l)\)</span> and <span
+class="math inline">\(\hat{r}_{\theta}(x, y_w)\)</span> is large, the
+gradient takes a larger step during optimization. Conversely, when the
+difference is small, the objective is optimized with a smaller
+adjustment.</p>
 <figure>
 <img
 src="/di-blog/2024/12/29/Understanding-RLHF/DPO_gradient_simple_version.png"
