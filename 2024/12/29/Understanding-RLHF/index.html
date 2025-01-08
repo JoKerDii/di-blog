@@ -134,7 +134,7 @@ Plackett-Luce Reward Model</span></a></li><li class="nav-item nav-level-3"><a cl
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/di-blog/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -276,60 +276,53 @@ alt="agent_env_rewards_RL_intro" />
 dynamics</strong> are non-stationary environments, stochastic rewards,
 and random states:</p>
 <ul>
-<li><strong>Non-stationary environment</strong>: In non-stationary
-environments, the dynamics of the environment (e.g., transition
-probabilities or reward functions) change over time. This forces RL
-agents to continuously adapt their policies, which can lead to a drop in
-performance during the readjustment phase and forgetting previously
-learned policies.</li>
-<li><strong>Stochastic rewards</strong>: Stochastic rewards occur when
-the reward function is probabilistic rather than deterministic. This
-introduces noise into the feedback signal, making it harder for the
-agent to discern which actions truly lead to higher rewards.</li>
-<li><strong>Random states</strong>: Random states refer to situations
-where the agent’s observations are noisy or partially observable, making
-it harder to infer the true state of the environment. Such randomness
-complicates policy learning because the agent may need to rely on memory
-or belief states (e.g., Partially Observable Markov Decision Processes,
-POMDPs) to make decisions. It increases the dimensionality and
-complexity of the state space.</li>
+<li>In non-stationary environments, the dynamics of the environment
+(e.g., transition probabilities or reward functions) change over time.
+This forces RL agents to continuously adapt their policies, which can
+lead to a drop in performance during the readjustment phase and
+forgetting previously learned policies.</li>
+<li>Stochastic rewards occur when the reward function is probabilistic
+rather than deterministic. This introduces noise into the feedback
+signal, making it harder for the agent to discern which actions truly
+lead to higher rewards.</li>
+<li>Random states refer to situations where the agent’s observations are
+noisy or partially observable, making it harder to infer the true state
+of the environment. Such randomness complicates policy learning because
+the agent may need to rely on memory or belief states (e.g., Partially
+Observable Markov Decision Processes, POMDPs) to make decisions. It
+increases the dimensionality and complexity of the state space.</li>
 </ul>
 <p>The challenges related to <strong>algorithmic design and
 computational feasibility</strong> are:</p>
 <ul>
-<li><strong>Data Efficiency</strong>: RL algorithms require a
-significant amount of interaction with the environment to learn
-effectively, making them data-intensive. Many RL algorithms,
-particularly model-free methods like policy gradient techniques, require
-a large number of samples to converge.</li>
-<li><strong>Exploration-Exploitation Tradeoff</strong>: RL agents face
-the <strong>exploration-exploitation dilemma</strong>, where they need
-to balance trying new actions to discover potentially better rewards
-(<strong>Exploration</strong>) and using known actions that yield high
-rewards (<strong>Exploitation</strong>).</li>
-<li><strong>Scalability and Large State/Action Spaces</strong>: Many RL
-problems involve enormous state and action spaces, such as games like Go
-or real-world robotics tasks. The exponential growth of possible states
-and actions makes it computationally challenging for RL algorithms to
-find optimal solutions.</li>
-<li><strong>Reward Design</strong>: Poorly designed rewards can lead to
-unintended behaviors (e.g., an agent exploiting loopholes in the reward
-structure). Sparse or delayed rewards make it difficult for the agent to
-associate its actions with outcomes.</li>
-<li><strong>Generalization and Transfer Learning</strong>: RL agents
-often struggle to generalize learned behaviors across different tasks or
-environments. Agents trained in specific simulations (e.g., driving
-simulators) may fail to perform well in real-world scenarios due to
-differences in dynamics, noise, or variability.</li>
-<li><strong>Stability and Convergence</strong>: RL algorithms are highly
-sensitive to hyperparameter choices (e.g., learning rate, discount
-factor). Poor tuning can lead to slow convergence or failure to converge
-at all, making training unpredictable and requiring significant
-expertise.</li>
-<li><strong>Explainability and Interpretability</strong>: RL agents
-often use complex models (e.g., deep neural networks), making their
-decisions difficult to interpret. This lack of transparency is
-problematic in safety-critical applications like healthcare or
+<li>RL algorithms require a significant amount of interaction with the
+environment to learn effectively, making them data-intensive. Many RL
+algorithms, particularly model-free methods like policy gradient
+techniques, require a large number of samples to converge.</li>
+<li>RL agents face the <strong>exploration-exploitation
+dilemma</strong>, where they need to balance trying new actions to
+discover potentially better rewards (<strong>Exploration</strong>) and
+using known actions that yield high rewards
+(<strong>Exploitation</strong>).</li>
+<li>Many RL problems involve enormous state and action spaces, such as
+games like Go or real-world robotics tasks. The exponential growth of
+possible states and actions makes it computationally challenging for RL
+algorithms to find optimal solutions.</li>
+<li>Poorly designed rewards can lead to unintended behaviors (e.g., an
+agent exploiting loopholes in the reward structure). Sparse or delayed
+rewards make it difficult for the agent to associate its actions with
+outcomes.</li>
+<li>RL agents often struggle to generalize learned behaviors across
+different tasks or environments. Agents trained in specific simulations
+(e.g., driving simulators) may fail to perform well in real-world
+scenarios due to differences in dynamics, noise, or variability.</li>
+<li>RL algorithms are highly sensitive to hyperparameter choices (e.g.,
+learning rate, discount factor). Poor tuning can lead to slow
+convergence or failure to converge at all, making training unpredictable
+and requiring significant expertise.</li>
+<li>RL agents often use complex models (e.g., deep neural networks),
+making their decisions difficult to interpret. This lack of transparency
+is problematic in safety-critical applications like healthcare or
 autonomous driving, where understanding the reasoning behind decisions
 is essential.</li>
 </ul>
@@ -1834,6 +1827,9 @@ actions align with the true objectives or desired outcomes.</p>
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/di-blog/2025/01/04/2025-January/" rel="next" title="2025-January">
+                  2025-January <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
