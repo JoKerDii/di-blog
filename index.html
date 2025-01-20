@@ -246,7 +246,7 @@ packages, virtual environments, and dependency conflicts.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Pipenv might be installed, but your shell might not know where to find it.</span></span><br><span class="line"><span class="comment"># Add the bin directory to your PATH environment variable in your .zshrc file:</span></span><br><span class="line"><span class="comment"># Reload your .zshrc file.</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$PATH:$(python -m site --user-base)/bin&quot;&#x27;</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd advanced-rag-app/</span><br><span class="line">pipenv shell</span><br></pre></td></tr></table></figure>
 <p>Install commonly used packages.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pipenv install langchain</span><br><span class="line">pipenv install langchain-openai</span><br><span class="line">pipenv install langchain-community</span><br><span class="line">pipenv install langchain-core</span><br><span class="line">pipenv install langchainhub</span><br><span class="line">pipenv install langgraph</span><br><span class="line">pipenv install python-dotenv</span><br><span class="line">pipenv install tavily-python</span><br><span class="line">pipenv install langchain-chrome</span><br><span class="line">pipenv install pytest</span><br><span class="line">pipenv install black</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pipenv install langchain</span><br><span class="line">pipenv install langchain-openai</span><br><span class="line">pipenv install langchain-community</span><br><span class="line">pipenv install langchain-core</span><br><span class="line">pipenv install langchainhub</span><br><span class="line">pipenv install langgraph</span><br><span class="line">pipenv install python-dotenv</span><br><span class="line">pipenv install tavily-python</span><br><span class="line">pipenv install langchain-chroma</span><br><span class="line">pipenv install pytest</span><br><span class="line">pipenv install black</span><br></pre></td></tr></table></figure>
 <p><strong>LangChain</strong>: LangChain is a framework for building
 applications powered by LLMs. It provides tools for creating chains,
 agents, and retrieval strategies that form the cognitive architecture of
@@ -293,15 +293,20 @@ API.</p></li>
 that depends on <code>langchain-core</code> but focuses exclusively on
 OpenAI's offerings.</p></li>
 </ul>
-<p><strong>langchain-chrome</strong>: A specialized integration for
-interacting with Chrome-based environments.</p>
+<p><strong>langchain-chroma</strong>: An integration between LangChain
+and Chroma, enabling seamless use of Chroma’s vector database
+capabilities within LangChain applications.</p>
 <ul>
-<li><p>Enables automation or interaction with web pages via
-Chrome.</p></li>
-<li><p>Useful for tasks like web scraping or dynamic data
-retrieval.</p></li>
-<li><p><strong>Relationship</strong>: An extension package that
-integrates Chrome functionalities into LangChain workflows.</p></li>
+<li><p>Simplifies local prototyping by eliminating the need for external
+servers and supports features like in-memory or persistent storage
+modes.</p></li>
+<li><p>Supports operations such as adding, querying, and updating
+embeddings, making it developer-friendly for tasks like similarity
+search and document retrieval.</p></li>
+<li><p><strong>Relationship</strong>: Chroma complements LangChain by
+providing a lightweight, efficient vector store that integrates
+seamlessly. Together, they enable developers to prototype locally and
+scale AI applications effectively.</p></li>
 </ul>
 <p><strong>LangGraph</strong>: An extension of LangChain designed for
 building multi-agent systems and stateful workflows using graph-based
