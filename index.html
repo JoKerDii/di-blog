@@ -112,7 +112,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/di-blog/archives/">
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -134,6 +134,273 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2025/04/01/2025-April/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/di-blog/2025/04/01/2025-April/" class="post-title-link" itemprop="url">2025 April - What I Have Read</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-01 10:27:12" itemprop="dateCreated datePublished" datetime="2025-04-01T10:27:12-04:00">2025-04-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="substuck">Substuck</h2>
+<blockquote>
+<p><em>A Parquet file is composed of Row Groups, Column Chunk, and
+Pages.</em></p>
+<p><em>Parquet is a self-described file format that contains all the
+information needed for the application that consumes the file. This
+allows the software to efficiently understand and process the file
+without requiring external information. Thus, the metadata is the
+crucial part of Parquet. They include Magic Number, FileMetadata, and
+PageHeader.</em></p>
+<p><em>Google Dremel (the query engine behind BigQuery) inspired
+Parquet’s approach to implementing nested and repeated field storage. In
+a <a
+target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36632.pdf">2010
+paper</a> introducing Dremel, Google detailed its method for efficiently
+handling nested and repeated fields in analytics workloads using
+definition level (for nested fields) and repetition level (for
+array-like fields). I wrote an article about this approach seven months
+ago; you can read it here:</em></p>
+<p><strong>― I spent 8 hours learning Parquet. Here’s what I discovered
+- Vu Trinh</strong> [<a
+target="_blank" rel="noopener" href="https://vutr.substack.com/p/the-overview-of-parquet-file-format">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>The overall BigQuery architecture includes independent components
+for query execution, storage, a container management system, and a
+shuffler service:</em></p>
+<ul>
+<li><em><strong>Colossus</strong>: A distributed storage system that
+holds and stores data.</em></li>
+<li><em><strong>Dremel</strong>: The distributed query engine.</em></li>
+<li><em><strong>Borg is</strong> Google’s large-scale cluster management
+system that can reliably manage and orchestrate compute resources. (<a
+target="_blank" rel="noopener" href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/">Borg
+is the predecessor of Kubernetes.</a>) We will return to Borg when
+discussing the Vortex architecture.</em></li>
+<li><em><strong>Dedicate shuffle service</strong>: Dremel was inspired
+by the map-reduce paradigm to operate and manage the data shuffle
+between stages efficiently; Google built a separate shuffle service on
+top of disaggregated distributed memory. This service backs BigQuery and
+supports other services, such as <a
+target="_blank" rel="noopener" href="https://cloud.google.com/products/dataflow?hl=en">Google
+Dataflow</a>.</em></li>
+</ul>
+<p><strong>― I spent 4 hours learning the architecture of BigQuery's
+storage engine - Vu Trinh</strong> [<a
+target="_blank" rel="noopener" href="https://vutr.substack.com/p/i-spent-4-hours-learning-the-architecture">Link</a>]</p>
+</blockquote>
+<blockquote>
+<ol type="1">
+<li><em><strong>Extract</strong>: The process’s first step is
+extraction. The needed data is gathered from various sources, such as
+relational databases or third-party APIs</em></li>
+<li><em><strong>Transform</strong>: Extracted data undergoes many
+potential transformations, including cleaning, filtering, combining from
+different sources, and formatting to conform to a target
+schema.</em></li>
+<li><em><strong>Load</strong>: The transformed data is loaded into the
+destination with the predefined schema and constrained.</em></li>
+</ol>
+<p><em>ELT solves many of the problems associated with ETL.</em></p>
+<p><em>Most transformation logic can now be handled within the data
+warehouse using SQL, making it more accessible for users such as data
+analysts or data scientists. This eliminates the potential performance
+bottleneck of ETL pipelines.</em></p>
+<p><em>Most importantly, ELT allows you to keep raw data in the
+warehouse. This approach offers several advantages. You don’t need to
+plan transformation logic in advance; instead, the logic can evolve over
+time based on analytical needs—an especially valuable benefit in today’s
+agile software development environment.</em></p>
+<p><strong>― ETL and ELT - Vu Trinh</strong> [<a
+target="_blank" rel="noopener" href="https://vutr.substack.com/p/etl-and-elt">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Apache Airflow Overview - Vu Trinh</strong> [<a
+target="_blank" rel="noopener" href="https://vutr.substack.com/p/apache-airflow-overview">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>How did Airbnb build their semantic layer? - Vu
+Trinh</strong> [<a
+target="_blank" rel="noopener" href="https://vutr.substack.com/p/how-did-airbnb-build-their-semantic">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>In a meltdown, discipline beats brilliance.</em></p>
+<p><em>Over the years, I’ve found that having a simple rule-based system
+helps me stay grounded. Here are the 4 rules I follow to protect my
+portfolio:</em></p>
+<ul>
+<li><em>I invest a fixed amount monthly — rain or shine.</em></li>
+<li><em>I don’t add to losers — keeping them relatively small.</em></li>
+<li><em>I don’t sell winners — staying the course and being
+patient.</em></li>
+<li><em>I invest for at least 5 years — to give compounding time to
+work.</em></li>
+</ul>
+<p><strong>― Bear Market Survival Guide - App Economy Insights</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/bear-market-survival-guide">Link</a>]</p>
+</blockquote>
+<h2 id="blogs-and-articles">Blogs and Articles</h2>
+<blockquote>
+<p><strong>How Airbnb Standardized Metric Computation at Scale - Airbnb
+Blog</strong> [<a
+target="_blank" rel="noopener" href="https://medium.com/airbnb-engineering/airbnb-metric-computation-with-minerva-part-2-9afe6695b486">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Digital hygiene - Andrej Karpathy</strong> [<a
+target="_blank" rel="noopener" href="https://karpathy.bearblog.dev/digital-hygiene/">Link</a>]</p>
+</blockquote>
+<p>Good tips and tricks for digital hygiene, given the pervasive nature
+of internet fraud and the data collection practices of major tech
+companies.</p>
+<blockquote>
+<p><strong>Measuring AI Ability to Complete Long Tasks - METR</strong>
+[<a
+target="_blank" rel="noopener" href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/">Link</a>]</p>
+</blockquote>
+<figure>
+<img src="/di-blog/2025/04/01/2025-April/metr-length-of-tasks-log.png"
+alt="metr-length-of-tasks-log" />
+<figcaption aria-hidden="true">metr-length-of-tasks-log</figcaption>
+</figure>
+<blockquote>
+<p><strong>The "think" tool: Enabling Claude to stop and think in
+complex tool use situations - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/claude-think-tool">Link</a>]</p>
+</blockquote>
+<p>Anthropic introduces a "think" tool designed to enhance Claude's
+complex problem-solving by providing a dedicated space for structured
+reasoning during tasks. This tool differs from extended thinking by
+allowing Claude to pause and consider necessary information
+mid-response, particularly beneficial for multi-step processes and tool
+use. Evaluations on benchmarks like τ-Bench demonstrated significant
+performance improvements, especially in policy-heavy domains like
+airline customer service, where optimized prompting alongside the
+"think" tool proved most effective.</p>
+<h2 id="youtube-and-podcast">YouTube and Podcast</h2>
+<blockquote>
+<p><strong>DOGE updates + Liberation Day Tariff Reactions with Ben
+Shapiro and Antonio Gracias - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OjhA9p3ZXW0&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>2027 Intelligence Explosion: Month-by-Month Model — Scott
+Alexander &amp; Daniel Kokotajlo - Dwarkesh Patel</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=htOvH12T7mU&amp;ab_channel=DwarkeshPatel">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Trump vs Harvard, Nvidia export controls, how DEI killed
+Hollywood with Tim Dillon - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rCrb4TbHRxc&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>E187 | 关税战难解美国制造业困境，旧秩序正在崩溃 -
+硅谷101播客</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=6Fmo_jBc7mA&amp;t=1637s&amp;ab_channel=%E7%A1%85%E8%B0%B7101%E6%92%AD%E5%AE%A2">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>How DeepSeek Rewrote the Transformer [MLA] - Welch
+Labs</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0VLAoVGf_74&amp;ab_channel=WelchLabs">Link</a>]</p>
+</blockquote>
+<p>A lecture explaining the architecture and optimizations behind
+DeepSeek R1, a language model that improves Transformer efficiency.</p>
+<blockquote>
+<p><strong>Live Demo: Reinforcement Fine-Tuning for LLMs — Build Smarter
+Models with Less Data l Tutorial - Predibase</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tHvZypO3le4&amp;ab_channel=Predibase">Link</a>]</p>
+</blockquote>
+<p>This video was talking about why RFT beats supervised fine-tuning
+(SFT) in reasoning tasks, giving live demo of an end-to-end RFT
+workflow, and PyTorch-to-Triton case study showing real-world
+impact.</p>
+<blockquote>
+<p><strong>Model Context Protocol (MCP), clearly explained (why it
+matters) - Greg Isenberg</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7j_NE6Pjv-E&amp;ab_channel=GregIsenberg">Link</a>]</p>
+</blockquote>
+<h2 id="github">Github</h2>
+<blockquote>
+<p><strong>Google Gemini 2.0 with MCP (Model Context Protocol) Servers -
+Gemini Samples</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/philschmid/gemini-samples/blob/main/examples/gemini-mcp-example.ipynb">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Maestro - A Framework for Claude Opus, GPT and local LLMs to
+Orchestrate Subagents - maestro</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/Doriandarko/maestro">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>MCP-Agent</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/lastmile-ai/mcp-agent">Link</a>]</p>
+</blockquote>
+<h2 id="news">News</h2>
+<blockquote>
+<p><strong>Accelerate Generalist Humanoid Robot Development with NVIDIA
+Isaac GR00T N1 - NVIDIA</strong> [<a
+target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/accelerate-generalist-humanoid-robot-development-with-nvidia-isaac-gr00t-n1/">Link</a>]</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -364,6 +631,78 @@ domain expertise. Tackle challenges such as hallucinations, security
 risks, regulatory compliance, and scalability limitations. Develop
 systematic workflows for building and managing LLM-based
 applications.</p>
+<blockquote>
+<p><strong>How to build a ChatGPT-Powered AI tool to learn technical
+things fast - AWS</strong> [<a
+target="_blank" rel="noopener" href="https://community.aws/content/2hEttGRiSiGwAn2Bzl0lbQcT7v6/build-ai-with-hf-chatgpt">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>What Problem Does The Model Context Protocol Solve? -
+AIhero</strong> [<a
+target="_blank" rel="noopener" href="https://www.aihero.dev/what-problem-does-model-context-protocol-solve">Link</a>]</p>
+</blockquote>
+<p>Learn how the Model Context Protocol (MCP) simplifies integrating
+large language models (LLMs) with external APIs.</p>
+<p>MCP acts as a connector between LLMs and external data sources,
+facilitating interactions with tools without requiring LLMs to
+understand intricate APIs. By providing a standardized interface, it
+streamlines integrations with platforms like GitHub, enhancing workflow
+speed and efficiency.</p>
+<blockquote>
+<p><strong>Most AI value will come from broad automation, not from
+R&amp;D - Epoch AI</strong> [<a
+target="_blank" rel="noopener" href="https://epoch.ai/gradient-updates/most-ai-value-will-come-from-broad-automation-not-from-r-d">Link</a>]</p>
+</blockquote>
+<p>Epoch AI's article argues against the popular notion that the primary
+economic benefit of artificial intelligence will stem from its
+application in research and development. Instead, the authors posit that
+AI's most significant value will arise from its widespread deployment in
+automating existing labor across various sectors.</p>
+<h2 id="substuck">Substuck</h2>
+<blockquote>
+<p><strong>Tencent: Betting Big on AI - App Economy Insights</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/tencent-betting-big-on-ai">Link</a>]</p>
+</blockquote>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/tencent_corporate_overview.png"
+alt="tencent_corporate_overview" />
+<figcaption aria-hidden="true">tencent_corporate_overview</figcaption>
+</figure>
+<p>Tencent's proprietary HunYuan framework has developed into a central
+AI platform catering to both consumers and enterprises. Originally
+centered on text and conversational AI, HunYuan has expanded to support
+multimodal capabilities, including image, video, and 3D generation,
+where it has attained top rankings in industry benchmarks.</p>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/HunYuan_Thesis.png"
+alt="HunYuan_Thesis" />
+<figcaption aria-hidden="true">HunYuan_Thesis</figcaption>
+</figure>
+<p>Tencent has a Dual-Core AI strategy: It combines its proprietary T1
+model with external AI, such as DeepSeek’s R1, in a “double-core”
+approach. Yuanbao chatbot utilizes both—T1 for deep reasoning and R1 for
+quick responses—while WeChat Search enhances accuracy by integrating T1
+with DeepSeek.</p>
+<figure>
+<img
+src="/di-blog/2025/03/04/2025-March/tencent_multi_model_strategy.png"
+alt="tencent_multi_model_strategy" />
+<figcaption aria-hidden="true">tencent_multi_model_strategy</figcaption>
+</figure>
+<blockquote>
+<p><strong>Google: Biggest Deal Ever - App Economy Insights</strong> [<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/google-biggest-deal-ever">Link</a>]</p>
+</blockquote>
+<p>Alphabet has completed its largest acquisition to date with a $32
+billion deal to acquire cloud security startup Wiz. If successful, this
+move could redefine GCP’s security portfolio, strengthening its stance
+as AI-driven cloud computing becomes the focal point.</p>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/google_biggest_acquisition.png"
+alt="google_biggest_acquisition" />
+<figcaption aria-hidden="true">google_biggest_acquisition</figcaption>
+</figure>
 <h2 id="papers-and-reports">Papers and Reports</h2>
 <blockquote>
 <p><strong>Whitepaper Agents - Authors: Julia Wiesinger, Patrick Marlow
@@ -498,6 +837,46 @@ ideas (p &lt; 0.05) but slightly less feasible. While LLMs demonstrated
 promising ideation capabilities, challenges such as limited idea
 diversity and unreliable self-evaluation were identified, highlighting
 areas for improvement in developing effective research agents.</p>
+<blockquote>
+<p><strong>Transformers without Normalization</strong> [<a
+target="_blank" rel="noopener" href="https://jiachenzhu.github.io/DyT/?utm_source=alphasignal">Link</a>]</p>
+</blockquote>
+<p>Yann LeCun and his team have proposed Dynamic Tanh (DyT) as an
+alternative to conventional normalization layers in deep learning
+models. This innovative method, leveraging the scaled tanh function,
+delivers performance on par with or superior to techniques like
+LayerNorm and RMSNorm. Notably, its ability to lower computational costs
+while preserving model efficiency makes it particularly compelling.</p>
+<blockquote>
+<p><strong>Energy</strong> [<a
+target="_blank" rel="noopener" href="https://infrastructurereportcard.org/wp-content/uploads/2025/03/Energy.pdf">Link</a>]</p>
+</blockquote>
+<p>Most serious issues:</p>
+<ul>
+<li>Aging and overburdened energy infrastructure is the most serious
+issue.</li>
+<li>Energy demand is at its highest growth rate in 20 years. EV adoption
+and AI workloads are accelerating the strain on the grid.</li>
+<li>There is increased frequency of extreme weather events causing
+outages.</li>
+<li>The U.S. experienced twice as many weather-related power outages
+from 2014–2023 compared to 2000–2009.</li>
+</ul>
+<p>Some key trends:</p>
+<ul>
+<li>Energy demand is rising rapidly, especially due to data centers, AI,
+and EV adoption.</li>
+<li>Extreme weather is causing more frequent and severe power
+outages.</li>
+<li>The transition to renewables is accelerating, but grid
+interconnection delays are slowing progress.</li>
+<li>Grid infrastructure is aging and requires massive investment, but
+funding gaps remain.</li>
+<li>Transformer shortages and long lead times are hindering grid
+expansion and maintenance.</li>
+<li>Cybersecurity threats and physical attacks on substations are
+emerging risks.</li>
+</ul>
 <h2 id="youtube-and-podcasts">YouTube and Podcasts</h2>
 <blockquote>
 <p><strong>Fixing the American Dream with Andrew Schulz - All-In
@@ -615,6 +994,21 @@ only technically sound but also commercially viable.</li>
 to how cloud services are used today. This could democratize access to
 quantum capabilities for research and industry.</li>
 </ol>
+<blockquote>
+<p><strong>Instrumenting &amp; Evaluating LLMs - Hamei Husain</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=SnbGD677_u0&amp;ab_channel=HamelHusain">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>How to Get Your Data Ready for AI Agents (Docs, PDFs,
+Websites) - Dave Ebbelaar</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9lBTS5dM27c&amp;ab_channel=DaveEbbelaar">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>The AI Cold War, Signalgate, CoreWeave IPO, Tariff Endgames,
+El Salvador Deportations - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Iazo7g40VbQ&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
 <h2 id="github">Github</h2>
 <blockquote>
 <p><strong>a smol course - HuggingFace</strong> [<a
@@ -649,6 +1043,21 @@ target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1Zd
 Implementation</strong> [<a
 target="_blank" rel="noopener" href="https://github.com/NirDiamant/GenAI_Agents">Link</a>]</p>
 </blockquote>
+<blockquote>
+<p><strong>DeepSeek Open Infra</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/deepseek-ai/open-infra-index/tree/main">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Awesome MCP Servers</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/punkpeye/awesome-mcp-servers">Link</a>]</p>
+</blockquote>
+<p>This repository provides access to a selection of curated Model
+Context Protocol (MCP) servers designed for seamless AI model-resource
+interaction. It features both production-ready and experimental servers,
+offering capabilities like file access, database connections, and API
+integrations. There are frameworks, tutorials, and practical tips to
+enhance model deployment and maximize resource efficiency in real-world
+applications.</p>
 <h2 id="news">News</h2>
 <blockquote>
 <p><strong>Replit Integrates xAI</strong> [<a
@@ -665,6 +1074,10 @@ insights.</p>
 <p><strong>Google to acquire cloud security startup Wiz for $32 billion
 after deal fell apart last year - CNBC</strong> [<a
 target="_blank" rel="noopener" href="https://www.cnbc.com/2025/03/18/google-to-acquire-cloud-security-startup-wiz-for-32-billion.html">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Leave it to Manus - Manus</strong> [<a
+target="_blank" rel="noopener" href="https://manus.im/">Link</a>]</p>
 </blockquote>
 
       
@@ -6933,296 +7346,6 @@ finetune. It requires setup of LoRA config and
 <p>Not every layers are quantized. QLoRA only quantizes linear
 projection layers. Some layers like Layer Norm is sensitive to
 precision, so high precision is required.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/di-blog/images/avatar.gif">
-      <meta itemprop="name" content="Di Zhen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/di-blog/2024/12/25/Understanding-LoRA/" class="post-title-link" itemprop="url">Understanding LoRA</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-12-25 15:11:11" itemprop="dateCreated datePublished" datetime="2024-12-25T15:11:11-05:00">2024-12-25</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>I finally got time to have some deep dives. Happy Christmas!</p>
-<h2 id="ram-usage-during-training">RAM Usage During Training</h2>
-<p>Training large-scale machine learning models e.g. LLMs, requires
-significant compute resources. Here’s a breakdown of the possible memory
-usage (RAM) at various stages of the classic training process, based on
-the pseudocode below:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">model = Model()</span><br><span class="line">optimizer = Adam(model.parameters())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch, (X, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">    <span class="comment"># Compute prediction and loss</span></span><br><span class="line">    pred = model(X)</span><br><span class="line">    loss = loss_fn(pred, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Backpropagation</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
-<h3 id="key-components-of-memory-usage">Key Components of Memory
-Usage</h3>
-<ol type="1">
-<li><p><strong>Model Parameters</strong>: These are the trainable
-weights of the model, which need to be stored in memory throughout the
-training process. The size is proportional to the number of parameters
-in the model.</p></li>
-<li><p><strong>Model Gradients</strong>: Gradients for each parameter
-are computed during backpropagation and stored temporarily for the
-optimizer to update the weights.</p></li>
-<li><p><strong>Optimizer States</strong>: Optimizers like Adam maintain
-additional states, including:</p>
-<ul>
-<li><p><strong>First-order momentum</strong>: Tracks the moving average
-of gradients.</p></li>
-<li><p><strong>Second-order momentum</strong>: Tracks the moving average
-of squared gradients.</p></li>
-<li><p>Both momentum terms have the same size as the model
-gradients.</p></li>
-</ul></li>
-<li><p><strong>Activations</strong>: Activation outputs from the forward
-pass are stored for use during backpropagation, where the Hessian matrix
-is multiplied with the activations. The memory required for activations
-can be substantial, especially as batch size increases. While the size
-of parameters, gradients, and optimizer states remains constant,
-activation memory scales directly with batch size.</p></li>
-<li><p><strong>Other Overheads</strong>: Temporary buffers and memory
-fragmentation during computation also contribute to RAM usage.</p></li>
-</ol>
-<h3 id="memory-calculation-examples">Memory Calculation Examples</h3>
-<ol type="1">
-<li><p><strong>Gradients and Parameters</strong>:</p>
-<p>For 70B model, using 32-bit floating-point precision (FP32): <span
-class="math display">\[
-70\times10^9\times4 \text{ bytes}\times2 =521.5\text{GM}
-\]</span> This accounts for the weights and their corresponding
-gradients.</p></li>
-<li><p><strong>Optimizer State</strong>:</p>
-<p>Adam optimizer requires two additional states (first and second-order
-momentum), each the same size as the gradients: <span
-class="math display">\[
-70\times10^9\times4 \text{ byte}\times2 =521.5\text{GM}
-\]</span></p></li>
-<li><p><strong>Activations</strong>:</p>
-<p>For 70B model with a hidden size of 8192, 80 layers, and FP32
-precision, each token’s activation memory: <span class="math display">\[
-8192\times80\times4\times12 \text{ bytes/token}=30\text{ MB/token}
-\]</span></p></li>
-</ol>
-<h3 id="simple-strategies-for-reducing-memory-usage">Simple Strategies
-for Reducing Memory Usage</h3>
-<ol type="1">
-<li><strong>Activation Checkpointing</strong>: Instead of storing all
-activation outputs, recompute activations during backpropagation as
-needed. This significantly reduces activation memory at the cost of
-additional compute time.</li>
-<li><strong>Mixed Precision Training (FP16)</strong>: Use 16-bit
-floating-point precision (FP16) instead of FP32 for model weights,
-gradients, and activations. This halves the memory requirements without
-substantial accuracy loss when done correctly.</li>
-</ol>
-<h2 id="lora">LoRA</h2>
-<h3 id="adapters">Adapters</h3>
-<p>The original adapter was introduced in 2019 in the paper "<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.00751">Parameter-Efficient Transfer
-Learning for NLP</a>". It's a small, additional module added to a
-pre-trained model to adapt it to a new task without significantly
-changing the original model parameters.</p>
-<figure>
-<img
-src="/di-blog/2024/12/25/Understanding-LoRA/adapter_architecture.png"
-alt="adapter_architecture" />
-<figcaption aria-hidden="true">adapter_architecture</figcaption>
-</figure>
-<p>Adapters generally <strong>reduce training latency</strong> compared
-to full fine-tuning because only a small number of parameters (those
-within the adapter modules) are updated during training. This reduction
-in trainable parameters leads to lower computational overhead and faster
-convergence in many cases. Additionally, adapters allow for larger batch
-sizes due to reduced memory usage, which can further accelerate
-training</p>
-<p>However, adapter layers <strong>increase inference latency</strong>
-because they are added sequentially and cannot be parallelized. This
-issue becomes more pronounced with small batch sizes or when using
-sharded models, such as GPT-2. Techniques like layer pruning or
-multi-task settings can mitigate but not completely eliminate this
-latency.</p>
-<p>As shown in the experiment results below, inference latent can be
-significant (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA
-paper</a>):</p>
-<figure>
-<img
-src="/di-blog/2024/12/25/Understanding-LoRA/adapter_experiment_results.png"
-alt="adapter_experiment_results" />
-<figcaption aria-hidden="true">adapter_experiment_results</figcaption>
-</figure>
-<h3 id="lora-basics">LoRA Basics</h3>
-<p>LoRA (Low-Rank Adaptation) was introduced by a Microsoft team in 2021
-in the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank
-Adaptation of Large Language Models</a>. The main idea of LoRA is to
-enable efficient fine-tuning of large pre-trained models by introducing
-low-rank trainable matrices into the model’s architecture, while keeping
-the original model weights frozen. This approach significantly reduces
-the number of trainable parameters and computational requirements
-compared to full fine-tuning, without compromising performance.</p>
-<figure>
-<img src="/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png"
-alt="lora_diagram" />
-<figcaption aria-hidden="true">lora_diagram</figcaption>
-</figure>
-<p>LoRA approximates weight updates in neural networks using
-<strong>low-rank matrix factorization</strong>. Instead of updating the
-full weight matrix <span class="math inline">\(W\)</span> , it
-introduces two smaller trainable matrices <span
-class="math inline">\(A\)</span> and <span
-class="math inline">\(B\)</span> with size <span
-class="math inline">\((r \times d)\)</span> and <span
-class="math inline">\((d \times r)\)</span>. These matrices have much
-fewer parameters, as their rank <span class="math inline">\(r\)</span>
-is much smaller than the dimensions of <span
-class="math inline">\(W\)</span>. Instead of training <span
-class="math inline">\(\Delta W\)</span>, LoRA trains the parameters in
-<span class="math inline">\(A\)</span> and <span
-class="math inline">\(B\)</span>. This can be written in formula: <span
-class="math display">\[
-h=W_0x + \Delta Wx = W_0x + BAx
-\]</span> where <span class="math inline">\(W_0\)</span> is original
-prerained weight matrix in size <span class="math inline">\((d\times
-d)\)</span> which is frozen during training; <span
-class="math inline">\(\Delta W\)</span> is in <span
-class="math inline">\((d \times d)\)</span> as well computed by <span
-class="math inline">\(BA\)</span>. <span
-class="math inline">\(x\)</span> is a new input with size <span
-class="math inline">\((1 \times d)\)</span>.</p>
-<p>At the start of the training process, the matrix $ A $ is randomly
-initialized following a normal distribution <span
-class="math inline">\(\mathcal{N}(0, \sigma^2)\)</span>, while the
-matrix $ B $ is initialized as a zero matrix. In the initial round, this
-setup results in $ BA = 0 $, leading to $ h = W_0x $. This
-initialization strategy ensures stability by preventing significant
-deviations of $ W_0 $ from its original state.</p>
-<p>LoRA is a groundbreaking method with a lot of
-<strong>benefits</strong>:</p>
-<ul>
-<li><strong>Parameter Efficiency</strong>: By training only the low-rank
-matrices, LoRA reduces the number of updated parameters resulting in
-lower memory usage and faster training.</li>
-<li><strong>Frozen Pre-trained Weights</strong>: The original
-pre-trained weights remain unchanged, preserving the model’s
-general-purpose knowledge and avoiding catastrophic forgetting.</li>
-<li><strong>No Inference Latency Overhead</strong>: Unlike adapters,
-LoRA does not add additional layers to the model. The low-rank matrices
-can be merged back into the original weight matrix after fine-tuning,
-ensuring no additional inference latency.</li>
-<li><strong>Versatility</strong>: LoRA can be applied to various
-architectures (e.g. transformers) and tasks, making it a flexible
-solution for adapting large models like GPT-3 or RoBERTa to specific use
-cases.</li>
-</ul>
-<h3 id="lora-usage">LoRA Usage</h3>
-<p>The Microsoft developers of LoRA created a Python package called <a
-target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA"><code>loralib</code></a> to
-facilitate the use of LoRA. With this library, any linear layer
-implemented as <code>nn.Linear()</code> can be replaced by
-<code>lora.Linear()</code>. This is possible because LoRA is designed to
-work with any layer involving matrix multiplication. The
-<code>lora.Linear()</code> module introduces a pair of low-rank
-adaptation matrices, which are used to modify the original weight matrix
-by applying a low-rank decomposition.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># layer = nn.Linear(in_features, out_features)</span></span><br><span class="line"><span class="comment"># ===== After ======</span></span><br><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line"><span class="comment"># Add a pair of low-rank adaptation matrices with rank r=16</span></span><br><span class="line">layer = lora.Linear(in_features, out_features, r=<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
-<p>Before training the model, all non-lora matrix should be fixed and
-only LoRA matrices should be set as trainable. Training loops can run as
-usual.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line">model = BigModel()</span><br><span class="line"><span class="comment"># This sets requires_grad to False for all parameters without the string &quot;lora_&quot; in their names</span></span><br><span class="line">lora.mark_only_lora_as_trainable(model)</span><br><span class="line"><span class="comment"># Training loop</span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataloader:</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
-<p>When saving model checkpoints during LoRA fine-tuning, only the
-LoRA-specific parameters need to be saved, not the entire large
-pre-trained model. This results in significantly smaller checkpoint
-files and more efficient storage.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># torch.save(model.state_dict(), checkpoint_path)</span></span><br><span class="line"><span class="comment"># ===== After =====</span></span><br><span class="line">torch.save(lora.lora_state_dict(model), checkpoint_path)</span><br></pre></td></tr></table></figure>
-<h3 id="implementation-of-lora---lora.linear">Implementation of LoRA -
-lora.Linear()</h3>
-<p>Let's take a deep dive into the <code>lora.Linear()</code> <a
-target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA/blob/main/loralib/layers.py">source
-code</a>:</p>
-<p>The <code>lora.Linear</code> class builds upon
-<code>torch.nn.Linear()</code>. It retains the original weight matrix $
-W $ as initialized in
-<code>nn.Linear.__init__(self, in_features, out_features)</code>, and
-introduces two additional LoRA matrices: <code>self.lora_A</code> and
-<code>self.lora_B</code>. The matrix <code>self.lora_A</code> has
-dimensions of $ (r, ) $, while <code>self.lora_B</code> has dimensions
-of $ (, r) $. These matrices are used to adapt the original weight
-matrix through low-rank decomposition.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        nn.Linear.__init__(<span class="variable language_">self</span>, in_features, out_features, **kwargs)</span><br><span class="line">        LoRALayer.__init__(<span class="variable language_">self</span>, r=r, lora_alpha=lora_alpha, lora_dropout=lora_dropout,</span><br><span class="line">                           merge_weights=merge_weights)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.fan_in_fan_out = fan_in_fan_out</span><br><span class="line">        <span class="comment"># Actual trainable parameters</span></span><br><span class="line">        <span class="keyword">if</span> r &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="variable language_">self</span>.lora_A = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((r, in_features)))</span><br><span class="line">            <span class="variable language_">self</span>.lora_B = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((out_features, r)))</span><br><span class="line">            <span class="variable language_">self</span>.scaling = <span class="variable language_">self</span>.lora_alpha / <span class="variable language_">self</span>.r</span><br><span class="line">            <span class="comment"># Freezing the pre-trained weight matrix</span></span><br><span class="line">            <span class="variable language_">self</span>.weight.requires_grad = <span class="literal">False</span></span><br><span class="line">        <span class="variable language_">self</span>.reset_parameters()</span><br><span class="line">        <span class="keyword">if</span> fan_in_fan_out:</span><br><span class="line">            <span class="variable language_">self</span>.weight.data = <span class="variable language_">self</span>.weight.data.transpose(<span class="number">0</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>In the <code>forward()</code> function, it implements <span
-class="math inline">\(h=W_0x + \Delta Wx = W_0x+ BAx\)</span>.</p>
-<p>There is a flag variable called <code>self.merge</code> which is use
-to flag whether it's doing inference or training. Recall that the
-original weight matrix remaining unchanged during LoRA training is a key
-feature of the LoRA - pre-trained weights are freezed and instead small,
-low-rank matrices are trained to approximate updates.</p>
-<ul>
-<li>During inference, if <code>merge_weights</code> is set to
-<code>True</code>, the low-rank updates
-<code>self.lora_B @ self.lora_A</code> are added directly to the frozen
-pre-trained weights (<code>self.weight</code>). This avoids the need for
-separate computations of LoRA updates during forward passes, improving
-efficiency.</li>
-<li>During training, if <code>merge_weights</code> is enabled and
-weights were previously merged, the updates are subtracted from
-<code>self.weight</code> to revert it to its original frozen state. This
-ensures that gradients are not incorrectly computed on the merged
-weights.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, mode: <span class="built_in">bool</span> = <span class="literal">True</span></span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        nn.Linear.train(<span class="variable language_">self</span>, mode)</span><br><span class="line">        <span class="keyword">if</span> mode:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Make sure that the weights are not merged</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data -= T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Merge the weights and mark it</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data += T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">True</span>    </span><br><span class="line">                </span><br><span class="line">			<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">            result = F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)            </span><br><span class="line">            result += (<span class="variable language_">self</span>.lora_dropout(x) @ <span class="variable language_">self</span>.lora_A.transpose(<span class="number">0</span>, <span class="number">1</span>) @ <span class="variable language_">self</span>.lora_B.transpose(<span class="number">0</span>, <span class="number">1</span>)) * <span class="variable language_">self</span>.scaling</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)</span><br><span class="line">          </span><br><span class="line">      ......</span><br></pre></td></tr></table></figure>
 
       
     </div>
