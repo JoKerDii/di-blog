@@ -107,7 +107,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#substack"><span class="nav-number">1.</span> <span class="nav-text">Substack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#papers-and-reports"><span class="nav-number">2.</span> <span class="nav-text">Papers and Reports</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#youtube-and-podcasts"><span class="nav-number">3.</span> <span class="nav-text">YouTube and Podcasts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#articles-and-blogs"><span class="nav-number">4.</span> <span class="nav-text">Articles and Blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-book-list"><span class="nav-number">5.</span> <span class="nav-text">New Book List</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#substack"><span class="nav-number">1.</span> <span class="nav-text">Substack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#papers-and-reports"><span class="nav-number">2.</span> <span class="nav-text">Papers and Reports</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#youtube-and-podcasts"><span class="nav-number">3.</span> <span class="nav-text">YouTube and Podcasts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#articles-and-blogs"><span class="nav-number">4.</span> <span class="nav-text">Articles and Blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-tools"><span class="nav-number">5.</span> <span class="nav-text">New Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-book-list"><span class="nav-number">6.</span> <span class="nav-text">New Book List</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -453,6 +453,171 @@ incorporating AI capabilities. The report also highlights a growing
 interest in outcome-based pricing among AI-native companies and stresses
 the importance of pricing agility and clear ownership of pricing
 strategy within organizations.</p>
+<blockquote>
+<p><strong>The Illusion of Thinking: Understanding the Strengths and
+Limitations of Reasoning Models via the Lens of Problem Complexity -
+Apple Machine Learning Research</strong> [<a
+target="_blank" rel="noopener" href="https://machinelearning.apple.com/research/illusion-of-thinking">Link</a>]</p>
+</blockquote>
+<p>The authors analyzed the thinking process and reasoning traces of
+LRMs in several smart ways:</p>
+<ul>
+<li>A custom pipeline using regex identifies and extracts potential
+solution attempts from the LRM's thinking traces.</li>
+<li>Extracted solutions are rigorously verified against puzzle rules and
+constraints using specialized simulators for step-by-step
+correctness.</li>
+<li>Records the accuracy of valid solutions and their relative position
+within the reasoning trace for behavioral insights.</li>
+<li>Categorizes LRM thinking patterns (e.g., overthinking, late success,
+collapse) by analyzing how solution correctness and presence vary with
+problem complexity.</li>
+<li>Examines how the proportion of correct solutions changes
+sequentially within the thinking trace, revealing dynamic accuracy
+shifts.</li>
+<li>Pinpoints the initial incorrect step in a solution sequence to
+understand the depth of correct reasoning before error.</li>
+<li>Quantifies thinking token usage to analyze scaling of effort with
+complexity, noting an unexpected decline at high complexity.</li>
+</ul>
+<blockquote>
+<p><strong>How much do language models memorize? - Meta, Google, NVIDIA,
+and Cornell University</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.24832">Link</a>]</p>
+</blockquote>
+<p>This paper proposed a new method to quantify how much information a
+language model "knows" about a datapoint.</p>
+<p>They formally separate memorization into two components by two novel
+definitions of memorization: unintended memorization (information about
+a specific dataset) and generalization (information about the true
+data-generation process).</p>
+<p><strong>There are several interesting findings:</strong></p>
+<ul>
+<li>By training models on uniform random bitstrings (eliminating
+generalization), they precisely measure model capacity, finding
+GPT-style transformers store 3.5 to 4 bits per parameter.</li>
+<li>Their framework shows that the double descent phenomenon occurs when
+the data size exceeds the model capacity, suggesting that models are
+"forced" to generalize when they can no longer individually memorize
+datapoints.</li>
+<li>The paper develops and validates a scaling law that predicts
+membership inference performance based on model capacity and dataset
+size, indicating that membership inference becomes harder with larger
+datasets relative to model capacity.</li>
+</ul>
+<p><strong>To understand their smart methods:</strong></p>
+<ul>
+<li><p>They proposed a very clever approach to understand memorization
+and model capacity in LM. They isolate unintended memorization by
+training models on <strong>uniform random bitstrings</strong>.</p>
+<ul>
+<li>No Generalization Signal: When training on truly random data, there
+are no underlying patterns, rules, or structures for the model to
+generalize from. Each bitstring is an independent, random piece of
+information.</li>
+<li>Only Memorization is Possible: In this scenario, the <em>only</em>
+way for the model to "learn" or perform well on this data (i.e., predict
+the next bit in a sequence or identify if it was part of the training
+set) is to literally memorize the specific bitstrings it has seen. Any
+"knowledge" the model gains is purely about the individual data
+points.</li>
+<li>Total Memorization as Measured: Therefore, when generalization is
+effectively zero, the information the model stores about the random
+bitstrings directly reflects its <em>total memorization capacity</em>
+for that type of information. There's no "general knowledge" to
+distinguish; it's all about remembering specific instances.</li>
+</ul>
+<p>Therefore, they are measuring the maximum amount of distinct,
+specific information the model can store.</p>
+<p>They equal total memorization to model capacity. In machine learning,
+model capacity generally refers to the <strong>size and complexity of
+the functions a model is capable of learning</strong>. It's the model's
+ability to fit a wide variety of patterns in the data. A model with
+higher capacity can potentially fit more complex relationships or
+memorize more specific data points.</p>
+<p>The paper further quantifies this by showing that GPT-style models
+have a capacity of approximately 3.6 bits-per-parameter. This indicates
+that each parameter in the model effectively acts as a certain amount of
+storage for information, reflecting the overall capacity of the neural
+network architecture.</p></li>
+<li><p>The fundamental challenge in understanding and evaluating
+language models is the <strong>ambiguity and conflation of
+"memorization" (copy or reproduce a specific sequence in the training
+data) and "learning." (truly understand and generalize a pattern or
+concept)</strong> This is exactly what they addressed by decomposing
+memorization into unintended memorization and generalization. The
+decomposition enables controlled measurement and the use of random
+bitstrings is the key innovation.</p>
+<p>About the Double Descent Phenomena: When a model's capacity exceeds
+the generalizable patterns in the data, it starts to memorize individual
+data points. As data size increases relative to capacity, the model is
+"forced" to generalize more, leading to a decrease in unintended
+memorization and an improvement in performance.</p>
+<p>The core insight is that as models become massively overparameterized
+(far beyond what's needed to simply fit the training data), they find
+"simpler" interpolating solutions that generalize better, often due to
+the implicit biases of optimization algorithms like Stochastic Gradient
+Descent (SGD).</p>
+<p><strong>Intuition for double descent</strong>:</p>
+<ol type="1">
+<li>"Under-parameterized" Regime (Classical ML): Model Capacity &lt;
+Data Size: very generalizable, low test error</li>
+<li>"Interpolation Threshold" (The Peak): Model Capacity ~ Data Size:
+peak of test error, due to overfitting the noise</li>
+<li>"Over-parameterized" Regime (Double Descent / Modern Deep Learning):
+Model Capacity &gt;&gt; Data Size: robust generalization happens, test
+error goes down again.</li>
+</ol></li>
+<li><p>Here is a concept <strong>Membership Inference Attacks
+(MIAs):</strong> These are attacks that attempt to determine whether a
+specific data point was part of a model's training dataset or not. A
+successful MIA indicates that the model has "memorized" that specific
+data point. "Scaling Laws for Membership Inference" in the paper refers
+to <strong>predictive relationships that describe how the success rate
+of a MIA changes as a function of various model and data
+characteristics</strong>, such as model capacity and dataset size.</p>
+<p>They basically propose that <strong>membership inference success is
+inversely related to how "generalizable" the data point is within the
+model's capacity.</strong> In other words, membership inference is
+<strong>easier</strong> when the model has high capacity relative to the
+dataset size, leading to more unintended memorization of individual data
+points. Membership inference becomes <strong>harder</strong> (i.e., less
+successful for an attacker) when the dataset size is very large compared
+to the model's capacity, or when the model starts to "grok" (generalize)
+more.</p></li>
+</ul>
+<blockquote>
+<p><strong>LlamaFirewall: An open source guardrail system for building
+secure AI agents - Meta AI</strong> [<a
+target="_blank" rel="noopener" href="https://ai.meta.com/research/publications/llamafirewall-an-open-source-guardrail-system-for-building-secure-ai-agents/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Reasoning models don't always say what they think -
+Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/research/reasoning-models-dont-say-think">Link</a>]</p>
+</blockquote>
+<p>The core issue explored is whether the Chain-of-Thought accurately
+reflects the model's true reasoning process ("faithfulness"). The
+article's research suggests that models frequently do not faithfully
+report their reasoning. Researchers tested this by subtly providing
+hints (both correct and incorrect) to models during evaluations. They
+then checked if the models admitted using these hints in their
+Chain-of-Thought explanations. The results showed that models (Claude
+3.7 Sonnet and DeepSeek R1) rarely mentioned the hints they used, even
+when those hints led them to a different answer or involved potentially
+problematic information (like "unauthorized access"). Instead, models
+often created fake rationales for their answers.</p>
+<p>The researchers also studied reward hacking by constructing synthetic
+Reinforcement Learning (RL) environments with injected "reward hacks."
+They then finetuned an earlier snapshot of Claude 3.7 Sonnet in these
+environments using outcome-based RL. By setting up the environments this
+way, they could observe if the models learned to pick the incorrect hint
+answer to maximize their reward, and then check if their
+Chain-of-Thought verbalized this reward-seeking behavior. They found
+that models learned the reward hacks very quickly (selecting the
+incorrect hint answer over 99% of the time), but rarely verbalized these
+hacks in their Chain-of-Thought (less than 2% of examples in most
+environments).</p>
 <h2 id="youtube-and-podcasts">YouTube and Podcasts</h2>
 <blockquote>
 <p><strong>Sundar Pichai: CEO of Google and Alphabet | Lex Fridman
@@ -484,11 +649,51 @@ target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_a8EnBX8DSU
 Lex Fridman</strong> [<a
 target="_blank" rel="noopener" href="https://www.youtube.com/hashtag/405">Link</a>]</p>
 </blockquote>
+<blockquote>
+<p><strong>WWDC25: Platforms State of the Union - Apple</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLjODKV8YBFHbabxpCUjMzyVKZmcOFgd9b">Link</a>]</p>
+</blockquote>
 <h2 id="articles-and-blogs">Articles and Blogs</h2>
 <blockquote>
 <p><strong>Everything Google Announced at I/O 2025 - WIRED</strong> [<a
 target="_blank" rel="noopener" href="https://www.wired.com/story/everything-google-announced-at-io-2025/">Link</a>]</p>
 </blockquote>
+<blockquote>
+<p><strong>Launch Hugging Face Models In Colab For Faster AI Exploration
+- Medium</strong> [<a
+target="_blank" rel="noopener" href="https://medium.com/google-colab/launch-hugging-face-models-in-colab-for-faster-ai-exploration-bee261978cf9">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>My AI Skeptic Friends Are All Nuts - Thomas Ptacek</strong>
+[<a target="_blank" rel="noopener" href="https://fly.io/blog/youre-all-nuts/">Link</a>]</p>
+</blockquote>
+<p>The author argues that LLMs as agents are improving developer
+productivity, and suggests that while the hype around AI can be
+annoying, the technology's impact is real and profound. He believes that
+those who don't embrace AI in their coding practices will be left
+behind.</p>
+<h2 id="new-tools">New Tools</h2>
+<blockquote>
+<p><strong>Meet the Foundation Models framework - Apple</strong> [<a
+target="_blank" rel="noopener" href="https://developer.apple.com/videos/play/wwdc2025/286/">Link</a>]</p>
+</blockquote>
+<p>The iPhone maker has launched the Foundation Models framework to
+allow users to run a 3B parameter model locally. The framework is part
+of Apple Intelligence suite and allows developers to access it using
+three lines of code. The model can be used to generate text, extract
+summaries, and tag structured information from unstructured text.</p>
+<p>Users should be aware of strength and weakness. It's only available
+on Apple Intelligence-enabled devices with OS version 26+. You need to
+use Xcode Playgrounds to prototype with real model output. You can use
+Instruments profiling template to measure latency and token overhead.
+There is no support for fine-tuning or external model deployment</p>
+<blockquote>
+<p><strong>Connect Your MCP Client to the Hugging Face Hub -
+HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/changelog/hf-mcp-server">Link</a>]</p>
+</blockquote>
+<p>HuggingFace releases open-source MCP server to allow accessing its
+tools from VSCode and Claude Desktop.</p>
 <h2 id="new-book-list">New Book List</h2>
 <p>Some book names from my daily readings recently caught my attention
 and might be the next book to read for me:</p>
