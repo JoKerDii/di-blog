@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="I finally got time to have some deep dives. Happy Christmas! RAM Usage During Training Training large-scale machine learning models e.g. LLMs, requires significant compute resources. Here’s a breakdow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Understanding LoRA">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="I finally got time to have some deep dives. Happy Christmas! RAM Usage During Training Training large-scale machine learning models e.g. LLMs, requires significant compute resources. Here’s a breakdow">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png">
+<meta property="article:published_time" content="2024-12-25T20:11:11.000Z">
+<meta property="article:modified_time" content="2024-12-25T20:11:11.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="knowledge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/","path":"2024/12/25/Understanding-LoRA/","title":"Understanding LoRA"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Understanding LoRA | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ram-usage-during-training"><span class="nav-number">1.</span> <span class="nav-text">RAM Usage During Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#key-components-of-memory-usage"><span class="nav-number">1.1.</span> <span class="nav-text">Key Components of Memory
+Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-calculation-examples"><span class="nav-number">1.2.</span> <span class="nav-text">Memory Calculation Examples</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-strategies-for-reducing-memory-usage"><span class="nav-number">1.3.</span> <span class="nav-text">Simple Strategies
+for Reducing Memory Usage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lora"><span class="nav-number">2.</span> <span class="nav-text">LoRA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#adapters"><span class="nav-number">2.1.</span> <span class="nav-text">Adapters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lora-basics"><span class="nav-number">2.2.</span> <span class="nav-text">LoRA Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lora-usage"><span class="nav-number">2.3.</span> <span class="nav-text">LoRA Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implementation-of-lora---lora.linear"><span class="nav-number">2.4.</span> <span class="nav-text">Implementation of LoRA -
+lora.Linear()</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Understanding LoRA | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Understanding LoRA
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-12-25 15:11:11" itemprop="dateCreated datePublished" datetime="2024-12-25T15:11:11-05:00">2024-12-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>I finally got time to have some deep dives. Happy Christmas!</p>
+<h2 id="ram-usage-during-training">RAM Usage During Training</h2>
+<p>Training large-scale machine learning models e.g. LLMs, requires
+significant compute resources. Here’s a breakdown of the possible memory
+usage (RAM) at various stages of the classic training process, based on
+the pseudocode below:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">model = Model()</span><br><span class="line">optimizer = Adam(model.parameters())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch, (X, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">    <span class="comment"># Compute prediction and loss</span></span><br><span class="line">    pred = model(X)</span><br><span class="line">    loss = loss_fn(pred, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Backpropagation</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
+<h3 id="key-components-of-memory-usage">Key Components of Memory
+Usage</h3>
+<ol type="1">
+<li><p><strong>Model Parameters</strong>: These are the trainable
+weights of the model, which need to be stored in memory throughout the
+training process. The size is proportional to the number of parameters
+in the model.</p></li>
+<li><p><strong>Model Gradients</strong>: Gradients for each parameter
+are computed during backpropagation and stored temporarily for the
+optimizer to update the weights.</p></li>
+<li><p><strong>Optimizer States</strong>: Optimizers like Adam maintain
+additional states, including:</p>
+<ul>
+<li><p><strong>First-order momentum</strong>: Tracks the moving average
+of gradients.</p></li>
+<li><p><strong>Second-order momentum</strong>: Tracks the moving average
+of squared gradients.</p></li>
+<li><p>Both momentum terms have the same size as the model
+gradients.</p></li>
+</ul></li>
+<li><p><strong>Activations</strong>: Activation outputs from the forward
+pass are stored for use during backpropagation, where the Hessian matrix
+is multiplied with the activations. The memory required for activations
+can be substantial, especially as batch size increases. While the size
+of parameters, gradients, and optimizer states remains constant,
+activation memory scales directly with batch size.</p></li>
+<li><p><strong>Other Overheads</strong>: Temporary buffers and memory
+fragmentation during computation also contribute to RAM usage.</p></li>
+</ol>
+<h3 id="memory-calculation-examples">Memory Calculation Examples</h3>
+<ol type="1">
+<li><p><strong>Gradients and Parameters</strong>:</p>
+<p>For 70B model, using 32-bit floating-point precision (FP32): <span
+class="math display">\[
+70\times10^9\times4 \text{ bytes}\times2 =521.5\text{GM}
+\]</span> This accounts for the weights and their corresponding
+gradients.</p></li>
+<li><p><strong>Optimizer State</strong>:</p>
+<p>Adam optimizer requires two additional states (first and second-order
+momentum), each the same size as the gradients: <span
+class="math display">\[
+70\times10^9\times4 \text{ byte}\times2 =521.5\text{GM}
+\]</span></p></li>
+<li><p><strong>Activations</strong>:</p>
+<p>For 70B model with a hidden size of 8192, 80 layers, and FP32
+precision, each token’s activation memory: <span class="math display">\[
+8192\times80\times4\times12 \text{ bytes/token}=30\text{ MB/token}
+\]</span></p></li>
+</ol>
+<h3 id="simple-strategies-for-reducing-memory-usage">Simple Strategies
+for Reducing Memory Usage</h3>
+<ol type="1">
+<li><strong>Activation Checkpointing</strong>: Instead of storing all
+activation outputs, recompute activations during backpropagation as
+needed. This significantly reduces activation memory at the cost of
+additional compute time.</li>
+<li><strong>Mixed Precision Training (FP16)</strong>: Use 16-bit
+floating-point precision (FP16) instead of FP32 for model weights,
+gradients, and activations. This halves the memory requirements without
+substantial accuracy loss when done correctly.</li>
+</ol>
+<h2 id="lora">LoRA</h2>
+<h3 id="adapters">Adapters</h3>
+<p>The original adapter was introduced in 2019 in the paper "<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.00751">Parameter-Efficient Transfer
+Learning for NLP</a>". It's a small, additional module added to a
+pre-trained model to adapt it to a new task without significantly
+changing the original model parameters.</p>
+<figure>
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_architecture.png"
+alt="adapter_architecture" />
+<figcaption aria-hidden="true">adapter_architecture</figcaption>
+</figure>
+<p>Adapters generally <strong>reduce training latency</strong> compared
+to full fine-tuning because only a small number of parameters (those
+within the adapter modules) are updated during training. This reduction
+in trainable parameters leads to lower computational overhead and faster
+convergence in many cases. Additionally, adapters allow for larger batch
+sizes due to reduced memory usage, which can further accelerate
+training</p>
+<p>However, adapter layers <strong>increase inference latency</strong>
+because they are added sequentially and cannot be parallelized. This
+issue becomes more pronounced with small batch sizes or when using
+sharded models, such as GPT-2. Techniques like layer pruning or
+multi-task settings can mitigate but not completely eliminate this
+latency.</p>
+<p>As shown in the experiment results below, inference latent can be
+significant (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA
+paper</a>):</p>
+<figure>
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_experiment_results.png"
+alt="adapter_experiment_results" />
+<figcaption aria-hidden="true">adapter_experiment_results</figcaption>
+</figure>
+<h3 id="lora-basics">LoRA Basics</h3>
+<p>LoRA (Low-Rank Adaptation) was introduced by a Microsoft team in 2021
+in the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank
+Adaptation of Large Language Models</a>. The main idea of LoRA is to
+enable efficient fine-tuning of large pre-trained models by introducing
+low-rank trainable matrices into the model’s architecture, while keeping
+the original model weights frozen. This approach significantly reduces
+the number of trainable parameters and computational requirements
+compared to full fine-tuning, without compromising performance.</p>
+<figure>
+<img src="/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png"
+alt="lora_diagram" />
+<figcaption aria-hidden="true">lora_diagram</figcaption>
+</figure>
+<p>LoRA approximates weight updates in neural networks using
+<strong>low-rank matrix factorization</strong>. Instead of updating the
+full weight matrix <span class="math inline">\(W\)</span> , it
+introduces two smaller trainable matrices <span
+class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span> with size <span
+class="math inline">\((r \times d)\)</span> and <span
+class="math inline">\((d \times r)\)</span>. These matrices have much
+fewer parameters, as their rank <span class="math inline">\(r\)</span>
+is much smaller than the dimensions of <span
+class="math inline">\(W\)</span>. Instead of training <span
+class="math inline">\(\Delta W\)</span>, LoRA trains the parameters in
+<span class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span>. This can be written in formula: <span
+class="math display">\[
+h=W_0x + \Delta Wx = W_0x + BAx
+\]</span> where <span class="math inline">\(W_0\)</span> is original
+prerained weight matrix in size <span class="math inline">\((d\times
+d)\)</span> which is frozen during training; <span
+class="math inline">\(\Delta W\)</span> is in <span
+class="math inline">\((d \times d)\)</span> as well computed by <span
+class="math inline">\(BA\)</span>. <span
+class="math inline">\(x\)</span> is a new input with size <span
+class="math inline">\((1 \times d)\)</span>.</p>
+<p>At the start of the training process, the matrix $ A $ is randomly
+initialized following a normal distribution <span
+class="math inline">\(\mathcal{N}(0, \sigma^2)\)</span>, while the
+matrix $ B $ is initialized as a zero matrix. In the initial round, this
+setup results in $ BA = 0 $, leading to $ h = W_0x $. This
+initialization strategy ensures stability by preventing significant
+deviations of $ W_0 $ from its original state.</p>
+<p>LoRA is a groundbreaking method with a lot of
+<strong>benefits</strong>:</p>
+<ul>
+<li><strong>Parameter Efficiency</strong>: By training only the low-rank
+matrices, LoRA reduces the number of updated parameters resulting in
+lower memory usage and faster training.</li>
+<li><strong>Frozen Pre-trained Weights</strong>: The original
+pre-trained weights remain unchanged, preserving the model’s
+general-purpose knowledge and avoiding catastrophic forgetting.</li>
+<li><strong>No Inference Latency Overhead</strong>: Unlike adapters,
+LoRA does not add additional layers to the model. The low-rank matrices
+can be merged back into the original weight matrix after fine-tuning,
+ensuring no additional inference latency.</li>
+<li><strong>Versatility</strong>: LoRA can be applied to various
+architectures (e.g. transformers) and tasks, making it a flexible
+solution for adapting large models like GPT-3 or RoBERTa to specific use
+cases.</li>
+</ul>
+<h3 id="lora-usage">LoRA Usage</h3>
+<p>The Microsoft developers of LoRA created a Python package called <a
+target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA"><code>loralib</code></a> to
+facilitate the use of LoRA. With this library, any linear layer
+implemented as <code>nn.Linear()</code> can be replaced by
+<code>lora.Linear()</code>. This is possible because LoRA is designed to
+work with any layer involving matrix multiplication. The
+<code>lora.Linear()</code> module introduces a pair of low-rank
+adaptation matrices, which are used to modify the original weight matrix
+by applying a low-rank decomposition.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># layer = nn.Linear(in_features, out_features)</span></span><br><span class="line"><span class="comment"># ===== After ======</span></span><br><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line"><span class="comment"># Add a pair of low-rank adaptation matrices with rank r=16</span></span><br><span class="line">layer = lora.Linear(in_features, out_features, r=<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<p>Before training the model, all non-lora matrix should be fixed and
+only LoRA matrices should be set as trainable. Training loops can run as
+usual.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line">model = BigModel()</span><br><span class="line"><span class="comment"># This sets requires_grad to False for all parameters without the string &quot;lora_&quot; in their names</span></span><br><span class="line">lora.mark_only_lora_as_trainable(model)</span><br><span class="line"><span class="comment"># Training loop</span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataloader:</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p>When saving model checkpoints during LoRA fine-tuning, only the
+LoRA-specific parameters need to be saved, not the entire large
+pre-trained model. This results in significantly smaller checkpoint
+files and more efficient storage.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># torch.save(model.state_dict(), checkpoint_path)</span></span><br><span class="line"><span class="comment"># ===== After =====</span></span><br><span class="line">torch.save(lora.lora_state_dict(model), checkpoint_path)</span><br></pre></td></tr></table></figure>
+<h3 id="implementation-of-lora---lora.linear">Implementation of LoRA -
+lora.Linear()</h3>
+<p>Let's take a deep dive into the <code>lora.Linear()</code> <a
+target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA/blob/main/loralib/layers.py">source
+code</a>:</p>
+<p>The <code>lora.Linear</code> class builds upon
+<code>torch.nn.Linear()</code>. It retains the original weight matrix $
+W $ as initialized in
+<code>nn.Linear.__init__(self, in_features, out_features)</code>, and
+introduces two additional LoRA matrices: <code>self.lora_A</code> and
+<code>self.lora_B</code>. The matrix <code>self.lora_A</code> has
+dimensions of $ (r, ) $, while <code>self.lora_B</code> has dimensions
+of $ (, r) $. These matrices are used to adapt the original weight
+matrix through low-rank decomposition.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        nn.Linear.__init__(<span class="variable language_">self</span>, in_features, out_features, **kwargs)</span><br><span class="line">        LoRALayer.__init__(<span class="variable language_">self</span>, r=r, lora_alpha=lora_alpha, lora_dropout=lora_dropout,</span><br><span class="line">                           merge_weights=merge_weights)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.fan_in_fan_out = fan_in_fan_out</span><br><span class="line">        <span class="comment"># Actual trainable parameters</span></span><br><span class="line">        <span class="keyword">if</span> r &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="variable language_">self</span>.lora_A = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((r, in_features)))</span><br><span class="line">            <span class="variable language_">self</span>.lora_B = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((out_features, r)))</span><br><span class="line">            <span class="variable language_">self</span>.scaling = <span class="variable language_">self</span>.lora_alpha / <span class="variable language_">self</span>.r</span><br><span class="line">            <span class="comment"># Freezing the pre-trained weight matrix</span></span><br><span class="line">            <span class="variable language_">self</span>.weight.requires_grad = <span class="literal">False</span></span><br><span class="line">        <span class="variable language_">self</span>.reset_parameters()</span><br><span class="line">        <span class="keyword">if</span> fan_in_fan_out:</span><br><span class="line">            <span class="variable language_">self</span>.weight.data = <span class="variable language_">self</span>.weight.data.transpose(<span class="number">0</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>In the <code>forward()</code> function, it implements <span
+class="math inline">\(h=W_0x + \Delta Wx = W_0x+ BAx\)</span>.</p>
+<p>There is a flag variable called <code>self.merge</code> which is use
+to flag whether it's doing inference or training. Recall that the
+original weight matrix remaining unchanged during LoRA training is a key
+feature of the LoRA - pre-trained weights are freezed and instead small,
+low-rank matrices are trained to approximate updates.</p>
+<ul>
+<li>During inference, if <code>merge_weights</code> is set to
+<code>True</code>, the low-rank updates
+<code>self.lora_B @ self.lora_A</code> are added directly to the frozen
+pre-trained weights (<code>self.weight</code>). This avoids the need for
+separate computations of LoRA updates during forward passes, improving
+efficiency.</li>
+<li>During training, if <code>merge_weights</code> is enabled and
+weights were previously merged, the updates are subtracted from
+<code>self.weight</code> to revert it to its original frozen state. This
+ensures that gradients are not incorrectly computed on the merged
+weights.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, mode: <span class="built_in">bool</span> = <span class="literal">True</span></span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        nn.Linear.train(<span class="variable language_">self</span>, mode)</span><br><span class="line">        <span class="keyword">if</span> mode:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Make sure that the weights are not merged</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data -= T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Merge the weights and mark it</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data += T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">True</span>    </span><br><span class="line">                </span><br><span class="line">			<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">            result = F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)            </span><br><span class="line">            result += (<span class="variable language_">self</span>.lora_dropout(x) @ <span class="variable language_">self</span>.lora_A.transpose(<span class="number">0</span>, <span class="number">1</span>) @ <span class="variable language_">self</span>.lora_B.transpose(<span class="number">0</span>, <span class="number">1</span>)) * <span class="variable language_">self</span>.scaling</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)</span><br><span class="line">          </span><br><span class="line">      ......</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/knowledge/" rel="tag"># knowledge</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2024/12/25/Langchain-Common-Practices/" rel="prev" title="LangChain Common Practices">
+                  <i class="fa fa-angle-left"></i> LangChain Common Practices
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2024/12/26/Understanding-QLoRA/" rel="next" title="Understanding QLoRA">
+                  Understanding QLoRA <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

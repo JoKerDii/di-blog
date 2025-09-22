@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="My thoughts regarding the AI landscape at the current stage: As open-source AI becomes more affordable, it is poised to become as ubiquitous and accessible as electricity—financially viable for everyo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek-R1: Pivotal Moment">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2025/02/01/DeepSeek-R1-Pivotal-Moment/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="My thoughts regarding the AI landscape at the current stage: As open-source AI becomes more affordable, it is poised to become as ubiquitous and accessible as electricity—financially viable for everyo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-02T02:21:58.000Z">
+<meta property="article:modified_time" content="2025-02-02T02:21:58.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="knowledge">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2025/02/01/DeepSeek-R1-Pivotal-Moment/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2025/02/01/DeepSeek-R1-Pivotal-Moment/","path":"2025/02/01/DeepSeek-R1-Pivotal-Moment/","title":"DeepSeek-R1: Pivotal Moment"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DeepSeek-R1: Pivotal Moment | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#deepseek---background"><span class="nav-number">1.</span> <span class="nav-text">DeepSeek - Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#export-controls-on-gpus-to-china"><span class="nav-number">2.</span> <span class="nav-text">Export Controls on GPUs to
+China</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sidenote---gpus-for-ai"><span class="nav-number">2.1.</span> <span class="nav-text">Sidenote - GPUs for AI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepseek---technical-comments"><span class="nav-number">3.</span> <span class="nav-text">DeepSeek - Technical
+Comments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#the-tech-and-business-perspective"><span class="nav-number">4.</span> <span class="nav-text">The Tech and Business
+Perspective</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#academic-and-research-perspectives"><span class="nav-number">5.</span> <span class="nav-text">Academic and
+Research Perspectives</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#impact-discussion"><span class="nav-number">6.</span> <span class="nav-text">Impact Discussion</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2025/02/01/DeepSeek-R1-Pivotal-Moment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DeepSeek-R1: Pivotal Moment | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DeepSeek-R1: Pivotal Moment
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-01 21:21:58" itemprop="dateCreated datePublished" datetime="2025-02-01T21:21:58-05:00">2025-02-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>My thoughts regarding the AI landscape at the current stage:</p>
+<p>As open-source AI becomes more affordable, it is poised to become as
+ubiquitous and accessible as electricity—financially viable for
+everyone. The AI and AGI arms race, whether between nations, open- and
+closed-source models, or competing companies, is effectively over or
+should be over, and the outcome is clear. Compute power still remains
+essential, but semiconductor giants like NVIDIA should look beyond
+language model training and inference, shifting their focus to the next
+frontiers, such as robotics and world models. Now is the time for
+developers and startups to concentrate on the vertical integration of
+AI, where real economic value can be realized.</p>
+<h2 id="deepseek---background">DeepSeek - Background</h2>
+<p>DeepSeek began as a research offshoot of
+<strong>High-Flyer</strong>—a hedge fund that had already amassed a
+large GPU inventory (reportedly 10,000 Nvidia A100s in 2021). Over time,
+this resource base appears to have grown, with estimates suggesting
+that—when you account for research, ablation experiments, and shared
+infrastructure with trading—the effective pool might be closer to 50,000
+GPUs. This expansive compute power enables DeepSeek to run many
+experiments simultaneously and quickly iterate on new architectures.</p>
+<p>By leveraging a shared infrastructure with its hedge fund operations,
+DeepSeek can reinvest profits from quant trading into AI research. This
+model of “doing more with less” not only challenges the notion that
+massive, multibillion-dollar compute expenditures are necessary to build
+world-class AI models but also has broader implications for the
+industry. It raises questions about the future economics of AI
+development and the potential for more cost-efficient, research-driven
+models to shift market dynamics, as seen by the notable impact on
+Nvidia’s stock and market sentiment.</p>
+<h2 id="export-controls-on-gpus-to-china">Export Controls on GPUs to
+China</h2>
+<p>In essence, the U.S. government originally imposed limits on chips
+that exceed certain thresholds in both <strong>interconnect
+bandwidth</strong> and <strong>compute (FLOPs)</strong> to restrict
+China’s ability to train massive AI models. Early on, chips that
+combined high interconnect speeds with high FLOPs were off‐limits.</p>
+<p>For example, the H100—one of Nvidia’s top GPUs—was deemed too
+powerful. In response, Nvidia developed the H800, which maintained the
+same floating point performance (FLOPs) as the H100 but had its
+interconnect bandwidth intentionally reduced to meet U.S. export
+criteria. However, when the government later decided to tighten controls
+further (targeting chips solely on FLOPs), even the H800 was banned.
+This led Nvidia to innovate once again with the H20, a chip that now
+offers full interconnect bandwidth (and even improved memory
+characteristics over the H100) but with a deliberate cut in overall
+FLOPs to satisfy export rules.</p>
+<p>The strategic rationale behind these controls is to “decap” China’s
+compute—especially for large-scale AI training—by limiting how many of
+the most advanced GPUs (and thus the overall density of compute) can be
+legally acquired. While Chinese companies can still purchase GPUs to
+train models, the overall capacity available for training (which is
+critical for developing super-powerful AI) is being capped. This is seen
+as a way to maintain U.S. and allied leadership in AI, particularly in a
+world where super-powerful AI may soon offer decisive military and
+economic advantages.</p>
+<h3 id="sidenote---gpus-for-ai">Sidenote - GPUs for AI</h3>
+<p><strong>Keys GPU Specifications:</strong></p>
+<ul>
+<li><strong>FLOPS (Compute Power)</strong>: Critical for training large
+models (e.g., GPT-4) but less critical for inference tasks like
+reasoning.</li>
+<li><strong>Memory Bandwidth/Capacity</strong>: Determines how much data
+(e.g., KV cache in transformers) can be stored and accessed quickly,
+crucial for long-sequence tasks.</li>
+<li><strong>Interconnect Speed</strong>: Affects communication between
+GPUs in clusters, important for distributed training but less regulated
+now.</li>
+</ul>
+<p><strong>H20 vs. H100: Tradeoffs for AI Workloads:</strong></p>
+<ul>
+<li><p><strong>H20 (China-Specific):</strong> has its strength in higher
+memory bandwidth and capacity than H100, making it better suited for
+<strong>reasoning tasks</strong> (e.g., long-context inference,
+chain-of-thought). However, FLOPS (≈1/3 of H100 on paper, ≈50-60% in
+practice) is reduced, limiting its utility for training.</p>
+<p><strong>Regulatory Context</strong>: Designed to comply with U.S.
+export controls that focus on FLOPS, allowing Nvidia to ship 1M units to
+China in 2023 (20-25% of total GPUs).</p></li>
+<li><p><strong>H100</strong>: Optimized for FLOPS-heavy training but
+less efficient for memory-bound inference tasks</p></li>
+</ul>
+<p><strong>Why Memory Matters for Reasoning:</strong></p>
+<ul>
+<li><strong>KV Cache in Transformers</strong> stores keys/values of all
+tokens in a sequence for attention mechanisms. Memory demands grow
+<strong>quadratically</strong> with sequence length (e.g., 10K+ tokens
+in reasoning tasks).</li>
+<li><strong>Autoregressive Generation</strong>: Output tokens require
+sequential processing, forcing repeated KV cache access. This limits
+parallelism and increases memory pressure. Tasks like agentic AI or
+chain-of-thought involve generating long outputs (10K+ tokens),
+stressing memory bandwidth/capacity.</li>
+</ul>
+<h2 id="deepseek---technical-comments">DeepSeek - Technical
+Comments</h2>
+<p>Paper: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2412.19437">DeepSeek-V3
+Technical Report</a></p>
+<p><strong>GPU Infrastructure with Nvidia Hardware</strong></p>
+<ul>
+<li>DeepSeek trains on <strong>Nvidia GPUs</strong>. These are equipped
+with many cores (organized into streaming multiprocessors, or SMs) that
+perform the heavy lifting during both training and inference.</li>
+<li>The GPUs they used were those <strong>legally available in
+China</strong>, which imposed certain limitations—especially on
+interconnect bandwidth between units. This meant that DeepSeek needed to
+overcome hardware constraints that might not be present with the very
+latest high-end GPUs elsewhere.</li>
+</ul>
+<p><strong>Custom Low-Level Optimization</strong></p>
+<ul>
+<li>Instead of relying solely on Nvidia’s standard NCCL (Nvidia
+Communications Collectives Library) for handling inter-GPU
+communications, DeepSeek’s engineers developed custom scheduling
+techniques. They even <strong>scheduled communications at the SM
+level</strong>, which is more granular than the typical approach.</li>
+<li>Their implementation involved programming approaches that went deep
+into the hardware—down to using <strong>PTX</strong> (an intermediate
+assembly-like language for CUDA). This allowed them to squeeze extra
+efficiency from each GPU by reducing the overhead in communication
+between layers of the model.</li>
+</ul>
+<p><strong>Efficiency via Architectural Choices</strong></p>
+<ul>
+<li>One of the key innovations was using a <strong>sparse Mixture of
+Experts (MoE) architecture</strong>. With a model that can have hundreds
+of billions of parameters overall but only activates a fraction (e.g.,
+around 37 billion at a time), the compute and memory demands are
+dramatically reduced. This architectural choice means that even if the
+hardware isn’t the absolute latest, it can still be very cost-effective
+by not needing to run every parameter for every token.</li>
+<li>DeepSeek's novel attention mechanism <strong>MLA (Multi-Head Latent
+Attention)</strong> reduces memory usage by 80–90% compared to
+traditional transformer attention. This optimization lowers
+computational costs, especially for long-context processing, without
+sacrificing performance.</li>
+<li>By optimizing both the hardware usage (through custom scheduling and
+low-level programming) and the model architecture (via MoE and MLA),
+DeepSeek manages to cut down on the cost of training. This is crucial
+given the significant compute expense associated with large-scale
+language models.</li>
+</ul>
+<p><strong>Pre-Training and Context Window Extension</strong></p>
+<ul>
+<li>Pre-trained on 14.8 trillion tokens drawn from a multilingual corpus
+(primarily English and Chinese) with a higher proportion of math and
+programming content compared to previous iterations.</li>
+<li>Utilizes a two-phase extension (via the YaRN framework) to expand
+the context length from 4K tokens to 32K and finally to 128K
+tokens.</li>
+<li>Reported training cost for V3 is approximately $5.58 million,
+consuming about 2.788 million GPU-hours on Nvidia H800 GPUs. This figure
+is significantly lower than the hundreds of millions typically reported
+by US rivals.</li>
+</ul>
+<p><strong>Post-Training: Supervised Fine-Tuning &amp; Reinforcement
+Learning</strong></p>
+<ul>
+<li>V3 is fine-tuned on a carefully curated dataset of approximately 1.5
+million examples (both reasoning and non-reasoning tasks) to improve
+instruction-following and output formatting.</li>
+<li>DeepSeek employs <strong>GRPO</strong>—a <strong>group relative
+policy optimization method</strong>—to reward outputs based on
+correctness (accuracy rewards) and presentation (format rewards).</li>
+<li>R1 leverages RL to fine-tune the reasoning process, rewarding
+chain-of-thought quality and encouraging the model to generate
+self-reflective “aha moments.”</li>
+</ul>
+<p><strong>Speed-to-Market and Safety Tradeoffs</strong></p>
+<ul>
+<li><p>DeepSeek prioritizes rapid deployment over extensive safety
+testing, avoiding delays and costs associated with ethical reviews
+(common in Western firms like Anthropic). This "ship-first" approach
+reduces development cycle expenses.</p></li>
+<li><p>Releasing model weights publicly attracts third-party hosting and
+innovation, indirectly expanding reach without bearing full
+infrastructure costs.</p></li>
+</ul>
+<h2 id="the-tech-and-business-perspective"><strong>The Tech and Business
+Perspective</strong></h2>
+<p>The release of DeepSeek-R1 marks a pivotal moment in the AI industry,
+igniting discussions about open-source dominance, market disruption, and
+geopolitical implications.</p>
+<p><strong>Industry Leaders Weigh In</strong>:</p>
+<p><strong>Yann LeCun (Meta’s Chief AI Scientist)</strong></p>
+<p>LeCun emphasized the growing power of open-source models over
+proprietary approaches:</p>
+<blockquote>
+<p><em>"To people who see the performance of DeepSeek and think China is
+surpassing the US in AI. You are reading this wrong. The correct reading
+is: Open source models are surpassing proprietary ones."</em></p>
+</blockquote>
+<p><strong>Andrej Karpathy (OpenAI Co-founder)</strong></p>
+<p>Karpathy pointed out the continued need for large-scale computing
+while praising DeepSeek’s efficiency:</p>
+<blockquote>
+<p><em>"Does this mean you don't need large GPU clusters for frontier
+LLMs? No, but you have to ensure that you're not wasteful with what you
+have, and this looks like a nice demonstration that there's still a lot
+to get through with both data and algorithms."</em></p>
+</blockquote>
+<p><strong>Satya Nadella (Microsoft CEO)</strong></p>
+<p>Nadella underscored the significance of DeepSeek, highlighting its
+role in making AI reasoning more accessible:</p>
+<blockquote>
+<p><em>"We should take the developments out of China very, very
+seriously."</em> <em>"DeepSeek has had some real innovations. …
+Obviously, now all that gets commoditized."</em> <em>"When token prices
+fall, inference computing prices fall, that means people can consume
+more, and there will be more apps written."</em></p>
+</blockquote>
+<p><strong>Mark Zuckerberg (Meta CEO)</strong></p>
+<p>Zuckerberg acknowledged DeepSeek's novel infrastructure
+optimizations:</p>
+<blockquote>
+<p><em>"DeepSeek had a few pretty novel infrastructure optimization
+advances, which, fortunately, they published them, so we can not only
+observe what they did, but we can read about it and implement it, so
+that'll benefit us."</em> <em>"Always interesting when there's someone
+who does something better than you. Let's make sure we are on
+it."</em></p>
+</blockquote>
+<p><strong>Aravind Srinivas (Perplexity AI CEO)</strong></p>
+<p>Srinivas stressed the importance of foundational innovation:</p>
+<blockquote>
+<p><em>"We need to build, not just wrap existing AI."</em></p>
+</blockquote>
+<p><strong>Marc Andreessen (Andreessen Horowitz Co-founder)</strong></p>
+<p>He likened DeepSeek-R1 to a historic milestone:</p>
+<blockquote>
+<p><em>"DeepSeek R1 is AI's Sputnik moment."</em></p>
+</blockquote>
+<p><strong>Tim Cook (Apple CEO)</strong></p>
+<p>Cook gave a measured response during an earnings call:</p>
+<blockquote>
+<p><em>"In general, I think innovation that drives efficiency is a good
+thing."</em></p>
+</blockquote>
+<h2 id="academic-and-research-perspectives"><strong>Academic and
+Research Perspectives</strong></h2>
+<p><strong>AI Researchers on DeepSeek-R1</strong>:</p>
+<p><strong>Timnit Gebru (AI Ethics Researcher)</strong></p>
+<p>Gebru reflected on past AI development priorities:</p>
+<blockquote>
+<p><em>"At Google, I asked why they were fixated on building THE LARGEST
+model. Why are you going for size? What function are you trying to
+achieve? They responded by firing me."</em></p>
+</blockquote>
+<p><strong>Ethan Mollick (Wharton AI Professor)</strong></p>
+<p>Mollick focused on accessibility rather than capabilities:</p>
+<blockquote>
+<p><em>"DeepSeek is a really good model, but it is not generally a
+better model than o1 or Claude. But since it is both free and getting a
+ton of attention, I think a lot of people who were using free 'mini'
+models are being exposed to what an early 2025 reasoner AI can do and
+are surprised."</em></p>
+</blockquote>
+<p><strong>Andrew Ng (AI Researcher and Entrepreneur)</strong></p>
+<p>Ng saw the market reaction as an opportunity for developers:</p>
+<blockquote>
+<p><em>"Today's 'DeepSeek selloff' in the stock market—attributed to
+DeepSeek V3/R1 disrupting the tech ecosystem—is another sign that the
+application layer is a great place to be. The foundation model layer
+being hyper-competitive is great for people building
+applications."</em></p>
+</blockquote>
+<p><strong>Global Academic Community Response</strong>:</p>
+<p>Huan Sun from Ohio State University noted that DeepSeek's
+affordability is expanding LLM adoption in research. Cong Lu from the
+University of British Columbia highlighted R1’s rapid adoption,
+surpassing 3 million downloads on Hugging Face in a week. Meanwhile,
+safety concerns emerged as studies revealed R1 is 11 times more likely
+to generate harmful content compared to OpenAI models, prompting calls
+for better safeguards.</p>
+<h2 id="impact-discussion">Impact Discussion</h2>
+<p><strong>Market and Industry Impact</strong></p>
+<p>The release of DeepSeek-R1 caused massive shifts in financial
+markets. U.S. tech stocks collectively lost <span
+class="math inline">\(\$1\)</span> trillion, with Nvidia suffering
+record losses due to the rising competition from this cost-efficient
+model. Investors are recalibrating AI development strategies as DeepSeek
+achieved comparable performance to OpenAI’s models at just <span
+class="math inline">\(\$6\)</span> million versus OpenAI’s <span
+class="math inline">\(\$100\)</span> million.</p>
+<p><strong>Integration into Cloud Ecosystems</strong></p>
+<p>AWS and Microsoft Azure have incorporated DeepSeek-R1, enabling
+developers to explore its capabilities securely and cost-effectively.
+The emergence of cost-effective models like DeepSeek R1 is forcing a
+shift in AI economics, emphasizing efficiency over massive capital
+investments. As a result, competition in the AI sector is intensifying,
+ushering in a “warring states era” where companies are scrambling for
+innovation in cost-effective models.</p>
+<p><strong>Geopolitical and National Security Implications</strong></p>
+<p>The success of DeepSeek R1 has intensified concerns that the U.S. is
+losing its technological edge to China. Policymakers are reassessing
+export controls on advanced chips in light of DeepSeek's ability to
+innovate using restricted hardware. Security concerns have also prompted
+the U.S. Navy to ban the use of DeepSeek R1 due to potential security
+and ethical risks, fueling debates over the implications of adopting
+foreign-developed AI systems.</p>
+<p><strong>Open-Source vs Proprietary Models</strong></p>
+<p>DeepSeek R1 is accelerating the democratization of AI by lowering
+barriers for smaller developers and researchers, fostering innovation.
+However, transparency concerns remain as DeepSeek has not disclosed its
+training data, raising ethical and bias-related questions.</p>
+<p><strong>Ethical and Technical Questions</strong></p>
+<p>Concerns have emerged regarding potential censorship, as some
+versions of DeepSeek R1 appear to align with Chinese narratives.
+Additionally, skepticism exists over whether DeepSeek’s reported costs
+and capabilities are fully accurate, with some experts questioning the
+factors that contributed to its success.</p>
+<p><strong>Public Sentiment and the Future of AI</strong></p>
+<p>Public reaction to DeepSeek-R1 has been mixed. Some view this as a
+“Sputnik moment,” encouraging U.S. firms to accelerate AI innovation
+while leveraging open-source models to stay competitive. Others see it
+as a wake-up call, with former President Donald Trump urging U.S.
+industries to adapt quickly to maintain leadership in AI
+development.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/knowledge/" rel="tag"># knowledge</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/01/24/Persisting-Agent-State/" rel="prev" title="Persisting Agent State">
+                  <i class="fa fa-angle-left"></i> Persisting Agent State
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/02/02/2025-February/" rel="next" title="2025 February - What I Have Read">
+                  2025 February - What I Have Read <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

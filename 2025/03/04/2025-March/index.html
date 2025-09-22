@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="Blogs and Articles  How to Build a Graph RAG App - Steve Hedden [Link]  Walking through building a graph rag app that improves LLM accuracy using knowledge graphs. It covers data preparation, search r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025 March - What I Have Read">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="Blogs and Articles  How to Build a Graph RAG App - Steve Hedden [Link]  Walking through building a graph rag app that improves LLM accuracy using knowledge graphs. It covers data preparation, search r">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/tencent_corporate_overview.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/HunYuan_Thesis.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/google_biggest_acquisition.png">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/huatuogpto1.png">
+<meta property="article:published_time" content="2025-03-04T05:15:05.000Z">
+<meta property="article:modified_time" content="2025-03-04T05:15:05.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="readings">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/tencent_corporate_overview.png">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2025/03/04/2025-March/","path":"2025/03/04/2025-March/","title":"2025 March - What I Have Read"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2025 March - What I Have Read | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#blogs-and-articles"><span class="nav-number">1.</span> <span class="nav-text">Blogs and Articles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#substack"><span class="nav-number">2.</span> <span class="nav-text">Substack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#papers-and-reports"><span class="nav-number">3.</span> <span class="nav-text">Papers and Reports</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#youtube-and-podcasts"><span class="nav-number">4.</span> <span class="nav-text">YouTube and Podcasts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github"><span class="nav-number">5.</span> <span class="nav-text">Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#news"><span class="nav-number">6.</span> <span class="nav-text">News</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2025/03/04/2025-March/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2025 March - What I Have Read | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2025 March - What I Have Read
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-03-04 00:15:05" itemprop="dateCreated datePublished" datetime="2025-03-04T00:15:05-05:00">2025-03-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="blogs-and-articles">Blogs and Articles</h2>
+<blockquote>
+<p><strong>How to Build a Graph RAG App - Steve Hedden</strong> [<a
+target="_blank" rel="noopener" href="https://towardsdatascience.com/how-to-build-a-graph-rag-app-b323fc33ba06/">Link</a>]</p>
+</blockquote>
+<p>Walking through building a graph rag app that improves LLM accuracy
+using knowledge graphs. It covers data preparation, search refinement
+with MeSH terms, and article summarization.</p>
+<blockquote>
+<p><em>We believe that, in 2025, we may see the first AI agents “join
+the workforce” and materially change the output of companies. We
+continue to believe that iteratively putting great tools in the hands of
+people leads to great, broadly-distributed outcomes.</em></p>
+<p><strong>― Reflections - Sam Altman</strong> [<a
+target="_blank" rel="noopener" href="https://blog.samaltman.com/reflections">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Structured Report Generation Blueprint with NVIDIA
+AI</strong> [<a
+target="_blank" rel="noopener" href="https://blog.langchain.dev/structured-report-generation-blueprint/">Link</a>]
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=E04rFNtwFcA">YouTube</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Sky-T1: Train your own O1 preview model within $450</strong>
+- <a target="_blank" rel="noopener" href="https://novasky-ai.github.io/">NovaSky</a> [<a
+target="_blank" rel="noopener" href="https://novasky-ai.github.io/posts/sky-t1/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Agents - Chip Huyen</strong> [<a
+target="_blank" rel="noopener" href="https://huyenchip.com//2025/01/07/agents.html">Link</a>]</p>
+</blockquote>
+<p>This guide provides a comprehensive exploration of AI-powered agents,
+focusing on their capabilities, planning, tool selection, and failure
+modes. It delves into the factors determining an agent's performance,
+how LLMs can plan, and how to augment planning capabilities. It also
+provides insights into agent failures and how to evaluate them
+effectively.</p>
+<blockquote>
+<p><strong>The Batch Issue 284 - DeepLearning.AI - Andrew Ng</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.deeplearning.ai/the-batch/issue-284/">Link</a>]</p>
+</blockquote>
+<p>Andrew Ng highlights AI Product Management’s growth as software
+becomes cheaper to build.</p>
+<blockquote>
+<p><strong>DeepSeek V3 LLM NVIDIA H200 GPU Inference Benchmarking -
+DataCrunch</strong> [<a
+target="_blank" rel="noopener" href="https://datacrunch.io/blog/deepseek-v3-llm-nvidia-h200-gpu-inference-benchmarking">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Global-batch load balance almost free lunch to improve your
+MoE LLM training - Qwen</strong> [<a
+target="_blank" rel="noopener" href="https://qwenlm.github.io/blog/global-load-balance/">Link</a>]</p>
+</blockquote>
+<p>MoE models struggle with expert underutilization due to
+micro-batch-level load balancing, which fails when data within a batch
+lacks diversity. This results in poor expert specialization and model
+performance.</p>
+<p>The paper proposes global-batch load balancing, where expert
+selection frequencies are synchronized across all parallel groups,
+ensuring more effective domain specialization and improved
+performance.</p>
+<p>Global-batch load balancing outperforms micro-batch balancing in all
+tested configurations. It shows improved performance and expert
+specialization, with models achieving better results across various data
+sizes and domains.</p>
+<blockquote>
+<p><strong>How to Evaluate LLM Summarization - Isaac Tham</strong> [<a
+target="_blank" rel="noopener" href="https://towardsdatascience.com/how-to-evaluate-llm-summarization-18a040c3905d/">Link</a>]</p>
+</blockquote>
+<p>A quantitative, research-backed framework for evaluating LLM
+summaries, focusing on conciseness and coherence. This guide explores
+challenges in summarization evaluation, defines key quality metrics
+(conciseness, coherence), and improves the Summarization Metric in the
+DeepEval framework. Includes a GitHub notebook for applying these
+methods to assess summaries of long-form content systematically.</p>
+<blockquote>
+<p><strong>We just gave sight to smolagents - HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/blog/smolagents-can-see">Link</a>]</p>
+</blockquote>
+<p>This tutorial is about how to integrate vision capabilities into
+autonomous agents using smolagents. It explains passing images to agents
+in two ways: at initialization or dynamically via callbacks. It
+demonstrates building a web-browsing agent with vision using the
+MultiStepAgent class and helium. The agent performs actions like
+navigation, popup handling, and dynamic webpage analysis.</p>
+<blockquote>
+<p><strong>On DeepSeek and Export Controls - Dario Amodei</strong> [<a
+target="_blank" rel="noopener" href="https://darioamodei.com/on-deepseek-and-export-controls">Link</a>]</p>
+</blockquote>
+<p>Highlighting export controls' impact on AI geopolitics.</p>
+<blockquote>
+<p><strong>Workflows and Agents - LangGraph</strong> [<a
+target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/tutorials/workflows/">Link</a>]</p>
+</blockquote>
+<p>Review of common patterns for agentic systems.</p>
+<blockquote>
+<p><strong>Constitutional Classifiers: Defending against universal
+jailbreaks - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/research/constitutional-classifiers">Link</a>]
+[<a target="_blank" rel="noopener" href="https://youtu.be/BaNXYqcfDyo">YouTube</a>]</p>
+</blockquote>
+<p>Anthropic invites everyone to test its new safety classifier that
+eradicates jailbreaks and further increases Claude's over-refusal
+rate.</p>
+<blockquote>
+<p><strong>Open-source DeepResearch – Freeing our search agents -
+HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/blog/open-deep-research">Link</a>]</p>
+</blockquote>
+<p>Hugging Face challenges OpenAI’s Deep Research with an open-source
+alternative, beating previous SOTA by 9 points.</p>
+<blockquote>
+<p><strong>Choosing the Right AI Agent Framework: LangGraph vs CrewAI vs
+OpenAI Swarm - Yi Zhang</strong> [<a
+target="_blank" rel="noopener" href="https://blog.relari.ai/choosing-the-right-ai-agent-framework-langgraph-vs-crewai-vs-openai-swarm-56f7931b4249">Link</a>]</p>
+</blockquote>
+<p>Compare LangGraph, CrewAI, and OpenAI Swarm frameworks for building
+agentic applications with hands-on examples. Understand when to use each
+framework, and get a preview of debugging and observability topics in
+Part II.</p>
+<blockquote>
+<p><strong>How to Scale Your Model - Google DeepMind</strong> [<a
+target="_blank" rel="noopener" href="https://jax-ml.github.io/scaling-book/">Link</a>]</p>
+</blockquote>
+<p>Learn how to scale LLMs on TPUs by understanding hardware
+limitations, parallelism, and efficient training techniques. Explore how
+to estimate training costs, memory needs, and optimize performance using
+strategies like data, tensor, pipeline, and expert parallelism. Gain
+hands-on experience with LLaMA-3, and learn to profile and debug your
+code.</p>
+<blockquote>
+<p><strong>Three Observations - Sam Altman</strong> [<a
+target="_blank" rel="noopener" href="https://blog.samaltman.com/three-observations">Link</a>]</p>
+</blockquote>
+<p>Sam outlines AI trends: AI’s scaling limits, cost reduction, and the
+future of autonomous agents.</p>
+<blockquote>
+<p><strong>How to deploy and fine-tune DeepSeek models on AWS -
+HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/blog/deepseek-r1-aws">Link</a>]</p>
+</blockquote>
+<p>Deploy and fine-tune DeepSeek-R1 models on AWS using Hugging Face
+with GPUs, SageMaker, and EC2 Neuron.</p>
+<blockquote>
+<p><strong>Building a Universal Assistant to connect with any API -
+Pranav Dhoolia</strong> [<a
+target="_blank" rel="noopener" href="https://medium.com/heurislabs/building-a-universal-assistant-to-connect-with-any-api-89d7c353e524">Link</a>]</p>
+</blockquote>
+<p>Convert any OpenAPI spec into an MCP-compatible API assistant without
+writing custom integration code. Use a generic MCP server to expose API
+endpoints dynamically. This approach simplifies integration, expands
+compatibility, and makes scaling API support more efficient.</p>
+<blockquote>
+<p><strong>From PDFs to Insights: Structured Outputs from PDFs with
+Gemini 2.0 - Philschmid</strong> [<a
+target="_blank" rel="noopener" href="https://www.philschmid.de/gemini-pdf-to-data">Link</a>]</p>
+</blockquote>
+<p>Learn to convert PDFs into structured JSON using Gemini 2.0. Set up
+the SDK, process files, manage tokens, and define JSON schemas with
+Pydantic. Covers real-world examples like invoices and forms, best
+practices, and cost management, works within the free tier.</p>
+<blockquote>
+<p><strong>The Hidden Ways We Really Work Together - Microsoft</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/worklab/patterns-hidden-inside-the-org-chart">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Managing LLM implementation projects - Piotr
+Jurowiec</strong> [<a
+target="_blank" rel="noopener" href="https://piotr-jurowiec.medium.com/managing-llm-implementation-projects-2daa0ef5c67a">Link</a>]</p>
+</blockquote>
+<p>Discover how to implement LLMs from initial planning to deployment.
+Establish project goals, select suitable architectures, preprocess data,
+train and evaluate models, optimize hyperparameters, and incorporate
+domain expertise. Tackle challenges such as hallucinations, security
+risks, regulatory compliance, and scalability limitations. Develop
+systematic workflows for building and managing LLM-based
+applications.</p>
+<blockquote>
+<p><strong>How to build a ChatGPT-Powered AI tool to learn technical
+things fast - AWS</strong> [<a
+target="_blank" rel="noopener" href="https://community.aws/content/2hEttGRiSiGwAn2Bzl0lbQcT7v6/build-ai-with-hf-chatgpt">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>What Problem Does The Model Context Protocol Solve? -
+AIhero</strong> [<a
+target="_blank" rel="noopener" href="https://www.aihero.dev/what-problem-does-model-context-protocol-solve">Link</a>]</p>
+</blockquote>
+<p>Learn how the Model Context Protocol (MCP) simplifies integrating
+large language models (LLMs) with external APIs.</p>
+<p>MCP acts as a connector between LLMs and external data sources,
+facilitating interactions with tools without requiring LLMs to
+understand intricate APIs. By providing a standardized interface, it
+streamlines integrations with platforms like GitHub, enhancing workflow
+speed and efficiency.</p>
+<blockquote>
+<p><strong>Most AI value will come from broad automation, not from
+R&amp;D - Epoch AI</strong> [<a
+target="_blank" rel="noopener" href="https://epoch.ai/gradient-updates/most-ai-value-will-come-from-broad-automation-not-from-r-d">Link</a>]</p>
+</blockquote>
+<p>Epoch AI's article argues against the popular notion that the primary
+economic benefit of artificial intelligence will stem from its
+application in research and development. Instead, the authors posit that
+AI's most significant value will arise from its widespread deployment in
+automating existing labor across various sectors.</p>
+<h2 id="substack">Substack</h2>
+<blockquote>
+<p><strong>Tencent: Betting Big on AI - App Economy Insights</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/tencent-betting-big-on-ai">Link</a>]</p>
+</blockquote>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/tencent_corporate_overview.png"
+alt="tencent_corporate_overview" />
+<figcaption aria-hidden="true">tencent_corporate_overview</figcaption>
+</figure>
+<p>Tencent's proprietary HunYuan framework has developed into a central
+AI platform catering to both consumers and enterprises. Originally
+centered on text and conversational AI, HunYuan has expanded to support
+multimodal capabilities, including image, video, and 3D generation,
+where it has attained top rankings in industry benchmarks.</p>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/HunYuan_Thesis.png"
+alt="HunYuan_Thesis" />
+<figcaption aria-hidden="true">HunYuan_Thesis</figcaption>
+</figure>
+<p>Tencent has a Dual-Core AI strategy: It combines its proprietary T1
+model with external AI, such as DeepSeek’s R1, in a “double-core”
+approach. Yuanbao chatbot utilizes both—T1 for deep reasoning and R1 for
+quick responses—while WeChat Search enhances accuracy by integrating T1
+with DeepSeek.</p>
+<figure>
+<img
+src="/di-blog/2025/03/04/2025-March/tencent_multi_model_strategy.png"
+alt="tencent_multi_model_strategy" />
+<figcaption aria-hidden="true">tencent_multi_model_strategy</figcaption>
+</figure>
+<blockquote>
+<p><strong>Google: Biggest Deal Ever - App Economy Insights</strong> [<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/google-biggest-deal-ever">Link</a>]</p>
+</blockquote>
+<p>Alphabet has completed its largest acquisition to date with a $32
+billion deal to acquire cloud security startup Wiz. If successful, this
+move could redefine GCP’s security portfolio, strengthening its stance
+as AI-driven cloud computing becomes the focal point.</p>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/google_biggest_acquisition.png"
+alt="google_biggest_acquisition" />
+<figcaption aria-hidden="true">google_biggest_acquisition</figcaption>
+</figure>
+<h2 id="papers-and-reports">Papers and Reports</h2>
+<blockquote>
+<p><strong>Whitepaper Agents - Authors: Julia Wiesinger, Patrick Marlow
+and Vladimir Vuskovic</strong> [<a
+target="_blank" rel="noopener" href="https://www.kaggle.com/whitepaper-agents">Link</a>]</p>
+</blockquote>
+<p>Google’s whitepaper explains how AI agents use reasoning, tools, and
+external data to automate tasks, turning large language models (LLMs)
+into workflow automation systems. Google suggests using
+<strong>LangChain</strong> for prototyping and <strong>Vertex
+AI</strong> for scaling production-ready agents. its framework provides
+a standardized approach to ensure reliable AI agent execution.</p>
+<p><strong>Key Components</strong></p>
+<ol type="1">
+<li><strong>Decision Engine</strong> – The LLM plans and executes tasks
+using reasoning methods like ReAct or Chain-of-Thought.</li>
+<li><strong>Tool Integration</strong> – Agents interact with APIs,
+databases, and real-time data.</li>
+<li><strong>Orchestration Layer</strong> – Manages task execution and
+decision-making.</li>
+</ol>
+<p><strong>Tool Types</strong></p>
+<ol type="1">
+<li><strong>Extensions</strong> – Directly call APIs for
+automation.</li>
+<li><strong>Functions</strong> – Allow developers to control
+execution.</li>
+<li><strong>Data Stores</strong> – Use retrieval-augmented generation
+(RAG) for external data access.</li>
+</ol>
+<p><strong>Use Cases</strong></p>
+<p>Agents handle tasks like personalized recommendations, workflow
+automation, and database queries. For example, they can fetch a user’s
+purchase history and generate tailored responses.</p>
+<blockquote>
+<p><strong>Introducing <em>smolagents</em>, a simple library to build
+agents - HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/blog/smolagents">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Memory Layers at Scale - Meta</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2412.09764">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>2 OLMo 2 Furious - Alien AI</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.00656">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>HuatuoGPT-o1, Towards Medical Complex Reasoning with
+LLMs</strong> [<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2412.18925">Link</a>]</p>
+</blockquote>
+<p>This paper shows how to build domain-specific reasoning models using
+a two-stage training process. HuatuoGPT-o1, a medical LLM, enhances
+complex reasoning using this two-stage approach: (1) supervised
+fine-tuning (SFT) with complex Chain-of-Thought (CoT) and (2)
+reinforcement learning (RL) using a verifier to refine reasoning.</p>
+<figure>
+<img src="/di-blog/2025/03/04/2025-March/huatuogpto1.png"
+alt="huatuogpto1" />
+<figcaption aria-hidden="true">huatuogpto1</figcaption>
+</figure>
+<blockquote>
+<p><strong>Inference-Time Scaling for Diffusion Models beyond Scaling
+Denoising Steps - Google DeepMind</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.09732">Link</a>]</p>
+</blockquote>
+<p>Google DeepMind introduces noise search method, outperforming
+traditional denoising in diffusion models.</p>
+<blockquote>
+<p><strong>Chain of Agents: Large language models collaborating on
+long-context tasks - Google Research</strong> [<a
+target="_blank" rel="noopener" href="https://research.google/blog/chain-of-agents-large-language-models-collaborating-on-long-context-tasks/">Link</a>]
+[<a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=LuCLf4BJsr">Paper</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>SFT Memorizes, RL Generalizes: A Comparative Study of
+Foundation Model Post-training - Google DeepMind</strong> [<a
+target="_blank" rel="noopener" href="https://tianzhechu.com/SFTvsRL/">Link</a>] [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.17161v1">Link</a>]</p>
+</blockquote>
+<p>Explaining why reinforcement learning outperforms supervised
+fine-tuning for model generalization.</p>
+<blockquote>
+<p><strong>Learning to Plan &amp; Reason for Evaluation with
+Thinking-LLM-as-a-Judge</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.18099">Link</a>]</p>
+</blockquote>
+<p>A new preference optimization algorithm for LLM-as-a-Judge
+models.</p>
+<blockquote>
+<p><strong>Hallucination Mitigation using Agentic AI Natural
+Language-Based Frameworks</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.13946v1">Link</a>]</p>
+</blockquote>
+<p>Generative AI models often produce hallucinations, making them less
+reliable and reducing trust in AI systems. In this work, a multi-agent
+system is designed using over 300 prompts to induce hallucinations. AI
+agents at different levels review and refine outputs using distinct
+language models, structured JSON communication, and the OVON framework
+for seamless interaction. New KPIs are introduced to measure
+hallucination levels.</p>
+<blockquote>
+<p><strong>ELEGNT: Expressive and Functional Movement Design for
+Non-Anthropomorphic Robot - Apple</strong> [<a
+target="_blank" rel="noopener" href="https://machinelearning.apple.com/research/elegnt-expressive-functional-movement">Link</a>]
+[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12493">Link</a>]</p>
+</blockquote>
+<p>This is very cool.</p>
+<blockquote>
+<p><strong>π0 and π0-FAST: Vision-Language-Action Models for General
+Robot Control - Hugging Face</strong> [<a
+target="_blank" rel="noopener" href="https://huggingface.co/blog/pi0">Link</a>]</p>
+</blockquote>
+<p>Hugging Face publishes the first open-source robotics foundation
+models for real-world applications.</p>
+<blockquote>
+<p><strong>Claude’s extended thinking - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/research/visible-extended-thinking">Link</a>]</p>
+</blockquote>
+<p>Claude 3.7 Sonnet introduces extended thinking, visible reasoning,
+and improved agentic capabilities for complex tasks.</p>
+<blockquote>
+<p><strong>Can LLMs Generate Novel Research Ideas? A Large-Scale Human
+Study with 100+ NLP Researchers</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.04109">Link</a>]</p>
+</blockquote>
+<p>This study evaluated the ability of LLMs to generate novel,
+expert-level research ideas compared to human experts by recruiting over
+100 NLP researchers for idea generation and blind reviews. Results
+showed that LLM-generated ideas were rated as more novel than human
+ideas (p &lt; 0.05) but slightly less feasible. While LLMs demonstrated
+promising ideation capabilities, challenges such as limited idea
+diversity and unreliable self-evaluation were identified, highlighting
+areas for improvement in developing effective research agents.</p>
+<blockquote>
+<p><strong>Transformers without Normalization</strong> [<a
+target="_blank" rel="noopener" href="https://jiachenzhu.github.io/DyT/?utm_source=alphasignal">Link</a>]</p>
+</blockquote>
+<p>Yann LeCun and his team have proposed Dynamic Tanh (DyT) as an
+alternative to conventional normalization layers in deep learning
+models. This innovative method, leveraging the scaled tanh function,
+delivers performance on par with or superior to techniques like
+LayerNorm and RMSNorm. Notably, its ability to lower computational costs
+while preserving model efficiency makes it particularly compelling.</p>
+<blockquote>
+<p><strong>Energy</strong> [<a
+target="_blank" rel="noopener" href="https://infrastructurereportcard.org/wp-content/uploads/2025/03/Energy.pdf">Link</a>]</p>
+</blockquote>
+<p>Most serious issues:</p>
+<ul>
+<li>Aging and overburdened energy infrastructure is the most serious
+issue.</li>
+<li>Energy demand is at its highest growth rate in 20 years. EV adoption
+and AI workloads are accelerating the strain on the grid.</li>
+<li>There is increased frequency of extreme weather events causing
+outages.</li>
+<li>The U.S. experienced twice as many weather-related power outages
+from 2014–2023 compared to 2000–2009.</li>
+</ul>
+<p>Some key trends:</p>
+<ul>
+<li>Energy demand is rising rapidly, especially due to data centers, AI,
+and EV adoption.</li>
+<li>Extreme weather is causing more frequent and severe power
+outages.</li>
+<li>The transition to renewables is accelerating, but grid
+interconnection delays are slowing progress.</li>
+<li>Grid infrastructure is aging and requires massive investment, but
+funding gaps remain.</li>
+<li>Transformer shortages and long lead times are hindering grid
+expansion and maintenance.</li>
+<li>Cybersecurity threats and physical attacks on substations are
+emerging risks.</li>
+</ul>
+<h2 id="youtube-and-podcasts">YouTube and Podcasts</h2>
+<blockquote>
+<p><strong>Fixing the American Dream with Andrew Schulz - All-In
+Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=IjU-Nd6iiQ4&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>E179｜DeepSeek技术解析：为何引发英伟达股价下跌？-
+硅谷101播客</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=f9Wm1ayTKlQ&amp;ab_channel=%E7%A1%85%E8%B0%B7101%E6%92%AD%E5%AE%A2">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>This Year in Uber’s AI-Driven Developer Productivity
+Revolution - Gradle</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jp-fBw07r7c&amp;t=2s">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>GraphRAG: The Marriage of Knowledge Graphs and RAG: Emil
+Eifrem - AI Engineer</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=knDDGYHnnSI">Link</a>]</p>
+</blockquote>
+<p>Great intro to Graph RAG from Prof Emil Eifrem. Check out <a
+target="_blank" rel="noopener" href="https://neo4j.com/labs/genai-ecosystem/">neo4j genai
+ecosystem</a>.</p>
+<p>Some articles mentioned: "Retrieval-Augmented Generation with
+Knowledge Graphs for Customer Service Question Answering" [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.17723v1">Link</a>], and "GraphRAG:
+Unlocking LLM discovery on narrative private data" [<a
+target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/">Link</a>].</p>
+<blockquote>
+<p><strong>Building a fully local "deep researcher" with DeepSeek-R1 -
+LangChain</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sGUjmyfof4Q">Link</a>]</p>
+</blockquote>
+<p>This tutorial reviews DeepSeek R1's training methods, explains
+downloading the model via Ollama, and demonstrates JSON-mode testing.
+Test its local "deep research" assistant, which performs web research
+and iterative summarization with reflection for improved results.</p>
+<blockquote>
+<p><strong>Building Effective Agents with LangGraph - LangChain</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aHCDrAbH_go">Link</a>]</p>
+</blockquote>
+<p>This video shows the difference between agents and workflows and when
+to use each. You'll Implement patterns like prompt chaining,
+parallelization, and routing using LangGraph. The session covers
+building agents, applying advanced patterns, and understanding how
+LangGraph enhances automation and optimization in AI systems.</p>
+<blockquote>
+<p><strong>Nvidia's GTC 2025 Keynote: Everything Announced in 30 Minutes
+- Amrit Talks</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=DT5IMxzfdL0&amp;ab_channel=AmritTalks">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>How I use LLMs - Andrej Karpathy</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=EWvNQjAaOHw&amp;ab_channel=AndrejKarpathy">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>White House BTS, Google buys Wiz, Treasury vs Fed, Space
+Rescue - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=p1MAA8y4CgU&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Satya Nadella – Microsoft’s AGI Plan &amp; Quantum
+Breakthrough - Dwarkesh Partel</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4GLSzuYXh6w&amp;ab_channel=DwarkeshPatel">Link</a>]</p>
+</blockquote>
+<p>Satya Nadella discusses AI, AGI skepticism, economic growth, quantum
+computing, AI pricing, gaming models, and legal challenges. Notes of
+insights impressed me:</p>
+<ol type="1">
+<li>Nadella believes hyperscalers (like Microsoft Azure, AWS, and Google
+Cloud) will be major beneficiaries of AI advancements. The exponential
+growth in compute demand for AI workloads—both for training and
+inference—will drive massive infrastructure needs. Hyperscalers are
+well-positioned to meet this demand due to their ability to scale
+compute, storage, and AI accelerators efficiently.</li>
+<li>He argues that hyperscale infrastructure is not a winner-takes-all
+market. Enterprises and corporations prefer multiple suppliers to avoid
+dependency on a single vendor. This structural dynamic ensures
+competition and prevents monopolization.</li>
+<li>While there may be a few dominant closed-source AI models, Nadella
+predicts that open-source alternatives will act as a check, preventing
+any single entity from monopolizing the AI model space. He draws
+parallels to the coexistence of closed-source (e.g., Windows) and
+open-source systems in the past.</li>
+<li>He highlights that governments worldwide are unlikely to allow
+private companies to dominate AI entirely. Regulatory and state
+involvement will likely shape the landscape, further preventing a
+winner-takes-all scenario.</li>
+<li>In consumer markets, network effects can lead to winner-takes-all
+dynamics (e.g., ChatGPT's early success). However, in enterprise
+markets, multiple players will thrive across different categories.</li>
+<li>He disagrees with the notion that AI models or cloud infrastructure
+will become commoditized. At scale, the complexity of managing
+hyperscale infrastructure and the know-how required to optimize it
+create significant barriers to entry and sustain profitability.</li>
+<li>Microsoft aims to build a versatile hyperscale fleet capable of
+handling large training jobs, inference workloads, and specialized tasks
+like reinforcement learning (RL). The company focuses on distributed
+computing, global data center placement, and high utilization of
+resources to meet diverse AI demands.</li>
+<li>Nadella envisions a future where AI agents and specialized models
+will drive even greater compute demand. He emphasizes the importance of
+building infrastructure that can support both training and inference at
+scale, while also accommodating evolving AI research and
+development.</li>
+<li>Microsoft Research (MSR) has a history of investing in fundamental,
+curiosity-driven research, often with no immediate payoff. Nadella
+emphasizes the importance of maintaining this culture, even if the
+benefits may only materialize decades later. Nadella highlights the
+difficulty of transitioning from research breakthroughs to scalable
+products. The role of leadership is to ensure that innovations are not
+only technically sound but also commercially viable.</li>
+<li>Nadella envisions quantum computing being accessed via APIs, similar
+to how cloud services are used today. This could democratize access to
+quantum capabilities for research and industry.</li>
+</ol>
+<blockquote>
+<p><strong>Instrumenting &amp; Evaluating LLMs - Hamei Husain</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=SnbGD677_u0&amp;ab_channel=HamelHusain">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>How to Get Your Data Ready for AI Agents (Docs, PDFs,
+Websites) - Dave Ebbelaar</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9lBTS5dM27c&amp;ab_channel=DaveEbbelaar">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>The AI Cold War, Signalgate, CoreWeave IPO, Tariff Endgames,
+El Salvador Deportations - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Iazo7g40VbQ&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<h2 id="github">Github</h2>
+<blockquote>
+<p><strong>a smol course - HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/huggingface/smol-course">Link</a>]</p>
+</blockquote>
+<p>Good course to help you to align LLM with specific use cases. It
+includes instruction tuning, preference alignment using DPO/ORPO, LoRA,
+prompt tuning, and multimodal model adaptation, and it covers creating
+synthetic datasets, evaluation, and efficient inference.</p>
+<blockquote>
+<p><strong>AI Hedge Fund</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/virattt/ai-hedge-fund">Link</a>]</p>
+</blockquote>
+<p>POC for educational purposes.</p>
+<blockquote>
+<p><strong>build-your-own-x</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/codecrafters-io/build-your-own-x">Link</a>]</p>
+</blockquote>
+<p>Interesting resources / tutorials for building technologies from
+scratch to deepen practical understanding.</p>
+<blockquote>
+<p><strong>Open R1- HuggingFace</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/huggingface/open-r1">Link</a>]</p>
+</blockquote>
+<p>A fully open reproduction of DeepSeek-R1.</p>
+<blockquote>
+<p><strong>AI Tutor Using RAG, Vector DB, and Groq</strong> [<a
+target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1ZdVuxLTEkQJrV6EdZwEqtvoRkGF4FOY0">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>GenAI Agents: Comprehensive Repository for Development and
+Implementation</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/NirDiamant/GenAI_Agents">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>DeepSeek Open Infra</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/deepseek-ai/open-infra-index/tree/main">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Awesome MCP Servers</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/punkpeye/awesome-mcp-servers">Link</a>]</p>
+</blockquote>
+<p>This repository provides access to a selection of curated Model
+Context Protocol (MCP) servers designed for seamless AI model-resource
+interaction. It features both production-ready and experimental servers,
+offering capabilities like file access, database connections, and API
+integrations. There are frameworks, tutorials, and practical tips to
+enhance model deployment and maximize resource efficiency in real-world
+applications.</p>
+<h2 id="news">News</h2>
+<blockquote>
+<p><strong>Replit Integrates xAI</strong> [<a
+target="_blank" rel="noopener" href="https://docs.replit.com/updates/2025/03/07/changelog#xai-integration">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Expand your research with proprietary financial data -
+Perplexity</strong> [<a
+target="_blank" rel="noopener" href="https://www.perplexity.ai/enterprise/crunchbase-factset-integration">Link</a>]</p>
+</blockquote>
+<p>Crunchbase, FactSet, and DeepSeek R1 now power enterprise
+insights.</p>
+<blockquote>
+<p><strong>Google to acquire cloud security startup Wiz for $32 billion
+after deal fell apart last year - CNBC</strong> [<a
+target="_blank" rel="noopener" href="https://www.cnbc.com/2025/03/18/google-to-acquire-cloud-security-startup-wiz-for-32-billion.html">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Leave it to Manus - Manus</strong> [<a
+target="_blank" rel="noopener" href="https://manus.im/">Link</a>]</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/readings/" rel="tag"># readings</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/02/09/Daring-Greatly/" rel="prev" title="Daring Greatly">
+                  <i class="fa fa-angle-left"></i> Daring Greatly
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/04/01/2025-April/" rel="next" title="2025 April - What I Have Read">
+                  2025 April - What I Have Read <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

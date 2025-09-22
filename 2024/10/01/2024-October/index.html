@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="Substack  This new model.out_head output layer has its requires_grad attribute set to True by default, which means that it’s the only layer in the model that will be updated during training. Technical">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024 October - What I Have Read">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2024/10/01/2024-October/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="Substack  This new model.out_head output layer has its requires_grad attribute set to True by default, which means that it’s the only layer in the model that will be updated during training. Technical">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2024/10/01/2024-October/waymo_foundation_model.png">
+<meta property="article:published_time" content="2024-10-02T01:54:26.000Z">
+<meta property="article:modified_time" content="2024-10-02T01:54:26.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="readings">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2024/10/01/2024-October/waymo_foundation_model.png">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2024/10/01/2024-October/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2024/10/01/2024-October/","path":"2024/10/01/2024-October/","title":"2024 October - What I Have Read"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2024 October - What I Have Read | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#substack"><span class="nav-number">1.</span> <span class="nav-text">Substack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#youtube-and-podcast"><span class="nav-number">2.</span> <span class="nav-text">YouTube and Podcast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#articles-and-blogs"><span class="nav-number">3.</span> <span class="nav-text">Articles and Blogs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reports-and-papers"><span class="nav-number">4.</span> <span class="nav-text">Reports and Papers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github-and-docs"><span class="nav-number">5.</span> <span class="nav-text">Github and Docs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#news"><span class="nav-number">6.</span> <span class="nav-text">News</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/10/01/2024-October/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2024 October - What I Have Read | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024 October - What I Have Read
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-01 21:54:26" itemprop="dateCreated datePublished" datetime="2024-10-01T21:54:26-04:00">2024-10-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="substack">Substack</h3>
+<blockquote>
+<p><em>This new <code>model.out_head</code> output layer has its
+<code>requires_grad</code> attribute set to <code>True</code> by
+default, which means that it’s the only layer in the model that will be
+updated during training. Technically, training the output layer we just
+added is sufficient. However, as I found in experiments, finetuning
+additional layers can noticeably improve the predictive performance of
+the finetuned model.</em></p>
+<p><strong>― Building A GPT-Style LLM Classifier From Scratch -
+Sebastian Raschka</strong> [<a
+target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/building-a-gpt-style-llm-classifier">Link</a>]
+[<a
+target="_blank" rel="noopener" href="https://github.com/rasbt/LLMs-from-scratch/blob/main/ch06/01_main-chapter-code/ch06.ipynb">Github</a>]</p>
+</blockquote>
+<p>Interesting questions addressed by Sebastian:</p>
+<ol type="1">
+<li><p>Do we need to train all layers?</p>
+<p>“For classification finetuning, it is not necessary to update all
+layers in an LLM. (The fewer weights we update, the faster the training
+will be because we don’t need to compute the gradients for these weights
+during backpropagation.)”</p></li>
+<li><p>Why finetuning the last token, not the first token?</p>
+<p>“In contrast to BERT, GPT is a decoder-style model with a causal
+attention mask. This means the first token has no context information of
+any other token in the input. Only the last token has information about
+all other tokens. Hence, if we want to use models like GPT for
+classification finetuning, we should focus on the last token to capture
+contextual information of all other input tokens.”</p></li>
+<li><p>How does BERT compare to GPT performance-wise?</p>
+<p>“The small GPT-2 model from the previous section and BERT performed
+similarly well on the spam classification dataset. “</p></li>
+<li><p>Should we disable the causal mask?</p>
+<p>“A core feature of the GPT architecture is the causal attention mask
+(different from BERT models or the original transformer architecture).
+However, we could actually remove the causal mask during classification
+finetuning, which would allow us to finetune the first rather than the
+last token since future tokens will no longer be masked, and the first
+token can see all other tokens.”</p></li>
+<li><p>What impact does increasing the model size have?</p>
+<p>The prediction accuracy can improve significantly with larger
+models.</p></li>
+<li><p>What improvements can we expect from LoRA?</p>
+<p>Both full finetuning (all layers) and LoRA can result in the same
+test set performance.</p>
+<p>“On the small model, LoRA is slightly slower since the additional
+overhead from adding LoRA layers may outweigh the benefits, but when
+training the larger 1.5 billion parameters model, LoRA trains 1.53x
+faster.”</p></li>
+<li><p>Padding or no padding? [<a
+target="_blank" rel="noopener" href="https://github.com/rasbt/LLMs-from-scratch/tree/main/ch06/02_bonus_additional-experiments">experiments</a>]</p>
+<p>“If we want to process data in batches during training or inference
+(this involves processing more than one input sequence at a time), we
+need to insert padding tokens to ensure that the training examples are
+of equal length.</p>
+<p>In regular text generation tasks, padding doesn’t affect the model
+response since padding tokens are usually added to the right side, and
+due to the causal mask discussed earlier, these padding tokens don’t
+influence the other tokens. However, remember that we finetuned the last
+token, as discussed earlier. Since the padding tokens are to the left of
+this last token, the padding tokens may affect the result. “</p></li>
+</ol>
+<blockquote>
+<p><strong>These Are The 6 Best Science-Based Study Strategies - Super
+Learning Lab</strong> [<a
+target="_blank" rel="noopener" href="https://axelcasas.substack.com/p/these-are-the-6-best-science-based">Link</a>]</p>
+</blockquote>
+<ol type="1">
+<li><p>Spaced Practice</p>
+<p>Instead of cramming all the information at once, spaced practice
+consists of revisiting the material multiple times with breaks in
+between.</p></li>
+<li><p>Interleaving</p>
+<p>This is about studying different topics in a sequence.</p></li>
+<li><p>Retrieval</p>
+<p>This consists of bringing learned information from mid to long-term
+memory by recall or retrieval practices.</p></li>
+<li><p>Elaboration</p>
+<p>Elaborative interrogation consists of asking and explaining why and
+how things work based on prior knowledge. In other words, it involves
+connecting new information to preexisting knowledge.</p></li>
+<li><p>Concrete Example</p>
+<p>When learning abstract concepts it was found that illustrating these
+topics with specific examples improves learning.</p></li>
+<li><p>Dual Coding</p>
+<p>Dual coding is about combining words with visuals. If you use
+relevant and helpful images in your notes, you may increase learning by
+remembering what you study with the help of these images.</p></li>
+</ol>
+<blockquote>
+<p><em>The <span class="math inline">\(\$120\)</span> billion wagered on
+sports betting in America in 2023 translated into nearly <span
+class="math inline">\(\$11\)</span> billion in revenue for sports
+betting companies. This corresponds to the ~9% fee sportsbooks keep
+after all bets have been settled.</em></p>
+<ul>
+<li><em>Flutter: Leverages FanDuel’s dominance and global
+expertise.</em></li>
+<li><em>DraftKings: Focuses on innovation and user engagement to fuel
+growth.</em></li>
+<li><em>Entain: Bets on BetMGM’s success in the US market.</em></li>
+<li><em>Penn: Leverages the ESPN partnership to challenge established
+players.</em></li>
+</ul>
+<p><strong>― Sports Betting Economics - App Economy Insights</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/sports-betting-economics">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>For decades, companies have outsourced their organizational
+innovation to consultants or enterprise software vendors who develop
+generalized approaches based on what they see across many organizations.
+That won’t work here, at least for a while. Nobody has special
+information about how to best use AI at your company, or a playbook for
+how to integrate it into your organization.</em></p>
+<p><strong>― AI in organizations: Some tactics - One Useful
+Thing</strong> [<a
+target="_blank" rel="noopener" href="https://www.oneusefulthing.org/p/ai-in-organizations-some-tactics">Link</a>]</p>
+</blockquote>
+<p>Issues with AI at the organizational level and how to solve them.</p>
+<ol type="1">
+<li>In many companies, there is little AI use and few productivity gains
+outside of narrow permitted use cases. That’s because AI use that boosts
+individual performance does not always translate to boosting
+organizational performance for a variety of reasons. To get
+organizational gains requires R&amp;D into AI use and you are largely
+going to have to do the R&amp;D yourself.</li>
+<li>“Many key breakthrough innovations come not from central R&amp;D
+labs, but from people actually using products and tinkering with them to
+solve their own problems. “ (Prof. Eric von Hippel). As users are very
+motivated to make their own jobs easier with technology, they find ways
+to do so. The user advantage is especially big in experimenting with
+Generative AI because the systems are unreliable and have a jagged
+frontier of capability. People are experimenting with AI and finding it
+very useful. But they aren’t sharing their results with their
+employers.</li>
+</ol>
+<p>How to solve the issues? What are the tactics? Talents in the lab
+should focus on building, not analysis or abstract strategy.</p>
+<ul>
+<li>Build AI benchmarks for your organization. [<a
+target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/build-with-claude/develop-tests">Anthropic’s
+guide to benchmarking</a>]</li>
+<li>Build prompts and tools that work.</li>
+<li>Build stuff that doesn’t work… yet.</li>
+<li>Build provocations and magic.</li>
+</ul>
+<blockquote>
+<p><strong>The USA vs Visa - Net Interest</strong> [<a
+target="_blank" rel="noopener" href="https://www.netinterest.co/p/the-usa-vs-visa">Link</a>]</p>
+</blockquote>
+<p>Key elements of Doha Mekki’s recent antitrust lawsuit against
+Visa:</p>
+<ol type="1">
+<li>Visa controls over 60% of U.S. debit transactions, with Mastercard
+far behind at 25%.</li>
+<li>Visa traps merchants with pricing that penalizes them if they don’t
+process all transactions through Visa.</li>
+<li>Exclusive deals incentivize merchants to use Visa exclusively,
+reducing competition.</li>
+<li>Visa prevents potential competitors like PayPal and Apple from
+entering the market by locking them into restrictive agreements.</li>
+<li>Visa has faced antitrust lawsuits since 1971 and maintains a large
+legal team to manage ongoing cases.</li>
+</ol>
+<blockquote>
+<p><em>In physics, we study how particles or systems’ units interact and
+evolve toward stable states. In machine learning, we study how neurons
+(or artificial neurons) interact to learn patterns directly from data.
+The connection lies in energy minimization: both approaches define an
+energy function to describe the stability of a system, and the
+optimization of this function helps to find optimal configurations that
+correspond to useful patterns or memories.</em></p>
+<p><em>Hopfield developed a network that recreates patterns using energy
+minimization, while Hinton expanded on this with the introduction of
+Boltzmann machines, statistical physics-based systems that learn to
+recognize and generate patterns, providing groundwork for modern machine
+learning.</em></p>
+<p><strong>― Nobel Prize to the Statistical Physics of artificial neural
+networks - Complexity Thoughts</strong> [<a
+target="_blank" rel="noopener" href="https://manlius.substack.com/p/nobel-prize-to-the-statistical-physics">Link</a>]</p>
+</blockquote>
+<p>“The laws governing physical systems also apply to the world of
+artificial intelligence.”</p>
+<blockquote>
+<p><strong>Major AI Functionalities / with Apps - AI Supremacy</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/major-ai-functionalities-with-apps">Link</a>]</p>
+</blockquote>
+<p>A list of AI products you can experiment with.</p>
+<blockquote>
+<p><em>Fine-tuning can be useful for certain tasks (see the relevant
+section here for more details), but when it comes to injecting morality
+into your LLM, it’s probably not a good bet.</em></p>
+<p><em>By combining the strengths of diffusion models and
+auto-regressive generation, DGLM offers a more nuanced, adaptable, and
+potentially more effective approach to generating safe and creative
+text. It moves away from the brute-force, one-size-fits-all approach of
+fine-tuning and embraces a more modular, dynamic, and personalized
+approach to AI safety.</em></p>
+<p><strong>― A New Way to Control Language Model Generations
+[Breakdowns] - Artificial Intelligence Made Simple</strong> [<a
+target="_blank" rel="noopener" href="https://artificialintelligencemadesimple.substack.com/p/a-new-way-to-control-language-model">Link</a>]</p>
+</blockquote>
+<p>The author lists drawbacks of fine tuning:</p>
+<p>“A model’s knowledge and capabilities are learnt almost entirely
+during pretraining, while alignment teaches it which subdistribution of
+formats should be used when interacting with users.” - LIMA: Less Is
+More for Alignment [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.11206">Link</a>]</p>
+<p>“Our findings reveal that while unsupervised fine-tuning offers some
+improvement, RAG consistently outperforms it, both for existing
+knowledge encountered during training and entirely new knowledge.
+Moreover, we find that LLMs struggle to learn new factual information
+through unsupervised fine-tuning.” - Fine-Tuning or Retrieval? Comparing
+Knowledge Injection in LLMs [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.05934">Link</a>]</p>
+<p>“Disconcertingly, our research also reveals that, even without
+malicious intent, simply fine-tuning with benign and commonly used
+datasets can also inadvertently degrade the safety alignment of LLMs,
+though to a lesser extent. These findings suggest that fine-tuning
+aligned LLMs introduces new safety risks that current safety
+infrastructures fall short of addressing — — even if a model’s initial
+safety alignment is impeccable” - Fine-tuning Aligned Language Models
+Compromises Safety, Even When Users Do Not Intend To! [<a
+target="_blank" rel="noopener" href="https://openreview.net/forum?id=hTEGyKf0dZ">Link</a>]</p>
+<p>“The base model generates a wide range of nationalities, with
+American, British, and German being the top three. In contrast, the
+aligned model only generates three nationalities: American (highest
+percentage), Chinese, and a small percentage of Mexican.” - Creativity
+Has Left the Chat: The Price of Debiasing Language Models [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.05587">Link</a>]</p>
+<blockquote>
+<p><strong>Just do it! Brand Name Lessons from Nike’s Troubles - Musings
+on Markets</strong> [<a
+target="_blank" rel="noopener" href="https://aswathdamodaran.substack.com/p/just-do-it-brand-name-lessons-from">Link</a>]</p>
+</blockquote>
+<p>Brand value is often mixed with other advantages like scale, network
+effects, and product differentiation. Strong brands yield higher
+revenues, pricing power, and potentially lower capital costs. And it’s
+hard to separate brand value in companies with multiple advantages.</p>
+<blockquote>
+<p><strong>Spotify: Layoffs Pay Off - App Economy Insights</strong> [<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/spotify-layoffs-pay-off">Link</a>]</p>
+</blockquote>
+<p>Key business highlights: 1) Spotify’s new subscription plans -
+Spotify’s Audiobooks Access ( <span
+class="math inline">\(\$9.99\)</span> per month for 15 hours) and Basic
+(removing audiobooks from Premium) diversify its offerings, 2) Spotify
+is incorporating social-style discovery features, like Live Listening
+Parties and prompt-based AI playlists, but remains behind YouTube and
+Meta in algorithm sophistication and live content, 3) Spotify’s
+ad-supported ARPU is low (€1.15 vs. Meta’s <span
+class="math inline">\(\$11.89\)</span> dollars in Q2), limiting ad
+revenue potential. A new in-house creative agency may improve brand
+experiences but is challenging to scale profitably, 4) Spotify pivoted
+from broad podcasting investments to a case-by-case approach, now
+pushing video podcasts.</p>
+<p>Competitiveness: 1) Hub Entertainment Research shows Spotify’s high
+‘must-have’ appeal, with 75% of US users viewing it as “uncancellable.”
+This loyalty supports Spotify’s growing free cash flow and a valuation
+around 40 times Free Cash Flow (FCF) —placing it ahead of rivals like
+YouTube Music (100M subscribers) and Apple Music (estimated 110M by
+2025), 2) Despite solid growth, Spotify’s reliance on licensed content
+and its still-limited ad revenue leave room for competition. While
+TikTok’s 1B+ users could funnel into TikTok Music, ByteDance recently
+announced it will close TikTok Music by November, focusing instead on
+promoting artists and streaming value within the main app—a potential
+competitive break for Spotify.</p>
+<blockquote>
+<p><strong>Cybersecurity Earnings - App Economy Insights</strong> [<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/cybersecurity-earnings-7f6">Link</a>]</p>
+</blockquote>
+<p>Covered Palo Alto Networks, CrowdStrike, Fortinet, Zscaler, and
+Cloudflare.</p>
+<blockquote>
+<p><strong>Two Nobel Prizes for AI, and Two Paths Forward - Marcus on
+AI</strong> [<a
+target="_blank" rel="noopener" href="https://garymarcus.substack.com/p/two-nobel-prizes-for-ai-and-two-paths">Link</a>]</p>
+</blockquote>
+<p>Hinton’s focus on end-to-end neural networks can be limiting,
+especially when considering the complexities of real-world problems that
+often require more structured and hybrid approaches. On the other hand,
+Hassabis’s embrace of neurosymbolic AI reflects an openness to different
+methodologies and a recognition that a combination of techniques may
+yield better results.</p>
+<blockquote>
+<p><em>First, Waymo is using transformer-based foundation models for all
+stages of its self-driving pipeline: perception, prediction, and
+planning. Second, the whole system is trained end to end. During
+training, gradients from the behavior network propagate backwards to the
+perception network.</em></p>
+<p><em>So I see more similarities than differences in the evolution of
+Waymo and Tesla’s self-driving software. Both companies made little to
+no use of neural networks in their early systems. Both companies started
+using neural networks for perception in the late 2010s. And both
+companies only recently shifted to end-to-end architectures that used
+neural networks for all stages of the self-driving pipeline.</em></p>
+<p><strong>― Elon Musk wants to dominate robotaxis—first he needs to
+catch up to Waymo - Understanding AI</strong> [<a
+target="_blank" rel="noopener" href="https://www.understandingai.org/p/elon-musk-wants-to-dominate-robotaxisfirst">Link</a>]</p>
+</blockquote>
+<p>Tesla’s advantages compared to Waymo:</p>
+<ol type="1">
+<li>Tesla already has millions of vehicles on the road, which could
+quickly deploy robotaxi software without the need for new hardware.</li>
+<li>Tesla relies on cost-effective, camera-based perception without
+expensive sensors like lidar, which Waymo uses. This could lower Tesla’s
+per-vehicle cost and allow it to expand more rapidly if autonomy is
+achieved.</li>
+<li>Tesla’s transition to a full, end-to-end neural network approach for
+perception, prediction, and planning has improved FSD’s ability to
+handle complex driving situations without manual coding for specific
+scenarios.</li>
+</ol>
+<p>Tesla’s disadvantages compared to Waymo:</p>
+<ol type="1">
+<li>Tesla hasn’t deployed a fully driverless car yet, while Waymo has
+offered driverless rides since 2020.</li>
+<li>Tesla would need extensive infrastructure to maintain a robotaxi
+network (for charging, cleaning, and repairs) which it currently lacks.
+Building this up in cities nationwide would take time, resources, and
+logistical planning.</li>
+<li>Tesla’s camera-only approach may struggle in certain conditions
+(e.g., low visibility), which lidar could handle better.</li>
+</ol>
+<blockquote>
+<p><em>Key Contribution of AI to Robotics:</em></p>
+<ol type="1">
+<li><em><strong>Improved Reasoning and Planning</strong>: Large language
+models, like those developed by OpenAI and Google, are enabling robots
+to interpret high-level commands, understand contextual instructions,
+and execute complex, multi-step tasks. This is particularly valuable in
+dynamic environments where robots must adapt to unforeseen changes and
+make real-time decisions.</em></li>
+<li><em><strong>Enhanced Visual and Motor Coordination</strong>: The
+integration of generative AI with visual and motor feedback systems
+allows robots to translate visual inputs into precise motor actions.
+This enables robots to perform tasks such as picking and placing objects
+with greater accuracy and efficiency, even in environments that are
+constantly changing.</em></li>
+<li><em><strong>Natural Language Interfaces</strong>: AI-driven natural
+language interfaces are making it easier for users to interact with
+robots using everyday language rather than programming code. This
+democratization of robotics makes it accessible to non-technical users,
+paving the way for broader adoption across industries.</em></li>
+<li><em><strong>Predictive Maintenance</strong>: AI models analyze
+real-time data from robots to predict potential malfunctions, enabling
+proactive maintenance that minimizes costly downtime and enhances
+operational efficiency.</em></li>
+</ol>
+<p><strong>― Generative AI and Robotics in 2024 - AI Supremacy</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/generative-ai-and-robotics-in-2024">Link</a>]</p>
+</blockquote>
+<blockquote>
+<ol type="1">
+<li><p><em><strong>Glue:</strong> The less-glamorous stuff that helps a
+team succeed</em></p></li>
+<li><p><em>Strike the right balance between glue and core work. Do
+enough glue work to show leadership promotable artifacts, but not too
+much to where your core work suffers.</em></p></li>
+<li><p><em>Lead meetings, take notes, and share them to provide value to
+the right stakeholders.</em></p></li>
+<li><p><em>Send your manager monthly recaps of your accomplishments so
+they can more easily sponsor you and your work.</em></p></li>
+<li><p><em><strong>Grit:</strong> The will to pursue a long-term goal
+despite challenges</em></p></li>
+<li><p><em>Break your projects into achievable milestones so you can
+constantly feel progress, even for long projects.</em></p></li>
+<li><p><em>View failures as progress. It’s one less route you need to
+explore now.</em></p></li>
+<li><p><em>Take breaks and work in fun. I set up icebreakers at the
+start of our meetings, organized team events, and pushed for production
+freezes.</em></p></li>
+<li><p><em><strong>Friction:</strong> The gap between reality and the
+ideal state</em></p></li>
+<li><p><em>Find ways to unblock yourself and the people around you. Do
+this enough, and you’ll have mastered removing friction.</em></p></li>
+<li><p><em>Removing friction paints you as a force multiplier. Force
+multipliers get promoted.</em></p></li>
+</ol>
+<p><strong>― 3 Career Principles that got me to Director at Google -
+High Growth Engineer</strong> [<a
+target="_blank" rel="noopener" href="https://read.highgrowthengineer.com/p/3-career-principles-to-director-at-google">Link</a>]</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>Processing Fluency: The ease with which information is perceived
+and processed by the human mind. High fluency can lead to positive
+evaluations, even if the information is not accurate.</em></li>
+<li><em>Halo Effect: A cognitive bias where a positive overall
+impression of something (e.g., an LLM’s fluency) influences the
+evaluation of its individual attributes (e.g., truthfulness).</em></li>
+<li><em>Inter-rater Agreement (IRA): A measure of how much two or more
+evaluators agree on their assessments. Low IRA indicates potential
+problems with the evaluation design or guidelines.</em></li>
+<li><em>Extrinsic Evaluation: Assessing the impact of an LLM’s output on
+an end-user task or system (e.g., measuring productivity gains from
+using an LLM-powered email assistant).</em></li>
+<li><em>Intrinsic Evaluation: Evaluating the properties of the
+LLM-generated text itself, such as fluency, coherence, and factual
+accuracy.</em></li>
+</ul>
+<p><strong>― How Amazon is Rethinking human evaluation for generative
+large language models [Breakdowns] - Artificial Intelligence Made
+Simple</strong> [<a
+target="_blank" rel="noopener" href="https://artificialintelligencemadesimple.substack.com/p/how-amazon-is-rethinking-human-evaluation">Link</a>]</p>
+</blockquote>
+<p>Pretty comprehensive of human evaluation of Gen AI models.</p>
+<blockquote>
+<p><strong>US Banks: Soft Landing? - App Economy Insights</strong> [<a
+target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/us-banks-soft-landing">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p>*A recent pre-print paper found that <strong><a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.08044v1">at least 5% of new Wikipedia
+articles</a></strong> in August 2024 were AI generated, Facebook isn’t
+doing anything to stop <strong><a
+target="_blank" rel="noopener" href="https://futurism.com/hurricane-scam-ai-slop">AI generated images
+of Hurricane Helene</a></strong>, and Goodreads and Amazon are grappling
+with <strong><a
+target="_blank" rel="noopener" href="https://www.wired.com/story/scammy-ai-generated-books-flooding-amazon/">various
+AI generated book schemes</a></strong> scamming people into buying pulp.
+It’s only the tip of the iceberg.*</p>
+<p><strong>― When Models Go MAD - Teaching computers how to
+talk</strong> [<a
+target="_blank" rel="noopener" href="https://jurgengravestein.substack.com/p/when-models-go-mad">Link</a>]</p>
+</blockquote>
+<p>Humm AI is diluting reality. It’s concerning.</p>
+<blockquote>
+<p><strong>Elon Musk’s tech projects are inseparable from his
+authoritarian one - Blood In The Machine</strong> [<a
+target="_blank" rel="noopener" href="https://www.bloodinthemachine.com/p/elon-musks-tech-projects-are-inseparable">Link</a>]</p>
+</blockquote>
+<p>Good discussion. Musk has multifaceted role—entrepreneur, political
+influencer, and media magnate. His activities underscore a model of
+influence that defies precedent, blending financial might, technological
+ambition, and political maneuvering. Recognizing the interconnectedness
+of these efforts is crucial for understanding Musk not just as a
+private-sector innovator but as a power broker actively shaping the
+public and political spheres in ways that could redefine norms, values,
+and who gets to participate in his envisioned future.</p>
+<h3 id="youtube-and-podcast">YouTube and Podcast</h3>
+<blockquote>
+<p><em>Tesla I don’t think it’s a car company, I think this is
+misleading, this is a robotics company robotics at Scale Company,
+because I would say at scale is also like a whole separate variable,
+they’re not building a single thing, they’re building the machine that
+builds the thing which is a whole separate thing and so I think robotics
+at scale company is what Tesla is.</em></p>
+<p><em>I think with synthetic data you just have to be careful, because
+these models are silently collapsed, is like one of the major issues so
+if you go to ChatGPT and you ask it to give you a joke, you’ll notice
+that it only knows three jokes, that’s the only it gives you like one
+joke I think most of the time. And sometimes it gives you like three
+jokes and it’s because the models are collapsed and it’s silent, so when
+you’re looking at any single individual output, you’re just seeing a
+single example, but when you actually look at the distribution, you’ll
+notice that it’s not a very diverse distribution, it’s silently
+collapsed. When you’re doing synthetic data generation, this is a
+problem, because you actually really want that entropy, you want the
+diversity, and the richness in your data set otherwise.</em></p>
+<p><strong>― No Priors Ep. 80 | With Andrej Karpathy from OpenAI and
+Tesla - No Priors: AI, Machine Learning, Tech &amp; Startups</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hM_h0UA7upI&amp;ab_channel=NoPriors:AI,MachineLearning,Tech,&amp;Startups">Link</a>]</p>
+</blockquote>
+<p>Andrej Karpathy was a founding team member of OpenAI and the former
+Tesla Autopilot leader. He discussed the evolution of self driving
+cards, tech challenges, Tesla’s Optimus humanoid robot, bottlenecks of
+AI development today. The topic of how AI capabilities could be further
+integrated with human cognition sounds very future and funny.</p>
+<blockquote>
+<p><strong>AI prompt engineering: A deep dive - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=T9aRN5JkmL8&amp;ab_channel=Anthropic">Link</a>]</p>
+</blockquote>
+<p>Some of Anthropic’s prompt engineering specialists—Amanda Askell
+(Alignment Finetuning), Alex Albert (Developer Relations), David Hershey
+(Applied AI), and Zack Witten (Prompt Engineering)—share their insights
+on the evolution of prompt engineering, offer practical advice, and
+discuss how prompting could evolve as AI continues to advance.</p>
+<blockquote>
+<p><strong>Decoding Google Gemini with Jeff Dean - Google
+DeepMind</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=lH74gNeryhQ&amp;ab_channel=GoogleDeepMind">Link</a>]</p>
+</blockquote>
+<p>Jeff Dean, chief scientist of Google DeepMind and Google Research,
+discusses the past, present and future of AI, specially the long term
+potential of multi-modal models like Gemini.</p>
+<blockquote>
+<p><strong>Shall We Repeal the Laws of Economics? - Oaktree
+Capital</strong> [<a
+target="_blank" rel="noopener" href="https://www.oaktreecapital.com/insights/memo-podcast/shall-we-repeal-the-laws-of-economics">Link</a>]</p>
+</blockquote>
+<p>Howard Marks addresses how politicians often ignore economic reality
+in their campaign promises, using examples like Trump’s call for tariffs
+and Harris’s attack on grocery profiteering. He emphasizes that economic
+laws are incontrovertible, and politicians can’t deliver on promises
+that contradict these laws; free markets allocate resources efficiently.
+And he highlights the ongoing political refusal to address issues like
+Social Security insolvency and national debt, stating that ignoring
+economic laws will eventually lead to negative outcomes.</p>
+<blockquote>
+<p><strong>Introducing OpenAI o1</strong> <strong>- Open AI</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLOXw6I10VTv_T9QV-DKXhq7HFUQRkGQLI">Link</a>]</p>
+</blockquote>
+<p>A series of video from Open AI to introduce GPT o1.</p>
+<blockquote>
+<p><strong>Ep17. Welcome Jensen Huang | BG2 w/ Bill Gurley &amp; Brad
+Gerstner - Bg2 Pod</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=bUrCR4jQQg8&amp;ab_channel=Bg2Pod">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Dueling Presidential interviews, SpaceX’s big catch,
+Robotaxis, Uber buying Expedia?, Nuclear NIMBY - All-In Podcast</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ye012kzWJ3A&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Meta VS Apple: What Their Battle Means For AI Startups - Y
+Combinator</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=NhrkiK1SggE&amp;t=9s&amp;ab_channel=YCombinator">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>The Waymo Way: Making Autonomous Driving a Reality | Dmitri
+Dolgov - U-M Computer Science and Engineering</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=s_wGhKBjH_U&amp;t=2227s&amp;ab_channel=U-MComputerScienceandEngineering">Link</a>]</p>
+</blockquote>
+<figure>
+<img src="/di-blog/2024/10/01/2024-October/waymo_foundation_model.png"
+alt="waymo_foundation_model" />
+<figcaption aria-hidden="true">waymo_foundation_model</figcaption>
+</figure>
+<blockquote>
+<p><strong>Sam Altman: The Man Behind ChatGPT | Big Take - Bloomberg
+Podcasts</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?app=desktop&amp;v=m_oQrKfvSOw&amp;ab_channel=BloombergPodcasts">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Markets turn Trump, Long rates spike, Election home stretch,
+Influencer mania, Saving Starbucks - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4ruAqXfK6Ao&amp;ab_channel=All-InPodcast">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>What’s next for AI agentic workflows ft. Andrew Ng of AI Fund
+- Sequoia Capital</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sal78ACtGTc&amp;ab_channel=SequoiaCapital">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>A fireside chat with Sam Altman OpenAI CEO at Harvard
+University - Harvard Business School</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=FVRHTWWEIz4&amp;ab_channel=HarvardBusinessSchool">Link</a>]</p>
+</blockquote>
+<p>Q1: I’m curious how you rebuilt or rediscover momentum after pivoting
+in a professional or personal sense in terms of your values.</p>
+<ul>
+<li>We have unbelievable greatest technological wave ever, so it’s a
+great time to be starting out your career. You are going to be flooded
+with opportunities for the next few years.</li>
+</ul>
+<p>Q2: How do you think AI’s role will be in tackling sort of
+inequalities in education and health care and legal stuff?</p>
+<ul>
+<li>It should reduce inequality.</li>
+</ul>
+<p>Q3: Subscription model could be a barrier for startup and small
+businesses, do you think OpenAI would explore alternative monetization
+strategy that could include free API access, perhaps supported by
+advertising or other methods, to foster innovation in the future?</p>
+<ul>
+<li>Sam hates ads in general. Ads + AI is uniquely unsettling to him. He
+likes the simplicity of OpenAI’s model, which is they make great AI and
+people pay them for it, and they just do the best they can for
+people.</li>
+</ul>
+<p>Q4: Does the increasing competitors change the way you are evolving
+for the next products?</p>
+<ul>
+<li>They are just trying to figure out the next paradigm and the next
+great idea. They don’t pay much attention to the market share though
+they pay at least attention to competitors to maybe get
+inspiration.</li>
+<li>Sam’s hope is that every year, they do something amazing that people
+thought was impossible. Once you know that something is possible and
+roughly how to do it, it always gets copied quickly. That’s not the hard
+part. The hard part is figuring out what it is and doing it first when
+you don’t know it’s possible.</li>
+</ul>
+<p>Q5: what do you think the ideal public general education curriculum
+on AI should look like and what does the average person need to know
+about AI in the next 5-10 years?</p>
+<ul>
+<li>Computer science major or at least some courses. Being able to train
+a GPT-2.</li>
+</ul>
+<p>Q6: Can you share what’s coming next after transformers? Then the
+second question is what do you think most entrepreneurs and VCs are
+getting wrong about the future of AI?</p>
+<ul>
+<li>Most entrepreneurs don’t bet on AI models are going to be massively
+better so that’s why there is meme that “OpenAI kills my startup”.</li>
+</ul>
+<p>Q7: How much exposure does OpenAI and the AI movement have to energy
+constraints? And what do you think the role is of founders have to play
+in addressing these concerns?</p>
+<ul>
+<li>It’s necessary to Sam to drive tech abundance from those two key
+inputs - energy and AI.</li>
+</ul>
+<h3 id="articles-and-blogs">Articles and Blogs</h3>
+<blockquote>
+<p><em>Of the employees we studied, those with superior sales
+performance were genetically different from the rest of the group. They
+were better at learning in real time about new customers and new sales
+opportunities. From an initial conversation with a sales lead, they were
+able to quickly feel out the customer and propose appropriate products
+without being told what to recommend.</em></p>
+<p><em>Adaptive learning is different; it isn’t trainable. It’s the
+ability to process new information in real time and immediately use it
+to achieve a positive result.</em></p>
+<p><em>For example, sales teams often require junior employees to
+cold-call leads, even through they don’t know as much about the company
+as more experienced employees do. Most of them haven’t even learned how
+to sell yet. But our research shows that for adaptive learners,
+seniority and experience are less important. Employees with the sales
+gene quickly become knowledgeable about your products and are able to
+learn and adjust on the fly.</em></p>
+<p><strong>― There Really Is a “Sales Gene” - Juan Martinez, Harvard
+Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2024/09/there-really-is-a-sales-gene">Link</a>]</p>
+</blockquote>
+<p>Adaptive learning skill is important but might not correlated with
+seniority or experience. Employees with this capability can quickly
+become knowledgeable about the products and are able to learn and adjust
+on the fly.</p>
+<p>The article suggests that managers or companies could be given a
+snapshot of how many of salespeople are adaptive learners without
+singling out any individual. and they could tell which tasks require
+adaptive learning skills and which don’t and allow them to choose. This
+should be done in an anonymous way.</p>
+<p>No matter whether what’s been proposed in this article is applicable
+or ethical. The idea of adaptive learning is kind of new to me, and it
+inspires me to further think about whether this skill is learnable and
+teachable, and think about whether there is any other secret skills in
+sales.</p>
+<blockquote>
+<p><strong>New Rules for Teamwork - Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2024/09/new-rules-for-teamwork">Link</a>]</p>
+</blockquote>
+<ol type="1">
+<li><p>Develop an Operating System</p>
+<p>OS means building blocks for the way team members collaborate, create
+change, and support one another. Effective operating systems vary
+widely, depending on the needs and norms of the organization. What they
+all have in common is that they set out a view of how teams create
+value, what teams are supposed to achieve, the technical skills each
+team member is expected to contribute, the processes by which the work
+will be managed, and the cultural norms and mindsets of constructive
+collaboration that will guide behavior.</p>
+<p>Suggestions: hold kickoffs, conduct one on ones, and take stock of
+progress using retrospectives, are the three practices as a foundations
+of team OS.</p></li>
+<li><p>Invest in Active, Real-Time Measurement</p>
+<p>To make teamwork scientific, organizations need to be able to measure
+the outcomes of their actions and determine how changes in the inputs
+affect results.</p>
+<p>Suggestion: define what constitutes success.</p></li>
+<li><p>Create a System for Continuous Improvement and Innovation</p>
+<p>Teams today have new forms of technology and data collection at their
+disposal to help them self-correct while projects are underway. e.g.
+support colleagues to discuss what could have been done better; look at
+the patterns across teams to identify improvements and share best
+practices, particularly with regard to the rapid adoption of new
+technologies such as GenAI.</p>
+<p>Suggestions: Identify the metrics that matter most (shift-changeover
+time, perhaps), hypothesize which actions could improve performance in
+those areas (preassigned workstations, perhaps), and embed technologies
+in the operating system (a smart-planning app, perhaps) to enable
+continuous improvement. Continuous improvement can occur only when all
+perspectives are considered and all teams have access to a centralized
+knowledge repository. Finally, it may be useful to set up a center of
+excellence, staffed with full-time employees with experience in
+analytics and operating system design.</p></li>
+</ol>
+<blockquote>
+<p><strong>Why Leadership Teams Fail - Harvard Business Review</strong>
+[<a
+target="_blank" rel="noopener" href="https://hbr.org/2024/09/why-leadership-teams-fail">Link</a>]</p>
+</blockquote>
+<p>I was reading while thinking about my team and neighbor teams. I find
+this article very useful.</p>
+<p>A critical factor in organizational success: the health of their
+leadership team. There are three main patterns of dysfunction: Shark
+Tanks, Petting Zoos, and Mediocracies.</p>
+<ol type="1">
+<li><p><strong>Shark Tanks</strong></p>
+<ul>
+<li><p>Definition: A leadership team marked by hyper-competition,
+political maneuvering, and infighting. Members prioritize personal
+agendas over collective goals, leading to toxic and combative
+dynamics.</p></li>
+<li><p>Causes: Lack of clear direction or boundaries from the CEO or
+team leader. Failure to address self-serving behaviors early on. Absence
+of behavioral norms that encourage collaboration.</p></li>
+<li><p>Signs: Team members engage in power struggles outside of
+meetings. One-on-one discussions with the CEO on issues that should be
+resolved in team settings. Meetings turn into battlegrounds, with
+frequent arguments and difficulty reaching consensus. Executives
+bad-mouth each other, form alliances, or resist decisions after they’ve
+been made.</p></li>
+<li><p>Prevention:</p>
+<ul>
+<li><p>Clear Expectations: Leaders should explicitly define which
+behaviors are acceptable and unacceptable. Set boundaries around how
+competition should be managed.</p></li>
+<li><p>Confront Self-Serving Behaviors: Address aggressive or toxic
+behaviors directly with individuals. Remove those unwilling to align
+with the team’s goals, even if they’re high performers.</p></li>
+<li><p>Role Modeling: The CEO or team leader must model collaborative
+behaviors and ensure transparency in communication to prevent political
+games.</p></li>
+<li><p>Regular Feedback: Reinforce positive behaviors and correct
+negative ones through continuous feedback. Implement 360-degree reviews
+to track team behavior and performance alignment.</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Petting Zoos</strong></p>
+<ul>
+<li><p>Definition: A leadership team that avoids conflict to maintain
+harmony. Vigorous debate is sacrificed, and members prioritize getting
+along over pushing for the best ideas, leading to complacency and poor
+decision-making.</p></li>
+<li><p>Causes: Overemphasis on collaboration and mutual trust, leading
+to conflict avoidance. Team members are too deferential, fearing that
+disagreements might disrupt the team’s harmony. Leaders may unknowingly
+encourage this avoidance by stressing harmony over debate.</p></li>
+<li><p>Signs: Meetings lack critical debate, and discussions feel muted
+and lacking in emotional intensity. Team members engage in performance
+theater, focusing on positive news while downplaying problems. Decisions
+are made by consensus without sufficient evaluation or challenge.
+Leaders avoid holding one another accountable for poor performance,
+reluctant to disrupt the status quo.</p></li>
+<li><p>Prevention:</p>
+<ul>
+<li>Encourage Debate: Leaders should foster a culture of constructive
+conflict where members feel safe to challenge each other’s ideas. A
+foundation of trust and psychological safety is key.</li>
+<li>Promote Data-Driven Discussion: Ensure discussions are rooted in
+facts, using shared data to spur debate and avoid personal conflict.
+This encourages neutral, objective decision-making.</li>
+<li>Monitor Meeting Dynamics: Leaders should track participation and the
+quality of discussion during meetings, encouraging team members to speak
+up and challenge ideas more openly.</li>
+<li>Redefine Consensus: Teams must understand that consensus does not
+mean avoiding conflict but making informed decisions after rigorous
+debate.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Mediocracies</strong></p>
+<ul>
+<li><p>Definition: A leadership team marked by complacency, lacking the
+drive or skills to achieve high performance. Collaboration and
+competition are both underemphasized, and the team fails to meet the
+organization’s needs.</p></li>
+<li><p>Causes: Long periods of success that breed complacency. Poor
+alignment between the team’s skills and the changing demands of the
+business. A divided team, where some members prefer competition while
+others favor collaboration, leading to inconsistent and ineffective
+efforts. A leader’s failure to adapt to changing market conditions or
+internal challenges.</p></li>
+<li><p>Signs: Team members operate in silos, with little collaboration
+between departments or units. Decision-making is slow, and there is a
+lack of accountability for performance. The team focuses on past
+achievements rather than future goals, with little ambition or drive for
+improvement. The team struggles with stagnation, missed opportunities,
+and duplicated efforts due to poor coordination.</p></li>
+<li><p>Prevention:</p>
+<ul>
+<li>Rebuild the Team: Leaders may need to replace members who are not
+fit for their roles or who lack the motivation or skills needed to lead
+effectively. New hires should be chosen not just for their skills but
+also for their alignment with the company’s purpose and values.</li>
+<li>Promote Balance: Strike a balance between competition and
+collaboration by hiring individuals with complementary skills and styles
+(e.g., planners and visionaries alongside hard-nosed executors).</li>
+<li>Clear Roles and Expectations: Define where collaboration is expected
+(e.g., across departments) and where competition might be useful (e.g.,
+in individual market decisions). Ensure everyone understands their
+responsibilities and how their performance contributes to broader
+goals.</li>
+<li>Challenge the Status Quo: Continuously push the team to innovate and
+grow by setting ambitious goals and holding team members accountable for
+driving performance improvements.</li>
+</ul></li>
+</ul></li>
+</ol>
+<blockquote>
+<p><em>Without such an observability system–let’s call it Design System
+Observability–it could be too late when Uber learned through complaints
+and public media about the end users who would suffer confusing
+onboarding rides, inconsistent layouts, and frustrating
+voiceovers/talkbacks sessions.</em></p>
+<p><strong>― How to Measure Design System at Scale - Uber Blog</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.uber.com/en-GB/blog/design-system-at-scale/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>RAG is the most popular architecture of the LLM based systems in
+2023. There are many products build almost solely on RAG — from Question
+Answering services combining web search engines with LLMs to hundreds of
+chat-with-your-data apps.</em></p>
+<p><strong>― Advanced RAG Techniques: an Illustrated Overview -
+Medium</strong> [<a
+target="_blank" rel="noopener" href="https://pub.towardsai.net/advanced-rag-techniques-an-illustrated-overview-04d193d8fec6">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Machines of Loving Grace - Dario Amodei, CEO of
+Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://darioamodei.com/machines-of-loving-grace">Link</a>]</p>
+</blockquote>
+<p>This essay aligns with our thinking that while you acknowledge the
+risks and share concerns over idealistic promises, you also recognize
+the challenges inherent in building AGI. It reflects an approach to AI
+that balances ambition with caution, and providing perspectives of how
+to articulate a vision for AI that remains both ambitious and
+grounded.</p>
+<p>Interesting point: As AI reaches near-universal superiority, the
+economy may need to adapt fundamentally. Potential solutions range from
+universal basic income (UBI) to entirely new economic frameworks.
+Perhaps AIs might manage resources and distribute them according to
+value systems derived from human input, but such proposals raise ethical
+and practical concerns. The author hints that the economic
+transformation required could be as drastic as past societal shifts
+(e.g. from hunting-gathering to agriculture), suggesting that humanity
+will have to experiment and iterate to find sustainable models that
+protect against exploitation or dystopia.</p>
+<p>Overall, the author believes that the core human values such as
+fairness, cooperation, and autonomy have a natural, most
+‘’overdetermined’ appeal, and will often lead toward democracy, rule of
+law, and enlightenment ideals - a trajectory that AI as a catalyst could
+accelerate by making the path to this “good world” more tangible. While
+the vision seems intuitive and inspiring to many, it may still appear
+fantastical or undesirable to others. Even so, the author finds a unique
+beauty in striving for it, suggesting that our intrinsic human impulses
+toward collaboration and justice make this vision both plausible and
+worth pursuing.</p>
+<blockquote>
+<p><strong>Andrew Ng’s writing in The Batch - The Batch</strong> [<a
+target="_blank" rel="noopener" href="https://www.deeplearning.ai/the-batch/issue-270">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>“The best we can do is a compromise: learn to recognize
+situations in which mistakes are likely and try harder to avoid
+significant mistakes when the stakes are high.” ― Daniel Kahneman,
+Thinking, Fast and Slow</em></p>
+<p><strong>― Unleashing System 2 Thinking? AlphaCodium Outperforms
+Direct Prompting of OpenAI o1 - qodo</strong> [<a
+target="_blank" rel="noopener" href="https://www.qodo.ai/blog/system-2-thinking-alphacodium-outperforms-direct-prompting-of-openai-o1/">Link</a>]</p>
+</blockquote>
+<p>System 1 thinking: fast responses with surface-level
+understanding;</p>
+<p>System 2 thinking: deliberate methodical and reasoned problem
+solving.</p>
+<blockquote>
+<p><strong>Introducing the Realtime API - OpenAI Blog</strong> [<a
+target="_blank" rel="noopener" href="https://openai.com/index/introducing-the-realtime-api/">Link</a>]</p>
+</blockquote>
+<p>Developers can now build fast speech-to-speech experiences into their
+applications</p>
+<blockquote>
+<p><em>With canvas, ChatGPT can better understand the context of what
+you’re trying to accomplish. You can highlight specific sections to
+indicate exactly what you want ChatGPT to focus on. Like a copy editor
+or code reviewer, it can give inline feedback and suggestions with the
+entire project in mind.</em></p>
+<p><em>You control the project in canvas. You can directly edit text or
+code. There’s a menu of shortcuts for you to ask ChatGPT to adjust
+writing length, debug your code, and quickly perform other useful
+actions. You can also restore previous versions of your work by using
+the back button in canvas.</em></p>
+<p><strong>― Introducing canvas - OpenAI</strong> [<a
+target="_blank" rel="noopener" href="https://openai.com/index/introducing-canvas/">Link</a>]</p>
+</blockquote>
+<p>Canvas offers a new interface for the project works that require
+editing and revisions.</p>
+<blockquote>
+<p><strong>Multi document agentic RAG: A walkthrough - LanceDB</strong>
+[<a
+target="_blank" rel="noopener" href="https://blog.lancedb.com/multi-document-agentic-rag-a-walkthrough/">Link</a>]</p>
+</blockquote>
+<p>This tutorial shows you how to build a multi-document agentic RAG
+system using LanceDB and LlamaIndex for complex information retrieval.
+Specifically, the walkthrough demonstrates how to integrate LLMs, vector
+databases, and agent-based reasoning for enhanced information retrieval
+and task completion.</p>
+<h3 id="reports-and-papers">Reports and Papers</h3>
+<blockquote>
+<p><strong>Learning vs Retrieval: The Role of In-Context Examples in
+Regression with LLMs</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.04318">Link</a>]</p>
+</blockquote>
+<p>The paper explores in-context learning (ICL) mechanisms in large
+language models (LLMs), focusing on the balance between knowledge
+retrieval and learning from in-context examples in regression tasks. It
+reports that LLMs can learn from regression examples of realistic
+datasets in-context, extending previous work on synthetic data to more
+practical scenarios.</p>
+<p>I’m looking forward to this kind of experiments and studies, because
+I was suspicious about applying LLM on structured data.</p>
+<blockquote>
+<p><strong>Larger and more instructable language models become less
+reliable</strong> [<a
+target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-024-07930-y">Link</a>]</p>
+</blockquote>
+<p>The issue might stem from the nature of LLMs, which are designed to
+generate plausible responses based on patterns in the data they’ve seen,
+rather than to <em>know</em> anything in the traditional sense. They
+don’t have an internal mechanism to differentiate truth from
+fabrication, so as they scale up, they produce more complex, yet not
+necessarily more accurate, answers. This makes them better at appearing
+smart, but less reliable overall—a quality that philosophers like Mike
+Hicks rightly criticize as “bullshitting.”</p>
+<p>From a user perspective, it underscores the need for critical
+thinking when engaging with AI models through prompt engineering. Just
+because an LLM provides a well-phrased response doesn’t mean it’s
+accurate.</p>
+<blockquote>
+<p><em>o1—like previous LLMs—is sensitive to the probability of examples
+and tasks, performing better and requiring fewer “thinking tokens” in
+high-probability settings than in low-probability ones.</em></p>
+<p><strong>― When a language model is optimized for reasoning, does it
+still show embers of autoregression? An analysis of OpenAI o1</strong>
+[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.01792">Link</a>]</p>
+</blockquote>
+<p>Although optimized for reasoning, o1 still exhibits probability-based
+limitations tied to its autoregressive origins, implying that a complete
+departure from these influences has not been fully achieved.</p>
+<blockquote>
+<p><strong>VideoPrism: A foundational visual encoder for video
+understanding - Google Research</strong> [<a
+target="_blank" rel="noopener" href="https://research.google/blog/videoprism-a-foundational-visual-encoder-for-video-understanding/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Astute RAG: Overcoming Imperfect Retrieval Augmentation and
+Knowledge Conflicts for Large Language Models</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.07176">Link</a>]</p>
+</blockquote>
+<p>Astute RAG is designed to better combine internal and external
+information through an interactive consolidation mechanism (i.e.,
+identifying consistent passages, detecting conflicting information in
+them, and filtering out irrelevant information).</p>
+<blockquote>
+<p><strong>Differential Transformer - Microsoft Research</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.05258">Link</a>]</p>
+</blockquote>
+<p>Diff Transformer amplifies attention to relevant context while
+canceling noise, resulting in outperforming standard Transformers in
+multiple areas such as long-context modeling, key information retrieval,
+hallucination mitigation, in-context learning, and reducing activation
+outliers, as shown in the experiments.</p>
+<p>The key innovation is a differential attention mechanism that
+calculates attention scores by subtracting two separate softmax
+attention maps. This subtraction cancels out irrelevant attention,
+promoting sparser, more accurate focus on important information, similar
+to noise-canceling techniques.</p>
+<blockquote>
+<p><strong>Diffusion Guided Language Modeling</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.04220">Link</a>]</p>
+</blockquote>
+<p>Controllable language modeling refers to techniques that allow users
+to guide or control specific attributes of the generated text from a
+language model (LM). These attributes can include factors like
+sentiment, toxicity, formality, or any other desired linguistic or
+stylistic feature. The primary challenge is ensuring that generated
+content aligns with specific requirements without compromising fluency,
+coherence, or overall quality of the text.</p>
+<p>Diffusion models are excellent for controllable generation. They
+generate data in a multi-step process, gradually refining noise into
+coherent content. This incremental approach allows for fine-grained
+control at various stages of the generation. By manipulating the process
+at specific steps, you can guide the output more effectively toward
+desired characteristics (such as sentiment, style, or tone). In
+contrast, auto-regressive models like GPT generate text token by token
+in a one-shot manner, making it harder to impose controls without
+affecting fluency.</p>
+<p>DGLM could refine language model generation because it integrates the
+fluency of auto-regressive language models (like GPT) with the
+flexibility of diffusion models. This flexibility is realized by
+employing Plug-and-Play with Linear Classifiers in the Sentence-T5
+latent space to guide the diffusion process towards generating proposals
+with desired attributes.</p>
+<blockquote>
+<p><strong>On the Diagram of Thought</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.10038">Link</a>]</p>
+</blockquote>
+<p>Researchers from Tsinghua University, led by Andrew Chi-Chih Yao,
+introduced Diagram of Thought (DoT), designed to enhance the reasoning
+capabilities of LLMs.</p>
+<p>The limitation of CoT is that it processes information in a straight
+line which does not reflect the way of how humans think. The limitation
+of ToT or GoT is that they are computationally expensive and challenging
+to implement within a single LLM.</p>
+<p>DoT addresses these limitations by modeling reasoning as the
+construction of a directed acyclic graph (DAG) within a single LLM. This
+DAG comprises nodes representing: 1) Propositions: Initial and refined
+ideas generated throughout the reasoning process, 2) Critiques:
+Evaluations of propositions, identifying errors or inconsistencies. 3)
+Refinements: Improved propositions based on critiques. 4) Verifications:
+Confirmation of valid propositions.</p>
+<p>Two key crucial aspect of DoT framework: 1) it leverages
+auto-regressive next-token prediction with role specific tokens to
+manage reasoning process within a single LLM, 2) it has strong
+foundation in math logic - Topos Theory, ensuring logical consistency
+and soundness in reasoning process.</p>
+<blockquote>
+<p><strong>A Survey on the Honesty of Large Language Models</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.18786">Link</a>]</p>
+</blockquote>
+<p>Dunning-Kruger effect is named after psychologists David Dunning and
+Justin Kruger, who first described this <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect">phenomenon
+in 1999</a>. It reveals a troubling mismatch between perception and
+reality. Those who know little often lack the self-awareness to
+recognize their limitations. Conversely, experts may be acutely aware of
+the vastness of their field, leading them to undervalue their own
+expertise.</p>
+<blockquote>
+<p><strong>Spatial context non-uniformly modulates inter-laminar
+information flow in the primary visual cortex</strong> [<a
+target="_blank" rel="noopener" href="https://www.cell.com/neuron/abstract/S0896-6273(24)00693-7?_returnURL=https://linkinghub.elsevier.com/retrieve/pii/S0896627324006937?showall=true">Link</a>]</p>
+</blockquote>
+<p>Their research shows that when our field of vision is cluttered, it
+changes how efficiently our brain processes information, though the
+basic pattern of information transfer remains the same.</p>
+<blockquote>
+<p><strong>When you give a Claude a mouse - Out Useful Thing</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.oneusefulthing.org/p/when-you-give-a-claude-a-mouse">Link</a>]</p>
+</blockquote>
+<p>Some impression on what an agent is capable of.</p>
+<blockquote>
+<p><strong>Agentic Information Retrieval</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.09713">Link</a>]</p>
+</blockquote>
+<p>Research proposed AI agent on information retrieval (IR) task.
+Compared to traditional IR, Agentic IR employs a unified, adaptive
+architecture where agents use observation, reasoning, and actions
+iteratively to reach the desired user information state. Key methods
+include prompt engineering, retrieval-augmented generation, multi-agent
+systems, and reinforcement fine-tuning (RFT).</p>
+<blockquote>
+<p><strong>A Comparative Study on Reasoning Patterns of OpenAI’s o1
+Model</strong> [<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.13639">Link</a>]</p>
+</blockquote>
+<p>An evaluation study of GPT o1’s reasoning patterns. The study
+identified six distinct reasoning patterns for o1—Systematic Analysis
+(SA), Method Reuse (MR), Divide and Conquer (DC), Self-Refinement (SR),
+Context Identification (CI), and Emphasizing Constraints (EC)—with DC
+and SR being most common across tasks. And token count varied greatly
+across tasks, indicating that the o1 model adjusts reasoning depth based
+on task complexity.</p>
+<blockquote>
+<p><strong>Malla: Demystifying Real-world Large Language Model
+Integrated Malicious Services</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.03315">Link</a>]</p>
+</blockquote>
+<p>A study of malicious services powered by LLM ‘Malla’ in the
+underground marketplaces. (When it comes to AI, everywhere has gaps to
+bridge lol). Interesting mysteries to uncover:</p>
+<ol type="1">
+<li><p>Who are the pivotal players within the Malla ecosystem?</p>
+<p>The Malla ecosystem comprises vendors who create malicious LLM
+services, users who exploit these services, and platforms that
+facilitate their operations.</p></li>
+<li><p>How is Malla orchestrated and monetized?</p>
+<p>Malla services generate revenue through direct user transactions,
+often accepting cryptocurrencies, with some vendors reporting
+substantial earnings.</p></li>
+<li><p>What techniques did miscreants deploy to exploit LLMs and build
+up Mallas?</p>
+<p>Miscreants utilize techniques like jailbreak prompts to bypass LLM
+restrictions and abuse public APIs to generate harmful content.</p></li>
+</ol>
+<blockquote>
+<p><strong>Were RNNs All We Needed?</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.01201">Link</a>] [<a
+target="_blank" rel="noopener" href="https://huggingface.co/papers/2410.01201">Source</a>]</p>
+</blockquote>
+<p>The minimal versions (minLSTMs and minGRUs) are fully parallelizable
+during training and use fewer parameters. They are 175x faster to train
+than traditional LSTMs and GRUs. And their performance is equivalent to
+Transformers or Mamba with fewer training steps.</p>
+<blockquote>
+<p><strong>The Perfect Blend: Redefining RLHF with Mixture of
+Judges</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.20370">Link</a>]</p>
+</blockquote>
+<p>This work is redefining RLHF with Mixture of Judges by Constrained
+Generative Policy Optimization (CGPO), a novel RLHF framework. The
+framework uses a Mixture of Judges (MoJ) with rule-based and LLM-based
+constraints to mitigate reward hacking. As a result, CGPO consistently
+outperforms PPO and DPO baselines across various benchmarks.</p>
+<blockquote>
+<p><strong>STATE OF AI REPORT 2024</strong> [<a
+target="_blank" rel="noopener" href="https://www.stateof.ai/">Link</a>]</p>
+</blockquote>
+<p>This annual publication examines trends in AI research, industry
+developments, and technological progress. And this year it reveals
+convergence in AI Model Performance.</p>
+<blockquote>
+<p><strong>MLE-bench: Evaluating Machine Learning Agents on Machine
+Learning Engineering</strong> [<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.07095">Link</a>] [<a
+target="_blank" rel="noopener" href="https://openai.com/index/mle-bench/">Blog</a>]</p>
+</blockquote>
+<p>As the title described, they introduce MLE-bench as a benchmark for
+measuring how well AI agents perform at machine learning engineering.
+The tasks for testing were created by curating 75 ML engineering related
+competitions from Kaggle. Eventually, OpenAI’s o1-preview with AIDE
+scaffolding achieves at least bronze medal in 16.7% of competitions.</p>
+<h3 id="github-and-docs">Github and Docs</h3>
+<blockquote>
+<p><strong>Swarm - An educational framework exploring ergonomic,
+lightweight multi-agent orchestration</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/openai/swarm/tree/main">Link</a>]</p>
+</blockquote>
+<p>Little experimental and educational multi-agent framework by
+OpenAI.</p>
+<p>Swarm’s Operational Framework:</p>
+<ul>
+<li>Agent Definition: Create Agents with specific instructions, roles,
+and functions. Each function is automatically converted to a JSON
+structure for API compatibility.</li>
+<li>Handoff Mechanism: Implement logic for agent transitions. Functions
+can return a new Agent object to transfer control based on conversation
+flow or predefined criteria.</li>
+<li>Context Management: Utilize Context Variables to initialize and
+update shared information throughout the conversation, maintaining state
+across agent interactions.</li>
+<li>Execution Loop: The client.run() function manages the multi-agent
+conversation. It takes an initial agent, user messages, and context as
+input, and returns a response with updated messages, context variables,
+and the last active agent.</li>
+<li>This structure allows for flexible, dynamic multi-agent interactions
+while maintaining a stateless architecture between calls.</li>
+</ul>
+<blockquote>
+<p><strong>o1-engineer</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/Doriandarko/o1-engineer">Link</a>]</p>
+</blockquote>
+<p>A CLI tool for streamlining workflows with AI-powered code generation
+and editing.</p>
+<blockquote>
+<p><strong>Llama-stack</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/meta-llama/llama-stack">Link</a>]</p>
+</blockquote>
+<p>Meta unveils open-source Llama Stack, standardizing AI building
+blocks across the entire development lifecycle.</p>
+<blockquote>
+<p><strong>Leaked meta prompt</strong> [<a
+target="_blank" rel="noopener" href="https://gist.github.com/philschmid/3a0ecc9e45763716f4dd9c36b6445fca">Link</a>]</p>
+</blockquote>
+<p>Leaked OpenAI meta prompt: optimizing GPT instructions for better
+results.</p>
+<figure>
+<img
+src="/di-blog/2024/10/01/2024-October/leaked-openai-meta-prompt.png"
+alt="leaked-openai-meta-prompt" />
+<figcaption aria-hidden="true">leaked-openai-meta-prompt</figcaption>
+</figure>
+<blockquote>
+<p><strong>Auto Jobs Applier - AIHawk</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/feder-cr/Auto_Jobs_Applier_AIHawk">Link</a>]</p>
+</blockquote>
+<p>Job search assistant.</p>
+<blockquote>
+<p><strong>RAGBuilder</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/KruxAI/ragbuilder?tab=readme-ov-file">Link</a>]</p>
+</blockquote>
+<p>Toolkit used to create optimal production-ready RAG setup for your
+data automatically.</p>
+<blockquote>
+<p><strong>Prompt caching (beta) - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching">Link</a>]</p>
+</blockquote>
+<p>Prompt caching optimizes API calls for faster LLM interactions. It is
+a new API feature that optimizes large language model interactions. It
+caches and reuses consistent parts of prompts, reducing processing time
+and costs for repetitive tasks.</p>
+<p>This technique is particularly useful for scenarios involving large
+contexts, multiple examples, or long conversations. Prompt Caching works
+by checking if a prompt prefix is already cached from a recent query and
+using it if found, otherwise processing and caching the full prompt.</p>
+<blockquote>
+<p><strong>Lazy Predict</strong> [<a
+target="_blank" rel="noopener" href="https://github.com/shankarpandala/lazypredict">Link</a>]</p>
+</blockquote>
+<p>Works to rapidly test multiple ML models with minimal coding effort.
+This Python library streamlines model selection for classification and
+regression tasks.</p>
+<h3 id="news">News</h3>
+<blockquote>
+<p><strong>The Nobel Prize in Physics 2024 to John J. Hopfield and
+Geoffrey E. Hinton, for foundational discoveries and inventions that
+enable machine learning with artificial neural networks</strong> [<a
+target="_blank" rel="noopener" href="https://www.nobelprize.org/prizes/physics/2024/summary/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>Zuckerberg imagines that people will want to use AR glasses like
+Orion for two primary purposes: communicating with each other through
+digital information overlaid on the real world — which he calls
+“holograms” — and interacting with AI.</em></p>
+<p><strong>― Meta’s big tease - The Verge</strong> [<a
+target="_blank" rel="noopener" href="https://www.theverge.com/24253908/meta-orion-ar-glasses-demo-mark-zuckerberg-interview">Link</a>]</p>
+</blockquote>
+<p>One downside of Apple’s Vision Pro or Meta’s Quest 3 is that you lost
+vision of other people and other people cannot see your eyes, making it
+usage situation limited to home where you don’t have interaction with
+other people. However, the future of devices that’s going to replace
+mobile phone or comparable to mobile phone, has to have some
+functionalities to support socialization and networking.</p>
+<blockquote>
+<p><strong>Llama 3.2: Revolutionizing edge AI and vision with open,
+customizable models - Meta Blog</strong> [<a
+target="_blank" rel="noopener" href="https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Big Tech has cozied up to nuclear energy - The Verge</strong>
+[<a
+target="_blank" rel="noopener" href="https://www.theverge.com/2024/10/5/24261405/google-microsoft-amazon-tech-data-center-nuclear-energy">Link</a>]</p>
+</blockquote>
+<p>Microsoft, Amazon, and Google are investing in nuclear energy to
+power their data centers.</p>
+<blockquote>
+<p><strong>Why Taiwan and Its Tech Industry Are Facing an Energy Crisis
+- Yale Environment 360</strong> [<a
+target="_blank" rel="noopener" href="https://e360.yale.edu/features/taiwan-energy-dilemma">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>Google’s share of the U.S. search ad market is expected to drop
+below 50% next year for the first time in over a decade, according to
+the research firm eMarketer.</em></p>
+<p><em>Amazon is expected to have 22.3% of the market this year, with
+17.6% growth, compared with Google’s 50.5% share and its 7.6%
+growth.</em></p>
+<p><strong>― Google’s Grip on Search Slips as TikTok and AI Startup
+Mount Challenge - The Wall Street Journal</strong> [<a
+target="_blank" rel="noopener" href="https://www.wsj.com/tech/online-ad-market-google-tiktok-9599d7e8">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Uber and Lyft drivers use Teslas as makeshift robotaxis,
+raising safety concerns - Reuters</strong> [<a
+target="_blank" rel="noopener" href="https://www.reuters.com/business/autos-transportation/uber-lyft-drivers-use-teslas-makeshift-robotaxis-raising-safety-concerns-2024-10-03/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>Real world example:</em></p>
+<p><em>Shorenstein Properties, a real-estate investment company based in
+San Francisco, is in a pilot program that is designed to lead to the
+automated tagging of all of its files using a RAG-based AI system. The
+goal is to eliminate many of the drawbacks in a time-consuming manual
+system, in which people might make errors or simply skip the process
+altogether. The company plans to put the tagging system into production
+in the next few months.</em></p>
+<p><em>Files can also be organized quickly into “knowledge bases” and
+interrogated with AI, according to Egnyte, a cloud-based platform that
+companies use to access, share and manage business content.</em></p>
+<p><em>Shorenstein in the past few weeks has started a proof of concept
+project using Egnyte to extract data from prospectuses on properties for
+sale, documents that can often run 60 pages, and organize it into
+reports that could help the company make efficient business decisions
+and improve processes.</em></p>
+<p><strong>― Companies Look Past Chatbots for AI Payoff - Steven
+Rosenbush at The Wall Street Journal</strong> [<a
+target="_blank" rel="noopener" href="https://www.wsj.com/articles/companies-look-past-chatbots-for-ai-payoff-c63f5301">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>Beginning Friday, users of Meta’s AI chatbot feature in the U.S.
+will have access to real-time news and information from Reuters when
+they ask questions about news or current events.</em></p>
+<p><em>It’s the first news deal Meta has brokered in the AI
+era.</em></p>
+<p><strong>― Scoop: Meta strikes multi-year AI deal with Reuters -
+AXIOS</strong> [<a
+target="_blank" rel="noopener" href="https://www.axios.com/2024/10/25/meta-reuters-ai-news-facebook-instagram">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>An AI companion for everyone - Microsoft Blog</strong> [<a
+target="_blank" rel="noopener" href="https://blogs.microsoft.com/blog/2024/10/01/an-ai-companion-for-everyone/">Link</a>]</p>
+</blockquote>
+<p>Releasing Copilot Voice, Copilot Daily, Personalization in Copilot,
+Copilot Vision, Think Deeper.</p>
+<blockquote>
+<p><strong>Anaconda Brings Generative AI Models to Desktops with Launch
+of AI Navigator - Anaconda Press</strong> [<a
+target="_blank" rel="noopener" href="https://www.anaconda.com/press/anaconda-ai-navigator-generative-ai-desktop-agent">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Meet the new Notion AI - Notion</strong> [<a
+target="_blank" rel="noopener" href="https://www.notion.so/product/ai?cookie_sync_completed=true">Link</a>]</p>
+</blockquote>
+<p>Notion AI heavily integrates AIintroducing file-handling
+capabilities, enabling developers to extract insights from PDFs and
+images.</p>
+<blockquote>
+<p><strong>Customer data search, unification and retrieval for LLMs -
+Tilores</strong> [<a target="_blank" rel="noopener" href="https://tilores.io/RAG">Link</a>]</p>
+</blockquote>
+<p>Identity RAG from Tilores improves accuracy and relevance of
+enterprise LLMs.</p>
+<blockquote>
+<p><strong>New autonomous agents scale your team like never before -
+Microsoft</strong> [<a
+target="_blank" rel="noopener" href="https://blogs.microsoft.com/blog/2024/10/21/new-autonomous-agents-scale-your-team-like-never-before/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><em>We’re also introducing a groundbreaking new capability in public
+beta: <strong>computer use</strong>. Available <a
+target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/build-with-claude/computer-use">today
+on the API</a>, developers can direct Claude to use computers the way
+people do—by looking at a screen, moving a cursor, clicking buttons, and
+typing text. Claude 3.5 Sonnet is the first frontier AI model to offer
+computer use in public beta.</em></p>
+<p><strong>Introducing computer use, a new Claude 3.5 Sonnet, and Claude
+3.5 Haiku</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/news/3-5-models-and-computer-use">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Perplexity Now Offers Powerful AI Search Right On Your macOS
+Desktop</strong> [<a
+target="_blank" rel="noopener" href="https://www.makeuseof.com/perplexity-now-on-your-macos-desktop/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Pushing the frontiers of audio generation - Google
+DeepMind</strong> [<a
+target="_blank" rel="noopener" href="https://deepmind.google/discover/blog/pushing-the-frontiers-of-audio-generation/">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Gemini API and Google AI Studio now offer Grounding with
+Google Search - Google for Developers</strong> [<a
+target="_blank" rel="noopener" href="https://developers.googleblog.com/en/gemini-api-and-ai-studio-now-offer-grounding-with-google-search/">Link</a>]</p>
+</blockquote>
+<p>What’s new: 1) reduces hallucination rates by sourcing verified,
+real-time information, 2) provides citation-supported answers, improving
+transparency, 3) allows threshold-based activation to control costs.</p>
+<p>Technical details: Google’s <strong>Dynamic Retrieval</strong> system
+evaluates each query for grounding suitability, assigning a prediction
+score between 0 and 1. Factual or time-sensitive queries score higher
+(e.g., 0.97), while creative prompts score lower (e.g., 0.13).</p>
+<blockquote>
+<p><strong>New in Maps: Inspiration curated with Gemini, enhanced
+navigation and more - Google</strong> [<a
+target="_blank" rel="noopener" href="https://blog.google/products/maps/gemini-google-maps-navigation-updates/">Link</a>]</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/readings/" rel="tag"># readings</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2024/09/28/The-Long-View/" rel="prev" title="The Long View">
+                  <i class="fa fa-angle-left"></i> The Long View
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2024/10/19/Advanced-RAG/" rel="next" title="Advanced RAG">
+                  Advanced RAG <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="Persistence in LangGraph Persistence is a cornerstone for building robust and production-grade applications. LandGraph introduces a game-changing feature that ensures application states are stored and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Persisting Agent State">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="Persistence in LangGraph Persistence is a cornerstone for building robust and production-grade applications. LandGraph introduces a game-changing feature that ensures application states are stored and">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/hitl-graph.png">
+<meta property="article:published_time" content="2025-01-25T03:25:22.000Z">
+<meta property="article:modified_time" content="2025-01-25T03:25:22.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="knowledge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/hitl-graph.png">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/","path":"2025/01/24/Persisting-Agent-State/","title":"Persisting Agent State"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Persisting Agent State | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#persistence-in-langgraph"><span class="nav-number">1.</span> <span class="nav-text">Persistence in LangGraph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memorysaver-interrupts-human-in-the-loop"><span class="nav-number">2.</span> <span class="nav-text">MemorySaver +
+Interrupts &#x3D; Human In The Loop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#implementation"><span class="nav-number">2.1.</span> <span class="nav-text">Implementation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#memorysaver-implementations"><span class="nav-number">3.</span> <span class="nav-text">MemorySaver Implementations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sqlitesaver"><span class="nav-number">4.</span> <span class="nav-text">SqliteSaver</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2025/01/24/Persisting-Agent-State/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Persisting Agent State | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Persisting Agent State
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-01-24 22:25:22" itemprop="dateCreated datePublished" datetime="2025-01-24T22:25:22-05:00">2025-01-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="persistence-in-langgraph">Persistence in LangGraph</h2>
+<p><a
+target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/concepts/persistence/">Persistence</a>
+is a cornerstone for building robust and production-grade applications.
+LandGraph introduces a game-changing feature that ensures application
+states are stored and retrievable at any point. This redefines
+reliability and scalability in workflow management. This capability is
+especially vital when executing workflows involving interruptions, user
+inputs, or debugging. Whether you're building a simple app or an
+enterprise-grade system, persistence ensures your application is always
+ready to handle interruptions and user interactions gracefully.</p>
+<p>The "Persisting Agent Stage" enables seamless workflows, especially
+in user-facing applications. Here’s why this feature is critical:</p>
+<ol type="1">
+<li><strong>Human-in-the-Loop Workflows:</strong> Many applications rely
+on user input to make decisions or advance processes. With persistence,
+LandGraph allows the graph execution to pause, checkpoint the state into
+persistent storage, and resume later. This means the application can
+wait for user input and continue without losing context.</li>
+<li><strong>Debugging and History</strong>: Persistence creates a robust
+mechanism for saving the application state after every step. This makes
+debugging easier and enables the creation of detailed execution
+histories.</li>
+<li><strong>Support for Multi-Session Scenarios</strong>: Applications
+often require users to switch between sessions while maintaining their
+progress. Persistence ensures continuity by saving states into
+persistent storage.</li>
+</ol>
+<p>At the heart of this feature is the <strong><a
+target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/reference/checkpoints/">CheckPointer</a></strong>
+object, a persistence layer implemented by LandGraph. Here’s how it
+works:</p>
+<ul>
+<li><p><strong>Integration with Databases</strong> The CheckPointer can
+save states into various database types, including:</p>
+<ul>
+<li><strong>Document databases</strong>: Firestore, MongoDB</li>
+<li><strong>Relational databases</strong>: PostgreSQL, SQLite,
+MySQL</li>
+<li><strong>Graph databases</strong>: Neo4j, AWS Neptune</li>
+</ul>
+<p>For example, the following section will focus on persisting states
+into an SQLite database, a popular choice for local environments. The
+process can also be extended to managed cloud databases like Google
+Cloud SQL or AWS RDS.</p></li>
+<li><p><strong>State Management</strong> As each node in the graph
+executes, the CheckPointer saves the updated state into the database.
+This ensures that states are recoverable after interruptions, enabling
+the graph to resume execution from exactly where it left off.</p></li>
+</ul>
+<p>To implement persistence, follow these simple steps:</p>
+<ol type="1">
+<li>Import the <strong>CheckPointer</strong> object from LandGraph.</li>
+<li>Create an instance of CheckPointer and configure it with a
+connection string (local or cloud-based database).</li>
+<li>Pass the CheckPointer instance to your graph during creation.
+LandGraph will handle state persistence automatically after each node
+execution.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.checkpoint.sqlite <span class="keyword">import</span> SqliteSaver</span><br><span class="line"></span><br><span class="line">memory = SqliteSaver.from_conn_string(<span class="string">&quot;:checkpoints.sqlite:&quot;</span>)</span><br><span class="line">graph = workflow.complie(checkpointer=memory)</span><br></pre></td></tr></table></figure>
+<p>The result is that you can pause the graph, fetch user input, and
+continue execution seamlessly, all while ensuring states are securely
+stored in your chosen database.</p>
+<h2 id="memorysaver-interrupts-human-in-the-loop">MemorySaver +
+Interrupts = Human In The Loop</h2>
+<p>Human-in-the-loop systems are essential to modern applications,
+allowing seamless integration of human feedback into automated
+workflows. With the help of the <strong>MemorySaver</strong> feature,
+you can build applications using LangGraph that pause, capture user
+input, and resume execution effortlessly.</p>
+<p>In workflows involving human interaction, there are moments where the
+application needs to pause, gather feedback from the user, and then
+continue processing. For instance, consider a sequence of tasks
+where:</p>
+<ol type="1">
+<li>A process executes its initial steps.</li>
+<li>The system pauses to collect human input.</li>
+<li>The workflow resumes, incorporating the user’s feedback.</li>
+</ol>
+<p>This type of flow requires <strong>interrupts</strong> to halt the
+execution and <strong>persistence</strong> to save the current state of
+the workflow. Langraph provides the tools to manage both seamlessly.</p>
+<h3 id="implementation">Implementation</h3>
+<p>To illustrate, let’s build a straightforward graph with the following
+steps:</p>
+<ol type="1">
+<li>Start with a simple initial node.</li>
+<li>Execute a task and pause for human feedback.</li>
+<li>Resume execution with the updated state and complete the
+workflow.</li>
+</ol>
+<p>We use Langraph's <strong>MemorySaver</strong>, a checkpointing tool
+that saves the workflow’s state in memory after each node’s execution.
+This ephemeral storage method is perfect for local testing and
+prototyping. Here’s a simplified version of the setup:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypedDict</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph, START, END</span><br><span class="line"><span class="keyword">from</span> langgraph.checkpoint.memory <span class="keyword">import</span> MemorySaver</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>(<span class="title class_ inherited__">TypedDict</span>):</span><br><span class="line">    <span class="built_in">input</span>: <span class="built_in">str</span></span><br><span class="line">    user_feedback: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_1</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;---Step 1---&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">human_feedback</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;---human_feedback---&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_3</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;---Step 3--&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">builder = StateGraph(State)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_1&quot;</span>, step_1)</span><br><span class="line">builder.add_node(<span class="string">&quot;human_feedback&quot;</span>, human_feedback)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_3&quot;</span>, step_3)</span><br><span class="line">builder.add_edge(START, <span class="string">&quot;step_1&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_1&quot;</span>, <span class="string">&quot;human_feedback&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;human_feedback&quot;</span>, <span class="string">&quot;step_3&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_3&quot;</span>, END)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">memory = MemorySaver()</span><br><span class="line"></span><br><span class="line">graph = builder.<span class="built_in">compile</span>(checkpointer=memory, interrupt_before=[<span class="string">&quot;human_feedback&quot;</span>])</span><br><span class="line"></span><br><span class="line">graph.get_graph().draw_mermaid_png(output_file_path=<span class="string">&quot;graph.png&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>The graph visualization by using <a
+target="_blank" rel="noopener" href="https://python.langchain.com/api_reference/core/runnables/langchain_core.runnables.graph.MermaidDrawMethod.html">Mermaid.ink</a>
+is here:</p>
+<figure>
+<img src="/di-blog/2025/01/24/Persisting-Agent-State/hitl-graph.png"
+alt="hitl-graph" />
+<figcaption aria-hidden="true">hitl-graph</figcaption>
+</figure>
+<h2 id="memorysaver-implementations">MemorySaver Implementations</h2>
+<p>Integrating human feedback into automated systems is a growing trend
+in AI development. It bridges the gap between machine automation and
+human judgment, enabling better decision-making, improved accuracy, and
+adaptability. In this section, we explore how to incorporate
+human-in-the-loop functionality into a graph-based system while
+leveraging memory storage to track execution states. This walkthrough
+showcases the process from initialization to final execution.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypedDict</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph, START, END</span><br><span class="line"><span class="keyword">from</span> langgraph.checkpoint.memory <span class="keyword">import</span> MemorySaver</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>(<span class="title class_ inherited__">TypedDict</span>):</span><br><span class="line">    <span class="built_in">input</span>: <span class="built_in">str</span></span><br><span class="line">    user_feedback: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_1</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Step 1 ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">human_feedback</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Human Feedback ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_3</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Step 3 ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">builder = StateGraph(State)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_1&quot;</span>, step_1)</span><br><span class="line">builder.add_node(<span class="string">&quot;human_feedback&quot;</span>, human_feedback)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_3&quot;</span>, step_3)</span><br><span class="line">builder.add_edge(START, <span class="string">&quot;step_1&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_1&quot;</span>, <span class="string">&quot;human_feedback&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;human_feedback&quot;</span>, <span class="string">&quot;step_3&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_3&quot;</span>, END)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">memory = MemorySaver()</span><br><span class="line"></span><br><span class="line">graph = builder.<span class="built_in">compile</span>(checkpointer=memory, interrupt_before=[<span class="string">&quot;human_feedback&quot;</span>])</span><br><span class="line"></span><br><span class="line">graph.get_graph().draw_mermaid_png(output_file_path=<span class="string">&quot;graph.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    thread = &#123;<span class="string">&quot;configurable&quot;</span>: &#123;<span class="string">&quot;thread_id&quot;</span>: <span class="string">&quot;1&quot;</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line">    initial_input = &#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;hello world&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> graph.stream(initial_input, thread, stream_mode=<span class="string">&quot;values&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(event)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread).<span class="built_in">next</span>)</span><br><span class="line"></span><br><span class="line">    user_input = <span class="built_in">input</span>(<span class="string">&quot;How do you want to update the state? &quot;</span>)</span><br><span class="line"></span><br><span class="line">    graph.update_state(thread, &#123;<span class="string">&quot;user_feedback&quot;</span>: user_input&#125;, as_node=<span class="string">&quot;human_feedback&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### State after update ###&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread).<span class="built_in">next</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> graph.stream(<span class="literal">None</span>, thread, stream_mode=<span class="string">&quot;values&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(event)</span><br></pre></td></tr></table></figure>
+<p>The graph’s execution is tied to a <code>thread</code> variable, a
+dictionary initialized with a <code>thread_id</code>. This serves as a
+session or conversation identifier, distinguishing various graph runs.
+For simplicity, the <code>thread_id</code> is set to <code>1</code>,
+though a more robust implementation would use a UUID. The graph
+processes events using <code>graph.stream()</code>, which accepts the
+initial input and thread details. Events are streamed in value mode, and
+each event is printed for transparency.</p>
+<p>During execution:</p>
+<ul>
+<li>Input is processed.</li>
+<li>Node executions are logged.</li>
+<li>Interruptions allow for dynamic human input.</li>
+</ul>
+<p>Running the graph in debug mode provides insights into:</p>
+<ul>
+<li>Memory storage (<code>memory.storage</code>) containing nested
+objects that log the graph state.</li>
+<li>Transition logs for each node, showing updates or lack thereof.</li>
+</ul>
+<p>At an interrupt, human feedback is solicited using Python's built-in
+<code>input()</code> function. This input updates the state dynamically.
+Once human input is integrated, the graph resumes execution. Subsequent
+steps process the updated state, leading to the graph’s completion.</p>
+<h2 id="sqlitesaver">SqliteSaver</h2>
+<p>Switching from an ephemeral memory-based state saver to a persistent
+database saver can significantly enhance the durability and traceability
+of your graph’s execution. In this section, we’ll explore how to replace
+the in-memory <code>MemorySaver</code> with an <code>SQLiteSaver</code>
+for long-term storage and easy debugging.</p>
+<p>The <code>MemorySaver</code> is transient, meaning all state
+information vanishes after the program stops. By using an SQLite
+database, you can:</p>
+<ul>
+<li>Persist graph states across runs.</li>
+<li>Debug and troubleshoot using a structured database.</li>
+<li>Resume executions exactly where they were interrupted.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langgraph.checkpoint.sqlite <span class="keyword">import</span> SqliteSaver</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> TypedDict</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph, START, END</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">State</span>(<span class="title class_ inherited__">TypedDict</span>):</span><br><span class="line">    <span class="built_in">input</span>: <span class="built_in">str</span></span><br><span class="line">    user_feedback: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_1</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Step 1 ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">human_feedback</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Human Feedback ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_3</span>(<span class="params">state: State</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### Step 3 ###&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">builder = StateGraph(State)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_1&quot;</span>, step_1)</span><br><span class="line">builder.add_node(<span class="string">&quot;human_feedback&quot;</span>, human_feedback)</span><br><span class="line">builder.add_node(<span class="string">&quot;step_3&quot;</span>, step_3)</span><br><span class="line">builder.add_edge(START, <span class="string">&quot;step_1&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_1&quot;</span>, <span class="string">&quot;human_feedback&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;human_feedback&quot;</span>, <span class="string">&quot;step_3&quot;</span>)</span><br><span class="line">builder.add_edge(<span class="string">&quot;step_3&quot;</span>, END)</span><br><span class="line"></span><br><span class="line">conn = sqlite3.connect(<span class="string">&quot;checkpoints.sqlite&quot;</span>, check_same_thread=<span class="literal">False</span>)</span><br><span class="line">memory = SqliteSaver(conn)</span><br><span class="line">graph = builder.<span class="built_in">compile</span>(checkpointer=memory, interrupt_before=[<span class="string">&quot;human_feedback&quot;</span>])</span><br><span class="line"></span><br><span class="line">graph.get_graph().draw_mermaid_png(output_file_path=<span class="string">&quot;graph.png&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    thread = &#123;<span class="string">&quot;configurable&quot;</span>: &#123;<span class="string">&quot;thread_id&quot;</span>: <span class="string">&quot;1&quot;</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line">    initial_input = &#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;hello world&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> graph.stream(initial_input, thread, stream_mode=<span class="string">&quot;values&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(event)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread).<span class="built_in">next</span>)</span><br><span class="line"></span><br><span class="line">    user_input = <span class="built_in">input</span>(<span class="string">&quot;How do you want to update the state: &quot;</span>)</span><br><span class="line"></span><br><span class="line">    graph.update_state(thread, &#123;<span class="string">&quot;user_feedback&quot;</span>: user_input&#125;, as_node=<span class="string">&quot;human_feedback&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;### State after update ###&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(graph.get_state(thread).<span class="built_in">next</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> graph.stream(<span class="literal">None</span>, thread, stream_mode=<span class="string">&quot;values&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(event)</span><br></pre></td></tr></table></figure>
+<p>We start by importing the required modules. Then Initialize a
+connection to your SQLite database. The
+<code>check_same_thread=False</code> flag ensures thread-safe database
+operations, essential for stopping and restarting execution across
+different threads. After that we create an instance of
+<code>SQLiteSaver</code> and pass it the SQLite connection. This saver
+integrates seamlessly with the graph execution pipeline, persisting
+states to the SQLite database.</p>
+<ol type="1">
+<li><strong>Initial Execution</strong>: Run the graph with the
+<code>SQLiteSaver</code>. After execution, you’ll see a new file,
+<code>checkpoints.sqlite</code>, created in your project directory.</li>
+<li><strong>Inspect the Database</strong>: Use your IDE’s database tools
+(e.g. SQLite3 Editor for VS Code) to load and inspect the
+<code>checkpoints.sqlite</code> file. You’ll find a table storing graph
+states, similar to what you’d see with <code>MemorySaver</code>, but now
+it’s persistent.</li>
+</ol>
+<figure>
+<img
+src="/di-blog/2025/01/24/Persisting-Agent-State/screenshot_sqlite_ide.png"
+alt="screenshot_sqlite_ide" />
+<figcaption aria-hidden="true">screenshot_sqlite_ide</figcaption>
+</figure>
+<p>Changing the <code>thread_id</code> allows you to simulate a new
+session while retaining access to previous runs. When resuming, the
+graph starts from the last recorded state. You can verify this by
+inspecting the database entries for the new <code>thread_id</code>.</p>
+<p>For enhanced traceability, integrate Langsmith for tracking and
+debugging. Langsmith provides detailed insights, including thread
+metadata and execution traces.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/knowledge/" rel="tag"># knowledge</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/01/04/2025-January/" rel="prev" title="2025 January - What I Have Read">
+                  <i class="fa fa-angle-left"></i> 2025 January - What I Have Read
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2025/02/01/DeepSeek-R1-Pivotal-Moment/" rel="next" title="DeepSeek-R1: Pivotal Moment">
+                  DeepSeek-R1: Pivotal Moment <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
