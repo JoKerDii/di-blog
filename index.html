@@ -659,6 +659,94 @@ the World; Since 2017, Amex-Accepting Locations Have Increased by Nearly
 5x - Business Wire</strong> [<a
 target="_blank" rel="noopener" href="https://www.businesswire.com/news/home/20250909541741/en/American-Express-is-Accepted-at-160-Million-Merchants-Around-the-World-Since-2017-Amex-Accepting-Locations-Have-Increased-by-Nearly-5x">Link</a>]</p>
 </blockquote>
+<blockquote>
+<p><em>Hallucinations persist partly because current evaluation methods
+set the wrong incentives. While evaluations themselves do not directly
+cause hallucinations, most evaluations measure model performance in a
+way that encourages guessing rather than honesty about
+uncertainty.</em></p>
+<p><strong>― Why language models hallucinate - OpenAI</strong> [<a
+target="_blank" rel="noopener" href="https://openai.com/index/why-language-models-hallucinate/">Link</a>]</p>
+</blockquote>
+<p>Several clarifications mentioned in this blog:</p>
+<ol type="1">
+<li>Accuracy will never reach 100%</li>
+<li>Hallucinations are not inevitable. Language models can choose to
+abstain when uncertain. Abstaining (indicating uncertainty) is better
+than providing confident, incorrect information, aligning with the core
+value of humility</li>
+<li>Avoiding hallucination can be easier for a small model to know its
+limits. Being "calibrated" (knowing its confidence) requires much less
+computation than being accurate</li>
+<li>To measure hallucinations, all of the primary evaluation metrics
+need to be reworked to reward expressions of uncertainty. Hallucination
+evals have little effect against hundreds of traditional accuracy-based
+evals that punish humility</li>
+</ol>
+<blockquote>
+<p><strong>How to Think About GPUs - How to Scale Your Model</strong>
+[<a target="_blank" rel="noopener" href="https://jax-ml.github.io/scaling-book/gpus/">Link</a>]</p>
+</blockquote>
+<p>'A Systems View of LLMs on TPUs'</p>
+<blockquote>
+<p><strong>Anthropic Economic Index report: Uneven geographic and
+enterprise AI adoption - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/research/anthropic-economic-index-september-2025-report">Link</a>]
+[<a
+target="_blank" rel="noopener" href="https://assets.anthropic.com/m/218c82b858610fac/original/Economic-Index.pdf">PDF</a>]</p>
+</blockquote>
+<p>Key findings:</p>
+<p>I. Adoption Speed and Shift to Delegation</p>
+<ul>
+<li>AI adoption is occurring at an unprecedented speed, reaching in two
+years the adoption rates that took the internet around five years. In
+the US, 40% of employees report using AI at work, doubling the rate from
+two years prior in 2023.</li>
+<li>Usage patterns on Claude.ai show a net shift toward delegation
+(automation). The share of "Directive" conversations, where users
+delegate complete tasks, jumped from 27% to 39%, meaning automation
+usage now exceeds augmentation usage for the first time.</li>
+<li>There is sustained growth in knowledge-intensive tasks like
+education and science. In coding, there is a net shift of 7.4 percentage
+points toward program creation and away from debugging, suggesting
+models have become more reliable.</li>
+</ul>
+<ol start="2" type="I">
+<li>Geographic Concentration and Inequality Risk</li>
+</ol>
+<ul>
+<li>AI usage is highly geographically concentrated and correlates
+strongly with income across countries. A 1% increase in GDP per
+working-age capita is associated with a 0.7% increase in Claude usage
+per capita.</li>
+<li>Small, technologically advanced economies lead in per-capita
+adoption, with Israel (7x expected usage) and Singapore (4.57x expected
+usage) being top examples.</li>
+<li>Low-adoption countries are more likely to delegate complete tasks
+(automation), while high-adoption countries tend toward greater learning
+and collaborative iteration (augmentation), even when controlling for
+task mix.</li>
+<li>Current usage patterns suggest that AI benefits may concentrate in
+already-rich regions, potentially increasing global economic
+inequality.</li>
+</ul>
+<ol start="3" type="I">
+<li>Enterprise Automation and Deployment Bottlenecks</li>
+</ol>
+<ul>
+<li>Enterprise usage via the 1P API is predominantly
+automation-dominant, with 77% of business uses involving automation
+patterns (delegating tasks programmatically), compared to about 50% for
+Claude.ai users.</li>
+<li>Business deployment is largely price-insensitive. Model capabilities
+and the economic value of automation appear to matter more than cost, as
+higher-cost tasks tend to have higher usage rates.</li>
+<li>For complex tasks, deployment is constrained by the access to
+information rather than just model capabilities. Companies face a
+bottleneck requiring costly data modernization and organizational
+investments to centralize the contextual information needed for
+sophisticated AI use.</li>
+</ul>
 <h2 id="papers-and-reports">Papers and Reports</h2>
 <blockquote>
 <p><strong>NCRI Assassination Culture Brief - NCRI and Rutgers
