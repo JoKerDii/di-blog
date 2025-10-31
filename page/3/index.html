@@ -112,7 +112,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/di-blog/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -134,6 +134,296 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/12/25/Langchain-Common-Practices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/di-blog/2024/12/25/Langchain-Common-Practices/" class="post-title-link" itemprop="url">LangChain Common Practices</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-12-25 05:04:50" itemprop="dateCreated datePublished" datetime="2024-12-25T05:04:50-05:00">2024-12-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>This is a collection of some common useful LangChain (v.0.3.3)
+practices based on my coding experience so far.</p>
+<h2 id="llm-application-development-landscape">LLM Application
+Development Landscape</h2>
+<p>Nowadays, LLM applications can be classified into the following
+categories.</p>
+<ol type="1">
+<li><p><strong>Simple LLM Calls</strong></p>
+<p>Applications where LLMs are used directly to answer questions or
+perform tasks without additional layers of complexity. The focus is on
+generating responses to prompts or queries. These are straightforward
+implementations, often used for tasks like content generation, question
+answering, or summarization.</p>
+<p>Real-world examples:</p>
+<ul>
+<li>ChatGPT for Q&amp;A: Users input questions, and the model directly
+generates answers.</li>
+<li>Copywriting Tools: Applications like Jasper AI create marketing
+content, blogs, or product descriptions based on user inputs.</li>
+</ul></li>
+<li><p><strong>Vectorstores (RAG)</strong></p>
+<p>Vectorstores are used in Retrieval-Augmented Generation (RAG)
+applications, where relevant information is retrieved from a database of
+embeddings (vectorized representations of text) to enhance the LLM's
+responses. This allows the LLM to work with domain-specific or
+proprietary knowledge not contained in its training data.</p>
+<p>Real-world examples:</p>
+<ul>
+<li>Chatbots for Enterprises: A customer support chatbot retrieves
+relevant product documentation or FAQs stored in a vectorstore to
+provide accurate responses.</li>
+<li>Search-Augmented Systems: Google Bard integrates real-time
+information retrieval to provide up-to-date and contextually relevant
+responses.</li>
+</ul></li>
+<li><p><strong>Agents</strong></p>
+<p>Agents are LLM-driven systems that execute tasks autonomously or
+semi-autonomously based on input instructions. They can make decisions,
+interact with APIs, and manage workflows. Agents often use reasoning
+frameworks like ReAct (Reasoning and Acting) to decide what steps to
+take next.</p>
+<p>Real-world examples:</p>
+<ul>
+<li>Zapier AI Assistant: Automates workflows by taking instructions,
+analyzing data, and executing API calls or actions across
+platforms.</li>
+<li>LangChain Agents: Used for multi-step tasks such as filling out
+forms, managing databases, or performing calculations.</li>
+</ul></li>
+<li><p><strong>Agents + Vectorstores</strong></p>
+<p>This combines the reasoning and decision-making capabilities of
+agents with the data retrieval abilities of vectorstores. These systems
+can autonomously fetch relevant knowledge from vectorstores and execute
+tasks, enabling advanced applications like AutoGPT. The integration
+provides both reasoning depth and domain-specific accuracy.</p>
+<p>Real-world examples:</p>
+<ul>
+<li><strong>AutoGPT:</strong> An open-source agent that can generate
+business plans by researching topics, retrieving relevant information,
+and autonomously completing subtasks.</li>
+<li><strong>GPT Engineer:</strong> Helps developers by retrieving
+relevant programming resources and autonomously generating code,
+debugging, or improving software projects.</li>
+</ul></li>
+</ol>
+<h2 id="chaining-a-simple-prompt">Chaining a Simple Prompt</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain.prompts.prompt <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_ollama <span class="keyword">import</span> ChatOllama</span><br><span class="line"><span class="keyword">from</span> langchain_core.output_parsers <span class="keyword">import</span> StrOutputParser</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># define information to be incorporated to the prompt template</span></span><br><span class="line">information = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Elon Reeve Musk (/ˈiːlɒn/; EE-lon; born June 28, 1971) is a businessman and investor. </span></span><br><span class="line"><span class="string">    He is the founder, chairman, CEO, and CTO of SpaceX; angel investor, CEO, product architect and former chairman of Tesla, Inc.; owner, chairman and CTO of X Corp.; founder of the Boring Company and xAI; co-founder of Neuralink and OpenAI; and president of the Musk Foundation. </span></span><br><span class="line"><span class="string">    He is the wealthiest person in the world, with an estimated net worth of US$232 billion as of December 2023, according to the Bloomberg Billionaires Index, and $254 billion according to Forbes, primarily from his ownership stakes in Tesla and SpaceX.</span></span><br><span class="line"><span class="string">    A member of the wealthy South African Musk family, Elon was born in Pretoria and briefly attended the University of Pretoria before immigrating to Canada at age 18, acquiring citizenship through his Canadian-born mother. </span></span><br><span class="line"><span class="string">    Two years later, he matriculated at Queen&#x27;s University at Kingston in Canada. Musk later transferred to the University of Pennsylvania, and received bachelor&#x27;s degrees in economics and physics. </span></span><br><span class="line"><span class="string">    He moved to California in 1995 to attend Stanford University. However, Musk dropped out after two days and, with his brother Kimbal, co-founded online city guide software company Zip2. </span></span><br><span class="line"><span class="string">    The startup was acquired by Compaq for $307 million in 1999, and, that same year Musk co-founded X.com, a direct bank. X.com merged with Confinity in 2000 to form PayPal.</span></span><br><span class="line"><span class="string">    In October 2002, eBay acquired PayPal for $1.5 billion, and that same year, with $100 million of the money he made, Musk founded SpaceX, a spaceflight services company. </span></span><br><span class="line"><span class="string">    In 2004, he became an early investor in electric vehicle manufacturer Tesla Motors, Inc. (now Tesla, Inc.). He became its chairman and product architect, assuming the position of CEO in 2008. </span></span><br><span class="line"><span class="string">    In 2006, Musk helped create SolarCity, a solar-energy company that was acquired by Tesla in 2016 and became Tesla Energy. In 2013, he proposed a hyperloop high-speed vactrain transportation system. </span></span><br><span class="line"><span class="string">    In 2015, he co-founded OpenAI, a nonprofit artificial intelligence research company. </span></span><br><span class="line"><span class="string">    The following year, Musk co-founded Neuralink—a neurotechnology company developing brain–computer interfaces—and the Boring Company, a tunnel construction company. </span></span><br><span class="line"><span class="string">    In 2022, he acquired Twitter for $44 billion. He subsequently merged the company into newly created X Corp. and rebranded the service as X the following year. </span></span><br><span class="line"><span class="string">    In March 2023, he founded xAI, an artificial intelligence company.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a prompt template</span></span><br><span class="line">template = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Given the information &#123;information&#125; about a person, please create:</span></span><br><span class="line"><span class="string">1. A short summary</span></span><br><span class="line"><span class="string">2. Two interesting facts about the person.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># incorporate information into prompt</span></span><br><span class="line">summary_prompt_template = PromptTemplate(</span><br><span class="line">    input_variables=[<span class="string">&quot;information&quot;</span>], template=template</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create an llm</span></span><br><span class="line">llm = ChatOpenAI(temperature=<span class="number">0</span>, model_name=<span class="string">&quot;gpt-3.5-turbo&quot;</span>)</span><br><span class="line"><span class="comment"># llm = ChatOllama(model=&quot;llama3&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a chain</span></span><br><span class="line">chain = summary_prompt_template | llm | StrOutputParser()</span><br><span class="line"></span><br><span class="line"><span class="comment"># prompt the model</span></span><br><span class="line">response = chain.invoke(<span class="built_in">input</span>=&#123;<span class="string">&quot;information&quot;</span>: information&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="parsing-the-output-with-a-customized-format">Parsing the Output
+with a Customized Format</h2>
+<p>Using <code>PydanticOutputParser</code> and user defined output data
+structure.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.pydantic_v1 <span class="keyword">import</span> BaseModel, Field, validator</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAI</span><br><span class="line"></span><br><span class="line">llm = ChatOpenAI(temperature=<span class="number">0</span>, model_name=<span class="string">&quot;gpt-3.5-turbo&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># define your desired data structure</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Joke</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    setup: <span class="built_in">str</span> = Field(description=<span class="string">&quot;question to set up a joke&quot;</span>)</span><br><span class="line">    punchline: <span class="built_in">str</span> = Field(description=<span class="string">&quot;answer to resolve the joke&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># add custom validation logic easily with Pydantic</span></span><br><span class="line"><span class="meta">    @validator(<span class="params"><span class="string">&quot;setup&quot;</span></span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">question_ends_with_question_mark</span>(<span class="params">cls, field</span>):</span><br><span class="line">        <span class="keyword">if</span> field[-<span class="number">1</span>] != <span class="string">&quot;?&quot;</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;Badly formed question!&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> field</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># set up a parser + inject instructions into the prompt template.</span></span><br><span class="line">parser = PydanticOutputParser(pydantic_object=Joke)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a prompt with query and instruction</span></span><br><span class="line">prompt = PromptTemplate(</span><br><span class="line">    template=<span class="string">&quot;Answer the user query.\n&#123;format_instructions&#125;\n&#123;query&#125;\n&quot;</span>,</span><br><span class="line">    input_variables=[<span class="string">&quot;query&quot;</span>],</span><br><span class="line">    partial_variables=&#123;<span class="string">&quot;format_instructions&quot;</span>: parser.get_format_instructions()&#125;,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#a query intended to prompt a language model to populate the data structure</span></span><br><span class="line">prompt_and_model = prompt | llm</span><br><span class="line">output = prompt_and_model.invoke(&#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;Tell me a joke.&quot;</span>&#125;)</span><br><span class="line">parser.invoke(output)</span><br></pre></td></tr></table></figure>
+<h2 id="data-ingestion-to-pinecone-vectorstore-rag">Data Ingestion to
+Pinecone Vectorstore (RAG)</h2>
+<p>Using <code>TextLoader</code>, <code>CharacterTextSplitter</code>,
+<code>OpenAIEmbeddings</code>, and <a
+target="_blank" rel="noopener" href="https://app.pinecone.io/">Pinecone</a> vector database.</p>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/#text-splitters">LangChain
+text splitter techniques</a> ;<a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/character_text_splitter/">text
+Split by character</a>; <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/embed_text/">text
+embedding models</a> for more details.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> TextLoader</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> CharacterTextSplitter</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings</span><br><span class="line"><span class="keyword">from</span> langchain_pinecone <span class="keyword">import</span> PineconeVectorStore</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># load data</span></span><br><span class="line">loader = TextLoader(<span class="string">&quot;doc1.txt&quot;</span>)</span><br><span class="line">document = loader.load()</span><br><span class="line"></span><br><span class="line"><span class="comment"># split data</span></span><br><span class="line">text_splitter = CharacterTextSplitter(chunk_size=<span class="number">1000</span>, chunk_overlap=<span class="number">0</span>)</span><br><span class="line">texts = text_splitter.split_documents(document)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create embedding</span></span><br><span class="line">embeddings = OpenAIEmbeddings(openai_api_key=os.environ.get(<span class="string">&quot;OPENAI_API_KEY&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># ingest data to vector db</span></span><br><span class="line">PineconeVectorStore.from_documents(texts, embeddings, index_name=os.environ[<span class="string">&#x27;INDEX_NAME&#x27;</span>])<span class="built_in">print</span>(<span class="string">&quot;finish&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="data-retrieval-from-pinecone-vectorestore-rag">Data Retrieval
+from Pinecone Vectorestore (RAG)</h2>
+<p><code>langchain-ai/retrieval-qa-chat</code> is a <a
+target="_blank" rel="noopener" href="https://smith.langchain.com/hub/langchain-ai/retrieval-qa-chat?organizationId=9f3e510d-ce6b-4f98-98a3-ff383fda2d96">ChatPromptTemplate</a>
+ensuring answers are based solely on the context.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">embeddings = OpenAIEmbeddings()</span><br><span class="line">llm = ChatOpenAI()</span><br><span class="line"></span><br><span class="line"><span class="comment"># build user query prompt</span></span><br><span class="line">query = <span class="string">&quot;what is Pinecone in machine learning?&quot;</span></span><br><span class="line">chain = PromptTemplate.from_template(template=query) | llm</span><br><span class="line"></span><br><span class="line"><span class="comment"># store query prompt to vector db</span></span><br><span class="line">vectorstore = PineconeVectorStore(</span><br><span class="line">    index_name=os.environ[<span class="string">&quot;INDEX_NAME&quot;</span>], embedding=embeddings</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a retrieval qa prompt</span></span><br><span class="line">retrieval_qa_chat_prompt = hub.pull(<span class="string">&quot;langchain-ai/retrieval-qa-chat&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create a prompt chain</span></span><br><span class="line">combine_docs_chain = create_stuff_documents_chain(llm, retrieval_qa_chat_prompt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create retrieval chain</span></span><br><span class="line">retrival_chain = create_retrieval_chain(</span><br><span class="line">    retriever=vectorstore.as_retriever(), combine_docs_chain=combine_docs_chain</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># execute the retrieval</span></span><br><span class="line">result = retrival_chain.invoke(<span class="built_in">input</span>=&#123;<span class="string">&quot;input&quot;</span>: query&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Customized retrieval prompt:</p>
+<p><code>RunnablePassthrough</code> is used to pass through arguments <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/passthrough/">from one
+step to the next</a>. It allows us to pass on the user's question to the
+prompt and model.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings, ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_pinecone <span class="keyword">import</span> PineconeVectorStore</span><br><span class="line"><span class="keyword">from</span> langchain_core.runnables <span class="keyword">import</span> RunnablePassthrough</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">format_docs</span>(<span class="params">docs</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;\n\n&quot;</span>.join(doc.page_content <span class="keyword">for</span> doc <span class="keyword">in</span> docs)</span><br><span class="line"></span><br><span class="line">embeddings = OpenAIEmbeddings()</span><br><span class="line">llm = ChatOpenAI()</span><br><span class="line"></span><br><span class="line">query = <span class="string">&quot;what is Pinecone in machine learning?&quot;</span></span><br><span class="line">chain = PromptTemplate.from_template(template=query) | llm</span><br><span class="line"></span><br><span class="line">vectorstore = PineconeVectorStore(</span><br><span class="line">    index_name=os.environ[<span class="string">&quot;INDEX_NAME&quot;</span>], embedding=embeddings</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">template = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Use the following pieces of context to answer the question at the end. </span></span><br><span class="line"><span class="string">If you don&#x27;t know the answer, you can say &quot;I don&#x27;t know&quot;. Don&#x27;t make up an answer.</span></span><br><span class="line"><span class="string">Use three sentences maximum and keep the answer short and to the point.</span></span><br><span class="line"><span class="string">Always say &quot;thanks for the question&quot; before answering the question.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;context&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Question: &#123;question&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Answer:</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">custom_rag_prompt = PromptTemplate.from_template(template=template)</span><br><span class="line">rag_chain = (</span><br><span class="line">    &#123;<span class="string">&quot;context&quot;</span>: vectorstore.as_retriever() | format_docs, <span class="string">&quot;question&quot;</span>: RunnablePassthrough()&#125;</span><br><span class="line">    | custom_rag_prompt</span><br><span class="line">    | llm</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">res = rag_chain.invoke(query)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="chat-with-a-pdf-rag-with-faiss">Chat with a PDF (RAG with
+FAISS)</h2>
+<p>Using <code>PyPDFLoader</code>, <code>CharacterTextSplitter</code>,
+<code>OpenAIEmbeddings</code>, and <code>FAISS</code> local vector
+database.</p>
+<p>Please refer to <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/document_loader_pdf/">PDF
+loader</a> ; <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/integrations/vectorstores/faiss/">Langchain
+FAISS vectorstore</a>; <a target="_blank" rel="noopener" href="https://faiss.ai/">FAISS</a> for more
+details.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> PyPDFLoader</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> CharacterTextSplitter</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> OpenAIEmbeddings, OpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"><span class="keyword">from</span> langchain.chains.retrieval <span class="keyword">import</span> create_retrieval_chain</span><br><span class="line"><span class="keyword">from</span> langchain.chains.combine_documents <span class="keyword">import</span> create_stuff_documents_chain</span><br><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> hub</span><br><span class="line"></span><br><span class="line">pdf_path = <span class="string">&quot;react.pdf&quot;</span></span><br><span class="line">loader = PyPDFLoader(file_path=pdf_path)</span><br><span class="line">documents = loader.load()</span><br><span class="line">text_splitter = CharacterTextSplitter(</span><br><span class="line">    chunk_size=<span class="number">1000</span>, chunk_overlap=<span class="number">30</span>, separator=<span class="string">&quot;\n&quot;</span></span><br><span class="line">)</span><br><span class="line">docs = text_splitter.split_documents(documents=documents)</span><br><span class="line"></span><br><span class="line">embeddings = OpenAIEmbeddings()</span><br><span class="line">vectorstore = FAISS.from_documents(docs, embeddings)</span><br><span class="line">vectorstore.save_local(<span class="string">&quot;faiss_index_react&quot;</span>)</span><br><span class="line"></span><br><span class="line">new_vectorstore = FAISS.load_local(</span><br><span class="line">    <span class="string">&quot;faiss_index_react&quot;</span>, embeddings, allow_dangerous_deserialization=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">retrieval_qa_chat_prompt = hub.pull(<span class="string">&quot;langchain-ai/retrieval-qa-chat&quot;</span>)</span><br><span class="line">combine_docs_chain = create_stuff_documents_chain(</span><br><span class="line">    OpenAI(), retrieval_qa_chat_prompt</span><br><span class="line">)</span><br><span class="line">retrieval_chain = create_retrieval_chain(</span><br><span class="line">    new_vectorstore.as_retriever(), combine_docs_chain</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">res = retrieval_chain.invoke(&#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;Give me the gist of ReAct in 3 sentences&quot;</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(res[<span class="string">&quot;answer&quot;</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="create-a-react-agent">Create a ReAct Agent</h2>
+<p>Using <code>langchain-ai/react-agent-template</code> to build a <a
+target="_blank" rel="noopener" href="https://smith.langchain.com/hub/langchain-ai/react-agent-template?organizationId=9f3e510d-ce6b-4f98-98a3-ff383fda2d96">ReAct
+prompt</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> hub</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> create_react_agent, AgentExecutor</span><br><span class="line"><span class="keyword">from</span> langchain_experimental.tools <span class="keyword">import</span> PythonREPLTool</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># create an instruction</span></span><br><span class="line">instructions = <span class="string">&quot;&quot;&quot;You are an agent designed to write and execute python code to answer questions.</span></span><br><span class="line"><span class="string">You have access to a python REPL, which you can use to execute python code.</span></span><br><span class="line"><span class="string">If you get an error, debug your code and try again.</span></span><br><span class="line"><span class="string">Only use the output of your code to answer the question. </span></span><br><span class="line"><span class="string">You might know the answer without running any code, but you should still run the code to get the answer.</span></span><br><span class="line"><span class="string">If it does not seem like you can write code to answer the question, just return &quot;I don&#x27;t know&quot; as the answer.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># use an ReAct prompt template</span></span><br><span class="line">base_prompt = hub.pull(<span class="string">&quot;langchain-ai/react-agent-template&quot;</span>)</span><br><span class="line">prompt = base_prompt.partial(instructions=instructions)</span><br><span class="line"></span><br><span class="line"><span class="comment"># make use a tool to execute python code</span></span><br><span class="line">tools = [PythonREPLTool()]</span><br><span class="line"></span><br><span class="line"><span class="comment"># define a ReAct agent</span></span><br><span class="line">agent = create_react_agent(</span><br><span class="line">    prompt=prompt,</span><br><span class="line">    llm=ChatOpenAI(temperature=<span class="number">0</span>, model=<span class="string">&quot;gpt-4o-mini&quot;</span>),</span><br><span class="line">    tools=tools,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># create the ReAct agent executor</span></span><br><span class="line">agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># execute the ReAct agent</span></span><br><span class="line">agent_executor.invoke(</span><br><span class="line">    <span class="built_in">input</span>=&#123;</span><br><span class="line">        <span class="string">&quot;input&quot;</span>: <span class="string">&quot;&quot;&quot;generate and save in current working directory a QRcode</span></span><br><span class="line"><span class="string">                    that point to https://jokerdii.github.io/di-blog, you have qrcode package installed already&quot;&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">agent_executor.invoke(</span><br><span class="line">    <span class="built_in">input</span>=&#123;</span><br><span class="line">        <span class="string">&quot;input&quot;</span>: <span class="string">&quot;&quot;&quot;generate and save in current working directory a synthetic csv dataset </span></span><br><span class="line"><span class="string">                    with 1000 rows and 2 columns that is about Amazon product description and price.&quot;&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="using-an-langchain-agent-for-tasks">Using an LangChain Agent for
+Tasks</h2>
+<p><code>create_csv_agent</code> is an <code>AgentExecutor</code> object
+able to perform operations in CSVs.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_experimental.agents.agent_toolkits <span class="keyword">import</span> create_csv_agent</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># make use a CSV agent from langchain</span></span><br><span class="line">csv_agent = create_csv_agent(</span><br><span class="line">    llm=ChatOpenAI(temperature=<span class="number">0</span>, model=<span class="string">&quot;gpt-4o-mini&quot;</span>),</span><br><span class="line">    path=<span class="string">&quot;episode_info.csv&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># execute the agent</span></span><br><span class="line">csv_agent.invoke(</span><br><span class="line">    <span class="built_in">input</span>=&#123;<span class="string">&quot;input&quot;</span>: <span class="string">&quot;how many columns are there in file episode_info.csv&quot;</span>&#125;</span><br><span class="line">)</span><br><span class="line">csv_agent.invoke(</span><br><span class="line">    <span class="built_in">input</span>=&#123;</span><br><span class="line">        <span class="string">&quot;input&quot;</span>: <span class="string">&quot;print the seasons by ascending order of the number of episodes they have.&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2
+id="creating-an-react-agent-with-multiple-agents-provided-as-tools">Creating
+an ReAct Agent with Multiple Agents Provided as Tools</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> hub</span><br><span class="line"><span class="keyword">from</span> langchain_core.tools <span class="keyword">import</span> Tool</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> (</span><br><span class="line">    create_react_agent,</span><br><span class="line">    AgentExecutor,</span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> langchain_experimental.tools <span class="keyword">import</span> PythonREPLTool</span><br><span class="line"><span class="keyword">from</span> langchain_experimental.agents.agent_toolkits <span class="keyword">import</span> create_csv_agent</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">instructions = <span class="string">&quot;&quot;&quot;You are an agent designed to write and execute python code to answer questions.</span></span><br><span class="line"><span class="string">You have access to a python REPL, which you can use to execute python code.</span></span><br><span class="line"><span class="string">You have qrcode package installed</span></span><br><span class="line"><span class="string">If you get an error, debug your code and try again.</span></span><br><span class="line"><span class="string">Only use the output of your code to answer the question. </span></span><br><span class="line"><span class="string">You might know the answer without running any code, but you should still run the code to get the answer.</span></span><br><span class="line"><span class="string">If it does not seem like you can write code to answer the question, just return &quot;I don&#x27;t know&quot; as the answer.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">base_prompt = hub.pull(<span class="string">&quot;langchain-ai/react-agent-template&quot;</span>)</span><br><span class="line">prompt = base_prompt.partial(instructions=instructions)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define python agent</span></span><br><span class="line">tools = [PythonREPLTool()]</span><br><span class="line">python_agent = create_react_agent(</span><br><span class="line">    prompt=prompt,</span><br><span class="line">    llm=ChatOpenAI(temperature=<span class="number">0</span>, model=<span class="string">&quot;gpt-4-turbo&quot;</span>),</span><br><span class="line">    tools=tools,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">python_agent_executor = AgentExecutor(agent=python_agent, tools=tools, verbose=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define CSV agent</span></span><br><span class="line">csv_agent_executor: AgentExecutor = create_csv_agent(</span><br><span class="line">    llm=ChatOpenAI(temperature=<span class="number">0</span>, model=<span class="string">&quot;gpt-4&quot;</span>),</span><br><span class="line">    path=<span class="string">&quot;episode_info.csv&quot;</span>,</span><br><span class="line">    verbose=<span class="literal">True</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#### router grand agent</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list agent tools</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">python_agent_executor_wrapper</span>(<span class="params">original_prompt: <span class="built_in">str</span></span>) -&gt; <span class="built_in">dict</span>[<span class="built_in">str</span>, <span class="type">Any</span>]:</span><br><span class="line">    <span class="keyword">return</span> python_agent_executor.invoke(&#123;<span class="string">&quot;input&quot;</span>: original_prompt&#125;)</span><br><span class="line"></span><br><span class="line">tools = [</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;Python Agent&quot;</span>,</span><br><span class="line">        func=python_agent_executor_wrapper,</span><br><span class="line">        description=<span class="string">&quot;&quot;&quot;useful when you need to transform natural language to python and execute the python code,</span></span><br><span class="line"><span class="string">                        returning the results of the code execution</span></span><br><span class="line"><span class="string">                        DOES NOT ACCEPT CODE AS INPUT&quot;&quot;&quot;</span>,</span><br><span class="line">    ),</span><br><span class="line">    Tool(</span><br><span class="line">        name=<span class="string">&quot;CSV Agent&quot;</span>,</span><br><span class="line">        func=csv_agent_executor.invoke,</span><br><span class="line">        description=<span class="string">&quot;&quot;&quot;useful when you need to answer question over episode_info.csv file,</span></span><br><span class="line"><span class="string">                        takes an input the entire question and returns the answer after running pandas calculations&quot;&quot;&quot;</span>,</span><br><span class="line">    ),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># create grand ReAct agent</span></span><br><span class="line">prompt = base_prompt.partial(instructions=<span class="string">&quot;&quot;</span>)</span><br><span class="line">grand_agent = create_react_agent(</span><br><span class="line">    prompt=prompt,</span><br><span class="line">    llm=ChatOpenAI(temperature=<span class="number">0</span>, model=<span class="string">&quot;gpt-4-turbo&quot;</span>),</span><br><span class="line">    tools=tools,</span><br><span class="line">)</span><br><span class="line">grand_agent_executor = AgentExecutor(agent=grand_agent, tools=tools, verbose=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># execute grand ReAct agent and print output</span></span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    grand_agent_executor.invoke(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;input&quot;</span>: <span class="string">&quot;which season has the most episodes?&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    grand_agent_executor.invoke(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;input&quot;</span>: <span class="string">&quot;Generate and save in current working directory 15 qrcodes that point to `www.udemy.com/course/langchain`&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="function-tool-calling">Function / Tool Calling</h2>
+<p>LangChain provides a standardized interface for connecting tools to
+models.</p>
+<ul>
+<li><code>ChatModel.bind_tools()</code>: a method for attaching tool
+definitions to model calls.</li>
+<li><code>AIMessage.tool_calls</code>: an attribute on the
+<code>AIMessage</code> returned from the model for easily accessing the
+tool aclls the model decided to make.</li>
+<li><code>create_tool_calling_agent</code>: an agent constsructor that
+works with ANY model that implements <code>bind_tools</code> and returns
+<code>tool_calls</code>.</li>
+</ul>
+<p>Directly using <code>PythonREPLTool</code> which is already a tool
+object. Use with caution because <a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/integrations/tools/python/">Python
+REPL</a> can execute arbitrary code on the host machine (e.g., delete
+files, make network requests).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> ChatPromptTemplate</span><br><span class="line"><span class="keyword">from</span> langchain_core.tools <span class="keyword">import</span> tool</span><br><span class="line"><span class="keyword">from</span> langchain.agents <span class="keyword">import</span> create_tool_calling_agent, AgentExecutor</span><br><span class="line"><span class="keyword">from</span> langchain_openai <span class="keyword">import</span> ChatOpenAI</span><br><span class="line"><span class="keyword">from</span> langchain_community.tools.tavily_search <span class="keyword">import</span> TavilySearchResults</span><br><span class="line"></span><br><span class="line">load_dotenv()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@tool</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">multiply</span>(<span class="params">x: <span class="built_in">float</span>, y: <span class="built_in">float</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Multiply &#x27;x&#x27; times &#x27;y&#x27;.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> x * y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        (<span class="string">&quot;system&quot;</span>, <span class="string">&quot;you&#x27;re a helpful assistant&quot;</span>),</span><br><span class="line">        (<span class="string">&quot;human&quot;</span>, <span class="string">&quot;&#123;input&#125;&quot;</span>),</span><br><span class="line">        (<span class="string">&quot;placeholder&quot;</span>, <span class="string">&quot;&#123;agent_scratchpad&#125;&quot;</span>),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tools = [TavilySearchResults(), multiply]</span><br><span class="line">llm = ChatOpenAI(model=<span class="string">&quot;gpt-4o-mini&quot;</span>)</span><br><span class="line"></span><br><span class="line">agent = create_tool_calling_agent(llm, tools, prompt)</span><br><span class="line">agent_executor = AgentExecutor(agent=agent, tools=tools)</span><br><span class="line"></span><br><span class="line">response = agent_executor.invoke(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;input&quot;</span>: <span class="string">&quot;what is the weather in dubai right now? compare it with San Fransisco, output should in in celsious&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="tool-calling-with-langchain">Tool Calling with Langchain</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">multiply</span>(<span class="params">a: <span class="built_in">int</span>, b: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Multiply a and b.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        a: first int</span></span><br><span class="line"><span class="string">        b: second int</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> a * b</span><br><span class="line"></span><br><span class="line">llm_with_tools = tool_calling_model.bind_tools([multiply])</span><br><span class="line"></span><br><span class="line">result = llm_with_tools.invoke(<span class="string">&quot;What is 2 multiplied by 3?&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="token-limitation-handling-strategies">Token Limitation Handling
+Strategies</h2>
+<p>when passing documents into the LLM context window, there are three
+approaches for handling context window limitations:</p>
+<ol type="1">
+<li><a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/tutorials/summarization/">Stuffing</a>:
+suff all documents into a single prompt</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.combine_documents.stuff <span class="keyword">import</span> StuffDocumentsChain</span><br><span class="line"><span class="keyword">from</span> langchain.chains.llm <span class="keyword">import</span> LLMChain</span><br><span class="line"><span class="keyword">from</span> langchain.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># define prompt</span></span><br><span class="line">prompt_template = <span class="string">&quot;&quot;&quot;Write a concise summary of the following:</span></span><br><span class="line"><span class="string">&quot;&#123;text&#125;&quot;</span></span><br><span class="line"><span class="string">CONCISE SUMMARY:&quot;&quot;&quot;</span></span><br><span class="line">prompt = PromptTemplate.from_template(prompt_template)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define LLM chain</span></span><br><span class="line">llm = ChatOpenAI(temperature=<span class="number">0</span>, model_name=<span class="string">&quot;gpt-3.5-turbo-16k&quot;</span>)</span><br><span class="line">llm_chain = LLMChain(llm=llm, prompt=prompt)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define StuffDocumentsChain</span></span><br><span class="line">stuff_chain = StuffDocumentsChain(llm_chain=llm_chain, document_variable_name=<span class="string">&quot;text&quot;</span>)</span><br><span class="line">docs = loader.load()</span><br><span class="line"><span class="built_in">print</span>(stuff_chain.run(docs))</span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li><a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/tutorials/summarization/">Map-reduce</a>:
+summarize each document on its own in parallel and put them into a final
+summary.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> MapReduceDocumentsChain, ReduceDocumentsChain</span><br><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> CharacterTextSplitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># Map</span></span><br><span class="line">map_template = <span class="string">&quot;&quot;&quot;The following is a set of documents</span></span><br><span class="line"><span class="string">&#123;docs&#125;</span></span><br><span class="line"><span class="string">Based on this list of docs, please identify the main themes </span></span><br><span class="line"><span class="string">Helpful Answer:&quot;&quot;&quot;</span></span><br><span class="line">map_prompt = PromptTemplate.from_template(map_template)</span><br><span class="line">map_chain = LLMChain(llm=llm, prompt=map_prompt)</span><br><span class="line"><span class="comment"># Reduce</span></span><br><span class="line">reduce_template = <span class="string">&quot;&quot;&quot;The following is set of summaries:</span></span><br><span class="line"><span class="string">&#123;docs&#125;</span></span><br><span class="line"><span class="string">Take these and distill it into a final, consolidated summary of the main themes. </span></span><br><span class="line"><span class="string">Helpful Answer:&quot;&quot;&quot;</span></span><br><span class="line">reduce_prompt = PromptTemplate.from_template(reduce_template)</span><br><span class="line">reduce_chain = LLMChain(llm=llm, prompt=reduce_prompt)</span><br><span class="line"><span class="comment"># Combine documents by mapping a chain over them, then combining results</span></span><br><span class="line">map_reduce_chain = MapReduceDocumentsChain(</span><br><span class="line">    llm_chain=map_chain,</span><br><span class="line">    reduce_documents_chain=reduce_documents_chain,</span><br><span class="line">    document_variable_name=<span class="string">&quot;docs&quot;</span>,</span><br><span class="line">    return_intermediate_steps=<span class="literal">False</span>,</span><br><span class="line">)</span><br><span class="line">text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=<span class="number">1000</span>, chunk_overlap=<span class="number">0</span>)</span><br><span class="line">split_docs = text_splitter.split_documents(docs)</span><br><span class="line"><span class="built_in">print</span>(map_reduce_chain.run(split_docs))</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>Refine: The refine documents chain constructs a response by looping
+over the input documents and iteratively updating its answer.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.chains.summarize <span class="keyword">import</span> load_summarize_chain</span><br><span class="line">prompt = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                  Please provide a summary of the following text.</span></span><br><span class="line"><span class="string">                  TEXT: &#123;text&#125;</span></span><br><span class="line"><span class="string">                  SUMMARY:</span></span><br><span class="line"><span class="string">                  &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">question_prompt = PromptTemplate(</span><br><span class="line">    template=question_prompt_template, input_variables=[<span class="string">&quot;text&quot;</span>]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">refine_prompt_template = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">              Write a concise summary of the following text delimited by triple backquotes.</span></span><br><span class="line"><span class="string">              Return your response in bullet points which covers the key points of the text.</span></span><br><span class="line"><span class="string">              ```&#123;text&#125;```</span></span><br><span class="line"><span class="string">              BULLET POINT SUMMARY:</span></span><br><span class="line"><span class="string">              &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">refine_template = PromptTemplate(</span><br><span class="line">    template=refine_prompt_template, input_variables=[<span class="string">&quot;text&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># load refine chain</span></span><br><span class="line">chain = load_summarize_chain(</span><br><span class="line">    llm=llm,</span><br><span class="line">    chain_type=<span class="string">&quot;refine&quot;</span>,</span><br><span class="line">    question_prompt=question_prompt,</span><br><span class="line">    refine_prompt=refine_prompt,</span><br><span class="line">    return_intermediate_steps=<span class="literal">True</span>,</span><br><span class="line">    input_key=<span class="string">&quot;input_documents&quot;</span>,</span><br><span class="line">    output_key=<span class="string">&quot;output_text&quot;</span>,</span><br><span class="line">)</span><br><span class="line">result = chain(&#123;<span class="string">&quot;input_documents&quot;</span>: split_docs&#125;, return_only_outputs=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="coreference-resolution">Coreference Resolution</h2>
+<p><a
+target="_blank" rel="noopener" href="https://python.langchain.com/docs/how_to/chatbots_memory/">Adding
+memory to chatbots.</a></p>
+<p>LangChain provides a way to build applications that have memory using
+LangGraph's <a
+target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/concepts/persistence/">persistence</a>.
+You can <a
+target="_blank" rel="noopener" href="https://langchain-ai.github.io/langgraph/how-tos/persistence/">enable
+persistence</a> in LangGraph applications by providing a
+<code>checkpointer</code> when compiling the graph. Every iteration,
+LangGraph takes the information and saves it in a DB (PostgreSQL, MySQL,
+Redis, and MongoDB saver).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.checkpoint.memory <span class="keyword">import</span> MemorySaver</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> START, MessagesState, StateGraph</span><br><span class="line"></span><br><span class="line">workflow = StateGraph(state_schema=MessagesState)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define the function that calls the model</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">call_model</span>(<span class="params">state: MessagesState</span>):</span><br><span class="line">    system_prompt = (</span><br><span class="line">        <span class="string">&quot;You are a helpful assistant. &quot;</span></span><br><span class="line">        <span class="string">&quot;Answer all questions to the best of your ability.&quot;</span></span><br><span class="line">    )</span><br><span class="line">    messages = [SystemMessage(content=system_prompt)] + state[<span class="string">&quot;messages&quot;</span>]</span><br><span class="line">    response = model.invoke(messages)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;messages&quot;</span>: response&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># define the node and edge</span></span><br><span class="line">workflow.add_node(<span class="string">&quot;model&quot;</span>, call_model)</span><br><span class="line">workflow.add_edge(START, <span class="string">&quot;model&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add simple in-memory checkpointer</span></span><br><span class="line">memory = MemorySaver()</span><br><span class="line">app = workflow.<span class="built_in">compile</span>(checkpointer=memory)</span><br></pre></td></tr></table></figure>
+<p>Langchain has three main strategies to manage state:</p>
+<ol type="1">
+<li>Simply stuffing previous messages into a chat model prompt.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.messages <span class="keyword">import</span> AIMessage, HumanMessage, SystemMessage</span><br><span class="line"><span class="keyword">from</span> langchain_core.prompts <span class="keyword">import</span> ChatPromptTemplate, MessagesPlaceholder</span><br><span class="line"></span><br><span class="line">prompt = ChatPromptTemplate.from_messages(</span><br><span class="line">    [</span><br><span class="line">        SystemMessage(</span><br><span class="line">            content=<span class="string">&quot;You are a helpful assistant. Answer all questions to the best of your ability.&quot;</span></span><br><span class="line">        ),</span><br><span class="line">        MessagesPlaceholder(variable_name=<span class="string">&quot;messages&quot;</span>),</span><br><span class="line">    ]</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">chain = prompt | model</span><br><span class="line"></span><br><span class="line">ai_msg = chain.invoke(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;messages&quot;</span>: [</span><br><span class="line">            HumanMessage(</span><br><span class="line">                content=<span class="string">&quot;Translate from English to French: I love programming.&quot;</span></span><br><span class="line">            ),</span><br><span class="line">            AIMessage(content=<span class="string">&quot;J&#x27;adore la programmation.&quot;</span>),</span><br><span class="line">            HumanMessage(content=<span class="string">&quot;What did you just say?&quot;</span>),</span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(ai_msg.content)</span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>The above, but trimming old messages to reduce the amount of
+distracting information the model has to deal with.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.messages <span class="keyword">import</span> trim_messages</span><br><span class="line"><span class="keyword">from</span> langgraph.checkpoint.memory <span class="keyword">import</span> MemorySaver</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> START, MessagesState, StateGraph</span><br><span class="line"></span><br><span class="line"><span class="comment"># define trimmer</span></span><br><span class="line"><span class="comment"># count each message as 1 &quot;token&quot; (token_counter=len) and keep only the last two messages</span></span><br><span class="line">trimmer = trim_messages(strategy=<span class="string">&quot;last&quot;</span>, max_tokens=<span class="number">2</span>, token_counter=<span class="built_in">len</span>)</span><br><span class="line"></span><br><span class="line">workflow = StateGraph(state_schema=MessagesState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># define the function that calls the model</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">call_model</span>(<span class="params">state: MessagesState</span>):</span><br><span class="line">    trimmed_messages = trimmer.invoke(state[<span class="string">&quot;messages&quot;</span>])</span><br><span class="line">    system_prompt = (</span><br><span class="line">        <span class="string">&quot;You are a helpful assistant. &quot;</span></span><br><span class="line">        <span class="string">&quot;Answer all questions to the best of your ability.&quot;</span></span><br><span class="line">    )</span><br><span class="line">    messages = [SystemMessage(content=system_prompt)] + trimmed_messages</span><br><span class="line">    response = model.invoke(messages)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;messages&quot;</span>: response&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># define the node and edge</span></span><br><span class="line">workflow.add_node(<span class="string">&quot;model&quot;</span>, call_model)</span><br><span class="line">workflow.add_edge(START, <span class="string">&quot;model&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ddd simple in-memory checkpointer</span></span><br><span class="line">memory = MemorySaver()</span><br><span class="line">app = workflow.<span class="built_in">compile</span>(checkpointer=memory)</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>More complex modifications like synthesizing summaries for long
+running conversations.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.messages <span class="keyword">import</span> HumanMessage, RemoveMessage</span><br><span class="line"><span class="keyword">from</span> langgraph.checkpoint.memory <span class="keyword">import</span> MemorySaver</span><br><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> START, MessagesState, StateGraph</span><br><span class="line"></span><br><span class="line">workflow = StateGraph(state_schema=MessagesState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the function that calls the model</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">call_model</span>(<span class="params">state: MessagesState</span>):</span><br><span class="line">    system_prompt = (</span><br><span class="line">        <span class="string">&quot;You are a helpful assistant. &quot;</span></span><br><span class="line">        <span class="string">&quot;Answer all questions to the best of your ability. &quot;</span></span><br><span class="line">        <span class="string">&quot;The provided chat history includes a summary of the earlier conversation.&quot;</span></span><br><span class="line">    )</span><br><span class="line">    system_message = SystemMessage(content=system_prompt)</span><br><span class="line">    message_history = state[<span class="string">&quot;messages&quot;</span>][:-<span class="number">1</span>]  <span class="comment"># exclude the most recent user input</span></span><br><span class="line">    <span class="comment"># Summarize the messages if the chat history reaches a certain size</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(message_history) &gt;= <span class="number">4</span>:</span><br><span class="line">        last_human_message = state[<span class="string">&quot;messages&quot;</span>][-<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># Invoke the model to generate conversation summary</span></span><br><span class="line">        summary_prompt = (</span><br><span class="line">            <span class="string">&quot;Distill the above chat messages into a single summary message. &quot;</span></span><br><span class="line">            <span class="string">&quot;Include as many specific details as you can.&quot;</span></span><br><span class="line">        )</span><br><span class="line">        summary_message = model.invoke(</span><br><span class="line">            message_history + [HumanMessage(content=summary_prompt)]</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Delete messages that we no longer want to show up</span></span><br><span class="line">        delete_messages = [RemoveMessage(<span class="built_in">id</span>=m.<span class="built_in">id</span>) <span class="keyword">for</span> m <span class="keyword">in</span> state[<span class="string">&quot;messages&quot;</span>]]</span><br><span class="line">        <span class="comment"># Re-add user message</span></span><br><span class="line">        human_message = HumanMessage(content=last_human_message.content)</span><br><span class="line">        <span class="comment"># Call the model with summary &amp; response</span></span><br><span class="line">        response = model.invoke([system_message, summary_message, human_message])</span><br><span class="line">        message_updates = [summary_message, human_message, response] + delete_messages</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        message_updates = model.invoke([system_message] + state[<span class="string">&quot;messages&quot;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&quot;messages&quot;</span>: message_updates&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the node and edge</span></span><br><span class="line">workflow.add_node(<span class="string">&quot;model&quot;</span>, call_model)</span><br><span class="line">workflow.add_edge(START, <span class="string">&quot;model&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add simple in-memory checkpointer</span></span><br><span class="line">memory = MemorySaver()</span><br><span class="line">app = workflow.<span class="built_in">compile</span>(checkpointer=memory)</span><br></pre></td></tr></table></figure>
+<h2 id="tracing-application-with-langsmith">Tracing Application with
+LangSmith</h2>
+<p><a target="_blank" rel="noopener" href="https://www.langchain.com/langsmith">LangSmith</a> traces
+LLM calls, tool usage, LLM model latency, token count, and cost.</p>
+<p>To integrate LangSmith to our application, we need to generate an API
+key, add it as "LANGCHAIN_API_KEY" in environment variables, install
+langsmith dependency, setup our environment. Please refer to <a
+target="_blank" rel="noopener" href="https://smith.langchain.com/o/9f3e510d-ce6b-4f98-98a3-ff383fda2d96/?paginationState=%7B%22pageIndex%22%3A0%2C%22pageSize%22%3A5%7D">set
+up tracing</a> for detailed steps.</p>
+<h2 id="langchain-hub">LangChain Hub</h2>
+<p><a
+target="_blank" rel="noopener" href="https://smith.langchain.com/hub?organizationId=9f3e510d-ce6b-4f98-98a3-ff383fda2d96">LangChain
+Hub</a> is a comprehensive platform that serves as a repository for
+pre-built components, tools, and configurations designed to accelerate
+the development of LLM applications. It simplifies the integration of
+various building blocks—models, prompts, chains, and agents—enabling
+developers to create robust and scalable applications without starting
+from scratch.</p>
+<h2 id="langchain-text-splitter-playground">LangChain Text Splitter
+Playground</h2>
+<p><a target="_blank" rel="noopener" href="https://langchain-text-splitter.streamlit.app/">Text
+Splitter Playground</a> is a user-friendly interface designed to help
+developers experiment with and fine-tune text-splitting strategies. In
+many LLM applications, particularly those involving large documents or
+retrieval-augmented generation (RAG), it is essential to divide text
+into manageable chunks while preserving context. This tool allows users
+to optimize the chunking process for their specific needs.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -7562,1506 +7852,6 @@ mindfulness or maintaining “beginner’s mind.” He has written:
 there and recognize a condition of happiness that you have, happiness
 comes.”</li>
 </ol>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/08/01/2024-August/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/di-blog/images/avatar.gif">
-      <meta itemprop="name" content="Di Zhen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/di-blog/2024/08/01/2024-August/" class="post-title-link" itemprop="url">2024 August - What I Have Read</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-08-01 21:53:47" itemprop="dateCreated datePublished" datetime="2024-08-01T21:53:47-04:00">2024-08-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="substack">Substack</h3>
-<blockquote>
-<p><em>“This incident shows clearly that Windows must prioritize change
-and innovation in the area of end-to-end resilience. […] Examples of
-innovation include the recently announced VBS enclaves, which provide an
-isolated compute environment that does not require kernel mode drivers
-to be tamper resistant.” - John Cable, Microsoft VP of Program
-management</em></p>
-<p><strong>― Microsoft: Azure Slowdown - App Economy Insights</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/microsoft-azure-slowdown">Link</a>]</p>
-</blockquote>
-<p>Microsoft Azure decelerated by 1 point sequentially to 30% YoY, while
-Google Cloud accelerated.</p>
-<p>Recent business highlights: 1) global IT outage caused by a faulty
-update by CrowdStrike affected 8.5 M Windows PCs, 2) Microsoft facing
-investigation by UK’s CMA over hiring former Inflection AI Staff and the
-partnership with the startup.</p>
-<blockquote>
-<p><em>According to <a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/netflix-ad-tech-focus">Nielsen</a>,
-Prime Video captured <strong>3.1% of US TV Time</strong> in June (a
-decline of 0.1 points Y/Y). Prime Video captures just over a third of
-Netflix’s market share (and more than Disney+ and Paramount+
-combined).</em></p>
-<p><em>As Amazon continues to invest in live sports and expand its
-content catalog, Prime members may find themselves spending more time
-with the service they already pay for. Prime Video may have started as a
-loss leader, but if it can become the go-to streaming platform for
-ad-supported content, it could evolve into a significant revenue driver,
-even for a behemoth like Amazon.</em></p>
-<p><strong>― Amazon: This Team is Cooking - App Economy
-Insights</strong> [<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/amazon-this-team-is-cooking">Link</a>]</p>
-</blockquote>
-<blockquote>
-<ul>
-<li><em><strong>Portfolio rebalancing</strong>: Apple stock surged 24%
-between May 1st and June 30th. As a result, Buffett would have seen AAPL
-take up nearly 60% of Berkshire’s portfolio. A stake reduction is a
-typical move to rebalance a portfolio and lower its risk
-profile.</em></li>
-<li><em><strong>Valuation</strong>: Apple is valued above 30 times
-forward earnings. That makes it less likely to deliver alpha for
-shareholders. It’s possible Buffett felt like the odds of market-beating
-returns at this level were subpar.</em></li>
-<li><em><strong>Taxes matter</strong>: Buffett told shareholders in May
-that he finds the current tax rate on capital gains relatively low,
-potentially prompting him to realize his significant AAPL gains while
-the rate is reasonable.</em></li>
-<li><em><strong>No place to hide</strong>: Buffett is building up his
-cash pile and waiting for a “fat pitch.”</em></li>
-</ul>
-<p><em><strong>The Buffett Indicator</strong></em>:* This ratio compares
-the total market capitalization of US stocks to the country’s GDP. It’s
-often used to gauge whether stock valuations in the US are overinflated.
-It reached <strong>138%</strong> during the dot-com bubble, which was
-considered high at the time. Low and behold, the indicator hit
-<strong>190%</strong> at the end of June.*</p>
-<p><strong>― Berkshire Slashes Apple Stake - App Economy
-Insights</strong> [<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/berkshire-slashes-apple-stake">Link</a>]</p>
-</blockquote>
-<p>Factors of today’s macro environment: 1) The AI Bubble, 2) The Yen
-Carry Trade, 3) Potential Recession.</p>
-<blockquote>
-<p><strong>Llama 3.1’s Impact on China, Kuaishou’s AI Video Generator
-Goes Global, and Alibaba Backs $2.8B AI Firm - Recode China AI</strong>
-[<a
-target="_blank" rel="noopener" href="https://recodechinaai.substack.com/p/llama-31s-impact-on-china-kuaishous">Link</a>]</p>
-</blockquote>
-<p>Highlights key AI news in China: 1) Kuaishou’s global launch of its
-AI video generator, Kling AI, and Zhipu AI’s introduction of Ying, show
-China’s progress in AI video generation. 2) Alibaba, Tencent, and
-state-backed AI funds poured $690 M into the $2.8 B AI firm Baichuan
-AI.</p>
-<blockquote>
-<p><strong>State of AI in Venture Capital 2024 - AI Supremacy</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/932e0055-a2be-47a8-a898-dc455f777009">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>“AI CapEx” is a euphemism for building physical data centers with
-land, power, steel and industrial capacity. There’s been a lot of
-investment in data centers and AI chips, but not AGI in sight. You can
-buy all the shovels you want, but if the mine ain’t making money, we
-have a problem. If there’s no gold in the mine, the shovels aren’t worth
-very much. BigTech hyperscalers and VCs might have gotten this all
-wrong.</em></p>
-<p><strong>― OpenAI’s SearchGPT and the Impossible Promises of AI - AI
-Supremacy</strong> [<a
-target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/openais-searchgpt-and-the-impossible">Link</a>]</p>
-</blockquote>
-<p>This article points out that industry is facing immense financial
-pressures and strategic uncertainties. The concerns are as follows: 1)
-OpenAI’s operating costs exceed $ 8 B, with a projected loss of $5 B in
-2024, 2) annual AI revenue to justify the investment in data centers and
-chips is unlikely to be achieved by 2025, 3) integrating SearchGPT into
-ChatGPT is a risky bet because users don’t use ChatGPT frequently enough
-for it to be a successful search tool, 4) competitive market has pushed
-many AI startups out of the market, AI innovation cannot compete with
-market dominance (e.g. Microsoft’s attempts to integrate AI into Bing),
-5) Big tech companies have accepted that they are possibly
-over-investing in AI due to FOMO (fear of missing out), leading to
-unsustainable financial practices, 6) Nvidia’s revenue is risky since it
-comes majorly from a few tech giants.</p>
-<blockquote>
-<p><em>The Morningstar framework: The framework is built on 5 “moat
-sources”:</em></p>
-<ul>
-<li><em>Intangible assets (Coca-Cola)</em></li>
-<li><em>Switching Costs (Oracle)</em></li>
-<li><em>Network Effects (CME Group)</em></li>
-<li><em>Cost Advantages (UPS)</em></li>
-<li><em>Efficient Scale (Kinder Morgan)</em></li>
-</ul>
-<p><strong>― 5 Wide Moat Businesses - Invest in Quality</strong> [<a
-target="_blank" rel="noopener" href="https://www.investinassets.net/p/5-wide-moat-businesses">Link</a>]</p>
-</blockquote>
-<p>Intangible assest: Coca-Cola, SANOFI, Unilever, Johnson &amp;
-Johnson.</p>
-<p>Switching Costs: Oracle, Intuitive Surgical, ADP.</p>
-<p>Network Effect: Mastercard, eBay, CME Group, Facebook.</p>
-<p>Cost Advantage: Amazon, Novo Nordisk.</p>
-<p>Efficient Scale: UPS, nationalgrid, Carnival</p>
-<blockquote>
-<p><strong>AI: Are we in another dot-com bubble? - AI Musings by
-Mu</strong> [<a
-target="_blank" rel="noopener" href="https://kelvinmu.substack.com/p/ai-are-we-in-another-dot-com-bubble">Link</a>]</p>
-</blockquote>
-<p>A comprehensive analysis comparing current AI cycle to the
-internet/telecom cycle of the 90s. The author examines the
-technological, economic, and capital differences between the two eras
-and concludes that while a bubble may be inevitable in the long run, we
-are still far from reaching that point.</p>
-<p>Key points:</p>
-<p>Similarities between AI cycle since Nov 2022 and internet cycle of
-the 90s: 1) Both cycles have similar ecosystem structures, with
-companies providing infrastructure, enablement, and applications. 2)
-Occur amid equity bull markets, driven by favorable economic conditions.
-3) Require significant infrastructure investments. 4) Attract
-significant VC interest, leading to high valuations.</p>
-<p>Differences between AI cycle since Nov 2022 and internet cycle of the
-90s: 1) AI companies are generating revenue much earlier than dot-com
-companies did, with more sustainable business models. 2) The current
-economic environment is less robust than in the 90s, leading to a more
-cautious investment climate. 3) AI investments are primarily
-equity-funded by big tech, unlike the debt-financed dot-com boom. 4)
-Valuations of AI companies, while high, are more grounded in near-term
-earnings than those during the dot-com era.</p>
-<p>Bubble Likelihood: The article argues that while there are risks, the
-current AI cycle is less likely to be in a bubble compared to the
-dot-com era. The more cautious investment environment, sustainable
-business models, and the structured flow of capital contribute to this
-conclusion.</p>
-<p>Lessons from Dot-Com Bubble: 1) Infrastructure buildouts take time.
-2) Being a first mover can be a disadvantage, as seen with early
-internet companies that were later overtaken by more successful
-competitors. 3) The importance of being critical and not getting swept
-up in the hype, learning from the past to navigate the present.</p>
-<blockquote>
-<p><em>To recap the above post, they do the new normal,
-including:</em></p>
-<ul>
-<li><em>Human preference data and <a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.08673v1">HelpSteer</a> style grading of
-attributes for regularization.</em></li>
-<li><em>High-quality reward models for filtering.</em></li>
-<li><em>Replacement of human demonstrations with model completions in
-some domains.</em></li>
-<li><em>Multi-round RLHF — “We iterate data and model qualities jointly
-to improve them in a unified flywheel.”</em></li>
-<li><em>A very large suite of data curation techniques, including prompt
-re-writing and refining for expansion of costly datasets, filtering math
-and code answers with outcomes (correctness or execution), filtering
-with LLMs-as-a-judge, and other new normal stuff.</em></li>
-</ul>
-<p><strong>― A recipe for frontier model post-training - Nathan Lambert,
-Interconnects</strong> [<a
-target="_blank" rel="noopener" href="https://www.interconnects.ai/p/frontier-model-post-training">Link</a>]</p>
-</blockquote>
-<p>Recent papers and reports (Llama 3.1, Nemotron 340B, and Apple
-foundation model) have made it clear that a new default recipe exists
-for high-quality RLHF. It has a few assumptions:</p>
-<ul>
-<li>Synthetic data can be of higher quality than humans, especially for
-demonstrations on challenging tasks.</li>
-<li>Reinforcement learning from human feedback (RLHF) can scale far
-further than instruction tuning.</li>
-<li>It takes multiple rounds of training and generation to reach your
-best model.</li>
-<li>Data filtering is the most important part of training.</li>
-</ul>
-<p>It becomes clear that the post training is highly correlated with the
-style and robustness gains.</p>
-<p>The new normal seems to be converged as follows:</p>
-<figure>
-<img
-src="/di-blog/2024/08/01/2024-August/new-post-training-approach.png"
-alt="post-training" />
-<figcaption aria-hidden="true">post-training</figcaption>
-</figure>
-<blockquote>
-<p><strong>OpenAI and Generative AI are at a Crossroads - AI
-Supremacy</strong> [<a
-target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/openai-and-generative-ai-are-at-a">Link</a>]</p>
-</blockquote>
-<p>Views of AI landscape.</p>
-<blockquote>
-<p><strong>At least five interesting things for your weekend (#45) -
-Noahpinion</strong> [<a
-target="_blank" rel="noopener" href="https://www.noahpinion.blog/p/at-least-five-interesting-things-68b">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>GPT-5: Everything You Need to Know - The Algorithmic
-Bridge</strong> [<a
-target="_blank" rel="noopener" href="https://www.thealgorithmicbridge.com/p/gpt-5-everything-you-need-to-know-10a">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>New LLM Pre-training and Post-training Paradigms - Ahead of
-AI</strong> [<a
-target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/new-llm-pre-training-and-post-training">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>You don’t have to be a manager - Elena’s Growth
-Scoop</strong> [<a
-target="_blank" rel="noopener" href="https://www.elenaverna.com/p/you-dont-have-to-be-a-manager">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Eric Schmidt’s AI prophecy: The next two years will shock you
-- Exponential View</strong> [<a
-target="_blank" rel="noopener" href="https://www.exponentialview.co/p/eric-schmidts-ai-prophecy">Link</a>]</p>
-</blockquote>
-<p>Former Google CEO Eric Schmidt predicts rapid advancements in AI,
-where large language models and agent-based systems with text-to-action
-capabilities could converge, causing tremendous economic and
-technological disruption.</p>
-<blockquote>
-<p><strong>Meta: Better Sorry Than Safe - App Economy Insights</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/meta-better-sorry-than-safe">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>Judge Amit Mehta handed down the ruling, finding that the tech
-giant has been using its dominance in the search market to favor its own
-products and services, making it harder for rivals to gain a
-foothold.</em></p>
-<p><em>The Justice Department had sued Alphabet over its multi-billion
-dollar deals with smartphone manufacturers and wireless providers to be
-the default search engine on mobile devices.</em></p>
-<p><em>Based on the $87 billion in Services revenue for Apple in 2023,
-Alphabet accounted for 25% of Apple Services, and over 20% of the
-Apple’s net profit</em></p>
-<p><strong>― Google’s Antitrust Loss - App Economy Insights</strong> [<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/googles-antitrust-loss">Link</a>]</p>
-</blockquote>
-<p>Potential remedies are 1) ending exclusivity deals: prohibit Alphabet
-from securing exclusive agreements with partners like Apple, 2)
-behavioral remedies: restrict Alphabet’s conduct e.g. bundling some of
-its services together, 3) structural remedies: divest some of Alphabet’s
-businesses e.g. search advertising, YouTube, smartphone business.</p>
-<blockquote>
-<p><em>A critical component of AMD’s recent strategy is to go beyond
-advanced chips and offer <strong>software</strong> (for developers to
-access the capabilities through applications) and now tailored
-<strong>system solutions</strong> (to optimize the data center for
-performance).</em></p>
-<p><strong>― AMD Acquires ZT Systems - App Economy Insights</strong> [<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/amd-acquires-zt-systems">Link</a>]</p>
-</blockquote>
-<p>In AMD presentation, they mentioned that 1) system design and
-enablement engineers in ZT systems will enable AMD to design world-class
-AI infrastructure delivered through an ecosystem of OEM and ODM
-partners, 2) ZT system’s extensive cloud solutions experience will help
-accelerate the deployment of AMD-powered AI infrastructure at scale with
-cloud customers, 3) AMD will deliver optimized solutions to market with
-our CPU, GPU, networking, and now systems solutions.</p>
-<blockquote>
-<p>Uber’s continued growth and expanding margins today are
-encouraging.</p>
-<ul>
-<li>More users and more trips in mature markets.</li>
-<li>Strong advertising performance showing product-market fit.</li>
-<li>Multi-product adoption, improving churn, and lowering acquisition
-costs</li>
-</ul>
-<p><strong>― Uber’s Big Autonomy Plan - App Economy Insights</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.appeconomyinsights.com/p/ubers-big-autonomy-plan">Link</a>]</p>
-</blockquote>
-<p>Kind of interested in how Uber’s long-term vision differs from that
-of Tesla or Waymo.</p>
-<p>Business highlights: Autonomous vehicles (AV): the ongoing
-collaborations with 10 AV companies across all segments fueled the surge
-of Uber’s AV trip growth. AVs on Uber is a win-win because of Uber’s
-massive network.</p>
-<p>Looking forward: 1) The advertising business reached a revenue run
-rate of over $1 billion, compared to $650 million a year ago, 2) Uber
-has made many strategic investments, representing over $6 billion in
-equity stakes today.</p>
-<blockquote>
-<p><strong>The Corporate Life Cycle: Managing, Valuation and Investing
-Implications - Musings on Markets</strong> [<a
-target="_blank" rel="noopener" href="https://aswathdamodaran.substack.com/p/the-corporate-life-cycle-managing">Link</a>]</p>
-</blockquote>
-<p>This article is a concise summary of Aswath Damodaran’s <a
-target="_blank" rel="noopener" href="https://www.amazon.com/Corporate-Lifecycle-Investment-Management-Implications/dp/0593545060?&amp;linkCode=sl1&amp;tag=theratwal-20&amp;linkId=7ebba08f1492c70e6b6388753e4eb683&amp;language=en_US&amp;ref_=as_li_ss_tl">new
-book</a>. There is also a <a
-target="_blank" rel="noopener" href="https://pages.stern.nyu.edu/~adamodar//New_Home_Page/webcastCLC.htm">YouTube
-course series</a>.</p>
-<blockquote>
-<p><strong>52 Reasons to Fear that Technological Progress Is Reversing -
-The Honest Broker</strong> [<a
-target="_blank" rel="noopener" href="https://www.honest-broker.com/p/52-reasons-to-fear-that-technological">Link</a>]</p>
-</blockquote>
-<p>Very good article summarizing concerning warnings happened recently.
-Warning signs that all of us have observed. For example, 1) people
-refuse to upgrade their operating system, probably because the risk
-started to overweight performance increase, 2) Scientific journals are
-now filled with thousands of fake AI-generated papers, very concerning,
-3) education degree starts to have less value because the tuition now
-outweights perceived benefits, 4) Google overwhelms search results with
-affiliate-driven content, often of low quality. Its search results have
-become dominated by ads, thinly veiled as recommendations, and content
-designed to maximize affiliate commissions rather than genuinely help
-users, leading to a degraded user experience, 5) people are addicted to
-their phones, because tech companies have conducted comprehensive and
-rigorous research studies, finding way to design and improve products,
-so that people can stick to them.</p>
-<blockquote>
-<ol type="1">
-<li><p>Instead of pursuing truth, new technologies aim to replace it
-with mimicry and fantasy.</p></li>
-<li><p>This has empowered shamming, scamming &amp; spamming at
-unprecedented levels.</p></li>
-<li><p>Users are not the real customers—so billions of people must
-suffer to advance the interests of a tiny group of
-stakeholders.</p></li>
-<li><p>Real people become inputs in a profit-maximization scheme which
-requires that they are constantly controlled and manipulated.</p></li>
-<li><p>In this environment, everything gets viewed as a resource or
-input and the natural world (including us) is ruthlessly
-exploited.</p></li>
-<li><p>The groundwork for this was laid by theorists who replaced truth
-with power.</p></li>
-<li><p>In the past, governments controlled huge technologies (nuclear
-power, spaceships, etc.) so they were somewhat accountable to citizens,
-but now the most powerful new tech is in private hands, and the public
-good is no longer even considered.</p></li>
-<li><p>So much wealth is concentrated in the hands of the winners in
-these processes, that they literally become more powerful than nation
-states.</p></li>
-<li><p>With this shift in power, even the most independent politicians
-turn into controlled agents working for the technocracy — making a
-mockery of democracy.</p></li>
-<li><p>If you oppose this command-and-control tech you can be
-theoretically (and often literally) erased, suspended, deplatformed,
-shadow-banned, surveilled, de-banked, digitally faked, etc. —so who will
-dare?</p></li>
-</ol>
-<p><strong>― 10 Reasons Why Technological Progress Is Now Reversing -
-Ted Gioia</strong> [<a
-target="_blank" rel="noopener" href="https://www.honest-broker.com/p/10-reasons-why-technological-progress">Link</a>]</p>
-</blockquote>
-<p>Good thinking and perspectives. We human are all adapting to a
-constantly changing life due to the advancement of technology. Ethical
-boundaries become blur. Truth and false are re-defined. We are farther
-away from nature and closer to artificiality. We are farther away from
-truth and closer to hallucination / scam. This is inevitable. The point
-is, how can we maximize the chance of correcting ourselves in the way of
-development.</p>
-<blockquote>
-<p><em>“If you want to be a good evaluator of businesses,” said Buffett,
-“you really ought to figure out a way — without too much personal damage
-— to run a lousy business for a while. You’ll learn a whole lot more
-about business by actually struggling with a terrible business for a
-couple of years than you learn by getting into a very good one where the
-business itself is so good that you can’t mess it up.”</em></p>
-<p><strong>― The Lessons of a Lousy Business - Kingswell</strong> [<a
-target="_blank" rel="noopener" href="https://www.kingswell.io/p/the-lessons-of-a-lousy-business">Link</a>]</p>
-</blockquote>
-<p>This is about one of Warren Buffett stories — his investment in
-Dempster Mill Manufacturing Company. Three lessons:</p>
-<ol type="1">
-<li><p>Don’t throw good money after bad</p>
-<p>Avoid the mistake of continuing to invest in something that is not
-working, hoping to recover the losses. Warren Buffett learned from his
-experience to avoid reinvesting in failing operations. Instead of
-pouring more money into trying to revive the company’s subpar
-operations, Buffett used the temporary profits from cost-cutting and tax
-advantages to invest in other, more promising ventures. This approach
-allowed him to build a successful business empire rather than wasting
-resources on a losing cause.</p></li>
-<li><p>Look for .400 hitters</p>
-<p>Warren Buffett prioritizes finding exceptional managers—like those
-who are as rare and skilled as a .400 hitter in baseball—when acquiring
-companies. By securing top-tier managers, Buffett can delegate the
-day-to-day operations with confidence, allowing him to focus on what he
-does best: allocating capital. This approach simplifies his role and
-ensures that the companies he acquires are in capable hands, which is a
-crucial aspect of his investment strategy.</p></li>
-<li><p>Some things are worth more than money</p>
-<p>This is the value Warren Buffett places on the impact of his business
-decisions on people and communities. Despite the financial losses from
-Berkshire Hathaway’s textile operations, Buffett kept them running for
-many years because they were a major source of employment for a
-struggling region. This decision reflects his consideration of the
-social and human aspects of business, prioritizing the well-being of the
-community over pure financial gain.</p></li>
-</ol>
-<blockquote>
-<p><strong>Pandemic Darlings That Never Bounced Back - Investment
-Talk</strong> [<a
-target="_blank" rel="noopener" href="https://www.investmenttalk.co/p/pandemic-darlings-that-never-bounced">Link</a>]</p>
-</blockquote>
-<p>This article is a reminder that highly speculative situations rarely
-turn out well in the long run. Many of the speculative stocks that were
-supposedly going to take advantage of “permanent” societal changes in
-2020 and 2021 collapsed and remain far below their highs.</p>
-<p>My intuitive explanation is that business that is able to benefit
-from the sudden covid impact on society is not necessarily stable or
-invulnerable. It’s probably because the business only works in such
-abnormal situation where covid was widespread. But the thing is that
-situation won’t last long and people don’t enjoy it. Business that is
-sensitive to this societal change is testified by this change to show
-that normal society sticks to or prefers the business. And you can never
-underestimate this stickiness or preference, which is like a moat.</p>
-<blockquote>
-<p><em>We have lots of data, but none of it means much until you attach
-a story to it about what you think it means and what you think people
-will do with it next. That seems obvious to me. But ask forecasters if
-they think the majority of what they do is storytelling and you’ll get
-blank stares. At best. It never seems like storytelling when you’re
-basing a forecast in data.</em></p>
-<p><em>[History] cannot be interpreted without the aid of imagination
-and intuition. The sheer quantity of evidence is so overwhelming that
-selection is inevitable. Where there is selection there is art. Those
-who read history tend to look for what proves them right and confirms
-their personal opinions. They defend loyalties. They read with a purpose
-to affirm or to attack. They resist inconvenient truth since everyone
-wants to be on the side of the angels.</em></p>
-<p><strong>― A Number From Today and A Story About Tomorrow - Morgan
-Housel @ Collabfund</strong> [<a
-target="_blank" rel="noopener" href="https://collabfund.com/blog/numbersandstories/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>AI for Non-Techies: Top Tools for Search, Agent Building,
-Academic Paper Reviews &amp; Sales Automation - AI Supremacy</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/ai-for-non-techies-top-tools-for-d90">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>China’s Humanoid Robots, Former Huawei Genius‘
-Needle-Threading Robot, and Big Tech Reap AI Rewards - Tony
-Peng</strong> [<a
-target="_blank" rel="noopener" href="https://recodechinaai.substack.com/p/chinas-humanoid-robot-former-huawei">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>AI applications will ultimately determine the revenue created
-across the AI value chain. The primary question in AI is this: “What
-problems is AI solving? How large are the scale of those problems? What
-infrastructure needs to be in place to support those
-applications?”</em></p>
-<p><strong>― Ghost in the Machine: The AI Value Chain</strong> [<a
-target="_blank" rel="noopener" href="https://www.ai-supremacy.com/p/ghost-in-the-machine-the-ai-value">Link</a>]</p>
-</blockquote>
-<p>It’s important to think about where value accrues along the AI Value
-Chain:</p>
-<figure>
-<img src="/di-blog/2024/08/01/2024-August/ai-value-chain.png"
-alt="ai-value-chain" />
-<figcaption aria-hidden="true">ai-value-chain</figcaption>
-</figure>
-<blockquote>
-<ul>
-<li><em>New Grad or L3</em></li>
-<li>Stay hungry
-<ul>
-<li><em>Listen to team meetings to identify areas.</em></li>
-<li><em>Ask your team leads where you can help.</em></li>
-</ul></li>
-<li>Self-nominate
-<ul>
-<li><em>Review your team’s backlog and identify “nice to have”
-items.</em></li>
-<li><em>Come forward when someone is looking for assistance.</em></li>
-</ul></li>
-<li>Be curious
-<ul>
-<li><em>Shadow a senior’s coding practices.</em></li>
-<li><em>Clarify tasks given to you and understand the context of the
-larger goals.</em></li>
-</ul></li>
-<li><em>Mid-level or L4</em></li>
-<li>Take ownership
-<ul>
-<li><em>“How can others benefit from this work?”.</em></li>
-<li><em>Pick up anything dropped on the floor, don’t complain, and take
-it to the finish line.</em></li>
-</ul></li>
-<li>Assist your teammates</li>
-<li>Align with the next level
-<ul>
-<li><em>Find projects to collaborate with key ICs in your
-organization.</em></li>
-<li><em>Become an expert on a specific area for your team.</em></li>
-</ul></li>
-<li><em>Senior or L5</em></li>
-<li>Delegate
-<ul>
-<li><em>Create space for others to grow.</em></li>
-<li><em>Scale yourself by delegating work and grow your
-impact.</em></li>
-</ul></li>
-<li>Clear Communication
-<ul>
-<li><em>Invest in mastering concise communication.</em>
-<ul>
-<li>❌ “The functionality of the module should be enhanced to provide
-increased flexibility and adaptability for the end user, with a focus on
-streamlining the overall workflow process and enhancing the overall user
-experience.”</li>
-<li>✅ “We need to improve the module so it’s easier to use and can
-handle a wider variety of tasks, making the user’s workflow
-smoother.”</li>
-</ul></li>
-<li><em>Be intentional with everything you say.</em>
-<ul>
-<li>❌ “I think if we decide to make this change, our downstream systems
-might suffer.”</li>
-<li>✅ “This change increases latency by 20%, breaking service X.”</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><strong>― Build Your Credibility As You Grow - Leadership
-Letters</strong> [<a
-target="_blank" rel="noopener" href="https://www.leadership-letters.com/p/build-your-credibility-as-you-grow">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Harris makes a big mistake by embracing price controls -
-Noahpinion</strong> [<a
-target="_blank" rel="noopener" href="https://www.noahpinion.blog/p/harris-makes-a-big-mistake-by-embracing">Link</a>]</p>
-</blockquote>
-<p>The main supporting points:</p>
-<ol type="1">
-<li>Ineffectiveness of Price Controls: The article argues that price
-controls on groceries are likely to be either ineffectual or harmful. If
-implemented, they could lead to shortages as grocery stores operate on
-razor-thin profit margins. If these stores are forced to sell goods at a
-loss due to government-mandated price controls, they might reduce
-supply, leading to empty shelves and potential scarcity, similar to
-situations seen in the Soviet Union and Venezuela.</li>
-<li>Inflation is Already Under Control: The article points out that
-grocery inflation has already stabilized, with prices having flatlined
-since early 2023. This suggests that the problem Harris is trying to
-solve with price controls—rising grocery prices—doesn’t actually exist
-anymore. Implementing price controls now could be seen as a solution in
-search of a problem, leading to unnecessary economic distortions.</li>
-<li>Legal and Political Risks: Harris’s proposal involves using the
-Federal Trade Commission (FTC) to enforce price controls, which the
-article argues is beyond the agency’s current legal authority. This
-could require new legislation, potentially face legal challenges, and
-expand the FTC’s powers in ways that could be problematic. The risk is
-that this could lead to a slippery slope of further government
-intervention in the economy.</li>
-<li>Historical Precedents: Historical examples of price controls, such
-as in Argentina and the U.S. during the 1970s, show that they often lead
-to short-term price reductions followed by inflation and shortages once
-the controls are lifted. The article argues that these historical
-precedents suggest that the best-case scenario for Harris’s proposal is
-negligible impact, while the worst-case scenario is significant economic
-disruption.</li>
-<li>Misguided Focus on Grocery Stores: The article highlights that
-grocery stores are not the main culprits behind price increases, as
-their profit margins are extremely low. The real issue may lie with
-other parts of the supply chain, such as food processors, where there is
-more evidence of monopoly power. Thus, targeting grocery stores with
-price controls may not address the root causes of price increases.</li>
-</ol>
-<h3 id="articles-and-blogs">Articles and Blogs</h3>
-<blockquote>
-<p><strong>In the Age of A.I., What Makes People Unique? - The New
-Yorker</strong> [<a
-target="_blank" rel="noopener" href="https://www.newyorker.com/culture/open-questions/in-the-age-of-ai-what-makes-people-unique">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>How To Get Promoted (Without Getting Lucky) - The Developing
-Dev</strong> [<a
-target="_blank" rel="noopener" href="https://www.developing.dev/p/how-to-get-promoted-without-getting">Link</a>]</p>
-<p><strong>How to Get Rich (without getting lucky) - Naval @ X</strong>
-[<a target="_blank" rel="noopener" href="https://x.com/naval/status/1002103360646823936">Link</a>]</p>
-</blockquote>
-<p>Key takeaways: 1) know what you organization considers impactful, 2)
-learn to sell your ideas, set directions, grow and help others, 3) build
-your brand by embracing accountability and sharing your results, 4)
-become a good collaborator and be transparent to your manager about
-goals and gaps, 5) protect your focus time - “<strong>what you work on
-is more important than how hard you work</strong>“, do work that you
-enjoy and has impact.</p>
-<blockquote>
-<p><strong>Is Consistency Hurting Your Sustainability? - Leadership
-Letters</strong> [<a
-target="_blank" rel="noopener" href="https://www.leadership-letters.com/p/is-consistency-hurting-your-sustainability">Link</a>]</p>
-</blockquote>
-<p>Key takeaways: 1) it’s ok to be inconsistent sometimes, you should
-update your plan that respects flexibility, balance priorities, or
-adjust your expectations, 2) Life is not a sprint, taking a pause and
-pushing goals to the future is not always bad, 3) consistency is about
-never giving up, 4) don’t set consistency as a goal, find out what is
-your real goal, so that accepting and developing “bounce-back” plan is
-possible</p>
-<blockquote>
-<p><strong>McKinsey’s 2024 annual book recommendations</strong> [<a
-target="_blank" rel="noopener" href="https://www.mckinsey.com/featured-insights/annual-book-recommendations">Link</a>]</p>
-</blockquote>
-<p>Have selected some books and added them into my read list: 1) God,
-Human, Animal, Machine: Technology, Metaphor, and the Search for Meaning
-by Meghan O’Gieblyn, 2) Outlive: The Science &amp; Art of Longevity by
-Peter Attia, 3) The Journey of Leadership: How CEOs Learn to Lead from
-the Inside Out by Dana Maor, Hans-Werner Kaas, Kurt Strovink, and Ramesh
-Srinivasan, 4) Slow Productivity: The Lost Art of Accomplishment Without
-Burnout by Cal Newport, 5) How Legendary Leaders Speak: 451 Proven
-Communication Strategies of the World’s Top Leaders by Peter D.
-Andrei.</p>
-<blockquote>
-<p><strong>Paid Advertising 101: A Guide for Startup Founders -
-Kaya</strong> [<a
-target="_blank" rel="noopener" href="https://www.usekaya.com/blog/paid-advertising-101">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Building A Generative AI Platform - Chip Huyen</strong> [<a
-target="_blank" rel="noopener" href="https://huyenchip.com/2024/07/25/genai-platform.html">Link</a>]</p>
-</blockquote>
-<p>This blog post outlines common themes in building generative AI
-systems. It covers many of the building blocks a company should consider
-when deploying its models to production.</p>
-<blockquote>
-<p><strong>AI’s $600B Question - David Cahn, Sequoia</strong> [<a
-target="_blank" rel="noopener" href="https://www.sequoiacap.com/article/ais-600b-question/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Calculating GPU memory for serving LLMs - Substratus</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.substratus.ai/blog/calculating-gpu-memory-for-llm">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Social media for startup founders: A practical guide to
-building an online presence - a16zcrypto</strong> [<a
-target="_blank" rel="noopener" href="https://a16zcrypto.com/posts/article/social-media-for-startups-guide/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Long Context RAG Performance of LLMs - Databricks</strong>
-[<a
-target="_blank" rel="noopener" href="https://www.databricks.com/blog/long-context-rag-performance-llms">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>An AI engineer’s tips for writing better AI prompts -
-coda</strong> [<a
-target="_blank" rel="noopener" href="https://coda.io/blog/ai/ai-engineer-tips-ai-prompts">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Grok-2 Beta Release - X.AI</strong> [<a
-target="_blank" rel="noopener" href="https://x.ai/blog/grok-2">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>How to Prune and Distill Llama-3.1 8B to an NVIDIA
-Llama-3.1-Minitron 4B Model - NVIDIA Developer</strong> [<a
-target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/how-to-prune-and-distill-llama-3-1-8b-to-an-nvidia-llama-3-1-minitron-4b-model/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>A practitioner’s guide to testing and running large GPU
-clusters for training generative AI models - together.ai</strong> [<a
-target="_blank" rel="noopener" href="https://www.together.ai/blog/a-practitioners-guide-to-testing-and-running-large-gpu-clusters-for-training-generative-ai-models">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Competing in search - Benedict Evans</strong> [<a
-target="_blank" rel="noopener" href="https://www.ben-evans.com/benedictevans/2024/8/19/competing-in-search">Link</a>]</p>
-</blockquote>
-<p>This article takes a look at the many possible impacts the recent
-antitrust case against Google may have.</p>
-<blockquote>
-<p><strong>GitHub CEO Thomas Dohmke says the AI industry needs
-competition to thrive - The Verge</strong> [<a
-target="_blank" rel="noopener" href="https://www.theverge.com/24221978/github-thomas-dohmke-ai-copilot-microsoft-openai-open-source">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Databricks vs. Snowflake: What their rivalry reveals about
-AI’s future - Foundation Capital</strong> [<a
-target="_blank" rel="noopener" href="https://foundationcapital.com/databricks-vs-snowflake-what-their-rivalry-reveals-about-ais-future/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>How I Use “AI” - Nichalas Carlini</strong> [<a
-target="_blank" rel="noopener" href="https://nicholas.carlini.com/writing/2024/how-i-use-ai.html">Link</a>]</p>
-</blockquote>
-<p>DeepMind research scientist shares practical techniques to augment
-your work with LLMs.</p>
-<blockquote>
-<p><strong>FlexAttention: The Flexibility of PyTorch with the
-Performance of FlashAttention - PyTorch</strong> [<a
-target="_blank" rel="noopener" href="https://pytorch.org/blog/flexattention/">Link</a>]</p>
-</blockquote>
-<p>Use FlexAttention in PyTorch to achieve 90% of FlashAttention2
-Speed.</p>
-<blockquote>
-<p><strong>Deploy open LLMs with Terraform and Amazon SageMaker -
-Philschmid</strong> [<a
-target="_blank" rel="noopener" href="https://www.philschmid.de/terraform-llm-sagemaker">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Sonnet 3.5 for Coding - System Prompt - reddit</strong> [<a
-target="_blank" rel="noopener" href="https://www.reddit.com/r/ClaudeAI/comments/1dwra38/sonnet_35_for_coding_system_prompt/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>How Product Recommendations Broke Google And ate the internet
-in the process. - Intelligencer</strong> [<a
-target="_blank" rel="noopener" href="https://nymag.com/intelligencer/article/how-product-recommendations-broke-google.html">Link</a>]</p>
-</blockquote>
-<ul>
-<li>Health.com’s Purifier Reviews: The article mentions that Health.com
-claims to have tested 67 air purifiers but provides no actual test data.
-This example supports the point that many product recommendations are
-not based on rigorous testing, undermining their credibility.</li>
-<li>HouseFresh’s Critique: HouseFresh published a critical assessment of
-its competitors, pointing out issues like subpar products being
-recommended due to brand recognition. This supports the argument that
-the affiliate marketing model is corrupting the integrity of product
-recommendations.</li>
-<li>Time Stamped and AP Buyline: These brands, operated by Taboola, are
-presented as examples of how even reputable organizations are now
-involved in affiliate marketing, blurring the lines between independent
-journalism and commercial content. This supports the point that the
-distinction between quality content and affiliate-driven recommendations
-is becoming increasingly unclear.</li>
-<li>SGE (Search Generative Experience): Google’s AI-powered search
-results, which aggregate and recommend products directly, are criticized
-for being misleading and overly simplistic. This supports the idea that
-even Google’s attempts to solve the problem are falling short, further
-complicating the search landscape.</li>
-</ul>
-<p>These examples illustrate how the proliferation of affiliate-driven
-content has compromised the quality of online information, leading to a
-search experience that is more about driving sales than helping users
-make informed decisions.</p>
-<blockquote>
-<p><strong>Avoiding Bad Guys - Humble Dollar</strong> [<a
-target="_blank" rel="noopener" href="https://humbledollar.com/2024/08/avoiding-bad-guys/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>The Berkshire Hathaway MBA - The Rational Walk</strong> [<a
-target="_blank" rel="noopener" href="https://rationalwalk.com/the-berkshire-hathaway-mba/">Link</a>]</p>
-</blockquote>
-<p>Pathway to a great investor.</p>
-<blockquote>
-<p><em>Syntopical Reading is the highest form of reading because it
-involves reading a number of books on the same topic analytically and
-then placing the books in context in relation to one another and the
-overall subject. This level of reading has the potential to bring about
-insights that are not found in any one of the books when considered in
-isolation.</em></p>
-<p><em>As an example relevant to investors, one might want to conduct an
-analytical reading of Benjamin Graham’s <a
-target="_blank" rel="noopener" href="http://amzn.to/1WWU4CD">The Intelligent Investor</a> and Philip
-Fisher’s <a target="_blank" rel="noopener" href="http://amzn.to/1PGbSRY">Common Stocks and Uncommon
-Profits</a> and then come to grips with the underlying themes expressed
-in both volumes while drawing conclusions on investing that might not
-appear in either book in isolation. This approach can, of course, be
-applied to other forms of literature including biographies. It is quite
-possible than a thorough analytical reading of Roger Lowenstein’s <a
-target="_blank" rel="noopener" href="http://amzn.to/1PGcebg">Buffett: The Making of an American
-Capitalist</a> and Alice Schroeder’s <a
-target="_blank" rel="noopener" href="http://amzn.to/1PGc9Ez">The Snowball: Warren Buffett and the
-Business of Life</a> could lead to insights about Warren Buffett that
-one could not achieve by reading one of these books in
-isolation.</em></p>
-<p><strong>― How to Read a Book: The Classic Guide to Intelligent
-Reading - The Rational Walk</strong> [<a
-target="_blank" rel="noopener" href="https://rationalwalk.com/how-to-become-a-better-reader/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Do Not Use LLM or Generative AI For These Use Cases -
-Christopher Tao on TowardsAI</strong> [<a
-target="_blank" rel="noopener" href="https://pub.towardsai.net/do-not-use-llm-or-generative-ai-for-these-use-cases-a819ae2d9779">Link</a>]</p>
-</blockquote>
-<figure>
-<img src="/di-blog/2024/08/01/2024-August/genai-usecase-.png"
-alt="genai-usecase-" />
-<figcaption aria-hidden="true">genai-usecase-</figcaption>
-</figure>
-<h3 id="youtube-and-podcasts">YouTube and Podcasts</h3>
-<blockquote>
-<p><strong>Elon Musk: Neuralink and the Future of Humanity | Lex Fridman
-Podcast</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Kbk9BiPhm7o">Link</a>]</p>
-</blockquote>
-<p>Eight hours interview..</p>
-<blockquote>
-<p><strong>Kamala surges, Trump at NABJ, recession fears, Middle East
-escalation, Ackman postpones IPO - All-in Podcast</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=rj71DPhvpiE">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>AI and The Next Computing Platforms With Jensen Huang and
-Mark Zuckerberg - NVIDIA</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=w-cmMcMZoZ4">Link</a>]</p>
-</blockquote>
-<p>Nvidia CEO Jensen and Zuckerberg discuss the future of AI.</p>
-<blockquote>
-<p><em>There’s a famous quote from an economist Simon Kuznets who said
-there’s four kinds of countries in the world there’s developed countries
-undeveloped countries Japan and Argentina. And I think the reason he
-said that is that Japan has been in the state since the 90s so they had
-a massive property and Equity bubble collapse. And they’ve not had to
-deal with anything that looked like typical economic issues since then
-and part of it is because the Govern plays a very big hand in the
-Japanese economy, there’s a lot of price controls there. So I don’t know
-I’m not sure what it is that we can learn there that you can extrapolate
-to the rest of the world. - Chamath Palihapitiya</em></p>
-<p><em>When you have massive amounts of debt it definitely limits your
-flexibility. It’s just arithmetic, you are going to pay for it with
-either economic contraction, higher taxes, or inflation. Those are the
-three places it goes. - David Sacks &amp; David Friedberg</em></p>
-<p><em>Well so it looks like since the start of the year they’ve sold
-55% of their Holdings in apple. And if you look at the end of the year,
-this is what berkshire’s stock Holdings were in their non-majority owned
-businesses. So businesses that they don’t own the business outright and
-50% of their portfolio was in Apple at $174 billion. We obviously saw
-Apple’s stock price Peak highest level ever just a few days ago, but it
-has since come down as it was reported that since the start of the year.
-Now Berkshire sold 55% of this position, so some people are arguing that
-they’ve got a point of view on the company strategy and comp competitive
-kind of landscape. Some folks have argued that the valuation multiple
-has gotten too high trading at nearly 30 times earnings the stock has
-risen 900% since Berkshire bought the stock in 2016. Bagger nicely done
-yeah and some people would argue that the percent of the portfolio is
-too high at over 50%, as you can see here at the start of the year. But
-you know I’ll kind of provide some of the counterarguments you know
-Warren Buffett does not do much analysis on corporate strategy when he
-provides reviews of the stocks that he’s picked he often finds and talks
-a lot about great managers that generate great returns. And he sticks
-with them and he sticks with them sometimes for many many decades. The
-management in this company has not changed the return profile on cash
-invested and cash returned has only improved since he put money in.
-They’re generating more cash flow they’re offering more dividends
-they’re doing more stock BuyBacks and he’s happy to be concentrated over
-the years he’s made large bets on single companies to the point that
-sometimes he just outright buys the entire company like he did with.
-Geico in 1996 he always talks a lot about finding a company that is run
-by great managers that has a premium product with a nice high margin and
-a durable moat strong brand value. As I look at kind of what’s really
-gone on here it feels to me like the difference between Apple and some
-of the other big Holdings in its portfolio is that many of those other
-businesses are regulated monopolies. So BNSF Railway is regulated by the
-Federal Railroad Administration Berkshire energy which owns mid americ
-is a regulated utility. The prices that they charge consumers are set by
-the government so they have a market that’s locked in the prices are set
-they have locked in distribution they have locked in utility value and
-the same is true in the insurance business. Geico’s rates are approved
-and set effectively by state Regulators Berkshire has a moat because
-they’ve got the largest Capital base and they’ve got this machine that
-just keeps generating cash and the rates are publicly set by government
-Apple. However is not regulated and it is very clear that apple is
-facing very deep and severe Financial impact from the regulatory
-authorities that are overseeing the business so if you look at the
-Google antitrust we’re going to get into the Google deal in a second.
-There’s a real regulatory risk there because Google’s paying Apple $20
-billion a year to be the default search engine. Apple also has a very
-deep relationship with China they have a lot of manufacturing being done
-in China and they sell a lot of product into China. So as Regulators
-start to take a harder look as they said they’re going to at companies
-relationships with China that’s a real risk to Apple. Advertising
-tracking users and then the subscription fees that are charged to
-Consumers and most importantly we’ve talked a lot about the 30% Vig that
-Apple takes on their App Store and how Regulators are now stepping in
-and take a look at this. So because this business is not yet a regulated
-Monopoly it may be a monopoly in many senses of the world it’s not
-regulated yet. And that transition could be financially painful for
-Apple once they get to the other side it starts to look a lot more like
-a large scale Burkshire type business. So that that’s my kind of summary
-take on what’s going on with apple. - David Friedberg</em></p>
-<p><em>There’s very little kind of editorialization going on with
-respect to showing the rankings of the new sources. The ranking of the
-new sources is typically set by some ranking algorithm. The algorithm is
-usually around click-throughs views popularity of the sites, how many
-visitors there are, so there are other metrics that drive the order. So
-for example if NBC CNN Fox News all have kind of higher rankings than
-some smaller publication, they’re going to end up Hing the the ranking
-algorithm, because they have a higher quality score. There’s also
-measures on how often people click through and come back, the bounceback
-rate, so if they click through an article and then come back that can
-actually reduce the ranking versus if they click through and stay on the
-site. So there’s a lot of factors that go into the ranking algorithm.
-The thing that probably upsets people is that there isn’t any
-transparency into this, so there’s no understanding on how these things
-are ranked, how they’re set, and it’s probably very good guidance and
-feedback that there should be more transparency and openness. And I’m
-not necessarily trying to defend anyone’s product or behavior, I’m just
-saying that there’s a certainly a lack of understanding on why one thing
-is being shown versus another. I’ll also say Sach there’s probably the
-case or there might be the case that there’s many more sites potentially
-putting out pro Harris articles, and there are putting out pro Trump
-articles which can start to overweight the the algorithm as you know or
-overweight the rankings that are showing up. So that might also be
-feeding into this that that the general news media bias is what you’re
-actually seeing versus a Google bias. - David Friedberg</em></p>
-<p><em>I just want to show you one chart because important for you to
-understand the number of people in journalism. This is from 1971 to 2022
-who say the identifying Republican has just absolutely plummeted. I know
-this and this is what I’m trying to explain to you Sacks, is a
-incredible opportunity for your party since you know you’re passionate
-about this is to invest in more journalism, invest in more journalists,
-because I don’t buy this Independence the fact that they’re claiming
-they’re independent in journalism. I believe that’s cap I believe they
-say that the Gap is 33% now between people who say they’re Democrats and
-people who say they’re Republican in journalism that is a key piece to
-this problem. And layered on top of it, I agree with you that Google is
-filled with liberal people, and I agree with you Chamath, that they need
-to intervene and put at the top of the search results in news. These are
-the you know this is what we’re indexing, this is the percentage that’s
-left leaning, this is the percentage that’s right leaning, and there are
-a lot of organizations that examine and rate Publications on their bias
-left and right, And that’s something that Google could do that’s very
-unique and that could move the whole show that you’re saying which is
-they could showcase that up top. So to my friends at Google who are
-listening do a better job of just being more transparent, so we don’t
-have this tension in society. - Jason Calacanis</em></p>
-<p><strong>― Yen Carry Trade, Recession odds grow, Buffett cash pile,
-Google ruled monopoly, Kamala picks Walz - All-in Podcast</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LRKDisV_pcI">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Interviewing Ross Taylor on LLM reasoning, Llama fine-tuning,
-Galactica, agents - Interconnects AI</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=KNsnarhMZRo&amp;feature=youtu.be">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Interviewing Sebastian Raschka on the state of open LLMs,
-Llama 3.1, and AI education - Interconnects AI</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-q79uzz1Wik">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>Here you can see that their (Starbucks) net revenue growth was
-only 1% year-over-year, but their operating margin’s been on the
-decline, so they have not really been able to boost their operating
-margin very much in the past 5 years. So while they’ve raised prices,
-they’ve had a really hard time making more money and that’s because the
-cost of food and the cost of Labor and the cost of rent, and the capital
-expenditures needed to upgrade stores has far exceeded the ability for
-them to grow revenue and compete. And now revenue is flatlining because
-consumers are getting tapped out with respect to how much they can spend
-and there’s only so much Innovation you can really do to charge more,
-get people to come in the store more and drive up revenue. - David
-Friedberg</em></p>
-<p><em>Brian Nickel has an incredible reputation prior to Chipotle. He
-ran Taco Bell and he ran Taco Bell for several years and made it one of
-the most profitable Quick Serve Restaurants (QSR) in the world. He did
-this by focusing on every nickel. He is notorious for being a Cost
-Cutter, for being an efficiency driver, for being a productivity Hound.
-He goes into the business and he figures out every step in the supply
-chain, every step of the operating activities of the employee in the
-stores. So he was recruited heavily. I don’t know if you guys remember
-Chipotle’s founder was running Chipotle and at the time there was a lot
-of investor activism around Chipotle because they were wasting money
-like no one’s business. The guy had a private Jet, he was flying his
-management team back and forth between Denver and New York. They were
-spending money on crazy projects. And the board fired the CEO founder of
-Chipotle, brought in Nickel. Nickel came in and made Chipotle an
-incredibly profitable growing business. And the expectation is he’ll
-come and do the same here that maybe over the years Starbucks’s success
-has bred laziness. Starbucks’s success has bred fat slowness
-productivity decline, and that this guy is the right guy to come in and
-find all the nickels. And Brian Nichol is probably the right guy which
-is why you’re seeing the stock kind of rally as hard as it has. - David
-Friedberg</em></p>
-<p><em>But the thing about Starbucks is they realized early on that when
-you can customize a consumer experience, the consumer comes back more
-frequently. So when you see your name written on that cup, you feel like
-you’re getting your product, you’re not buying an off-the-shelf product,
-you’re getting a custom personalized experience. What that led to is
-people customizing their drinks and what did they find that they liked
-when they customized their drinks sugary sweet add-ons. And then that
-became more and more of the standard menu and then that just kept
-evolving. And that’s just the consumer feedback mechanism working which
-is to Chamath’s point, led to 60 gram sugar drinks that are now the
-standard product at Starbucks, not an espresso or a cappuccino which is
-how they started, and it’s really unfortunate. - David
-Friedberg</em></p>
-<p><em>So arguably I would say that trying to step in and cap prices
-will reduce competition, and as a result will reduce investment in
-improving productivity. And we have seen this countless times with every
-socialist experiment in human history has started with caps on food, and
-it has resulted in spread lines like you see in the image behind me
-today as we can see in Soviet Russia. This is a mistake, it is a
-problem, it is anti-American, it is anti-free Market, it is anti-
-innovation, it is anti- productivity, and ultimately it’s anti- liberty
-and I cannot stand it. - David Friedberg</em></p>
-<p><em>To support your point, and what Chamath was messaging on our
-chat, look at Walmart stocks up 7% today, because they offer lower
-priced solutions to consumers, and Dollar General and Dollar Tree are
-rallying as well, when the market competes, consumers benefit, and there
-are companies that will win. And the companies that try to price gouge,
-and the companies that try to charge too much will lose. Starbucks has
-been trying to charge too much for sugar water, they have a real problem
-they are now tackling. Walmart is trying to bring value to consumers,
-they are winning. That is how free markets work. When the government
-steps in and says here’s how much margin you can make or here’s how much
-prices should be, it ruins everything, and the entire incentive
-structure goes away, and you end up with breadlines. - David
-Friedberg</em></p>
-<p><strong>― Break up Google, Starbucks CEO out, Kamala’s price
-controls, Boeing disaster, Kursk offensive - All-in Podcasts</strong>
-[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xA5B6quoahY">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>I think the thing that matters more than anything else is to make
-sure that the people that they are letting in are in love and obsessed
-with the things that MIT is supposed to be great at. … You should not be
-going to MIT because you think it’s a check mark. You should be going
-there because you think that there are professors in organic Chemistry,
-in physics, in these disciplines that are really important who are
-experts in their fields that you can learn from and become an expert
-yourself. And I think the problem with all of this other stuff is once
-you make it a credential, there are some folks that are only going to
-MIT because they could get in and because it’s a great credential in
-their minds and they shouldn’t go there either. So I think the thing is
-you have to get back to what matters which is there are all of these
-industries that have not progressed that much. And in order for those
-Industries to advance you need really talented young people who can
-learn an apprentice and then take over. And I think MIT is one of these
-rare places that focuses on this part of the physical world that hasn’t
-had as much progress. And so I just want to make sure that the people
-that go there actually want to be there for that reason gender race all
-that other stuff shouldn’t matter. - Chamath Palihapitiya</em></p>
-<p><em>Kamala Harris and Tim Waltz have only ever work for government,
-Trump and Vance have worked in Private Industry. It’s not just their
-perspective being colored by the the lack of participation in the
-private economy, but the lack of employment in the private economy,
-they’ve never worked for a private business, they’ve never been
-employees of a private business, they’ve never built a private business.
-I’m not trying to be disparaging but I do think I’m just trying to
-underline the point here Chamath which is the voter’s choice is do you
-want candidates that are not typically government operatives, or do you
-want candidates that have spent their whole career as government
-operatives. And that is effectively what the voters are going to be
-voting for. And they’re going to make a decision they may want to have
-someone that’s going to lead the biggest government in history, because
-they’ve spent their whole careers in government. Or they’re going to say
-you know what the biggest government in history needs to be
-significantly altered, and we want to bring someone in from the outside
-that’s worked in Private Industry. And that is the voter’s choice.
-That’s one way to view the voter’s choice here. - David
-Friedberg</em></p>
-<p><em>I think just because someone has served in Government doesn’t
-mean that they truly even understand what the problems are, or that
-they’re even the master of government. I mean you saw this over the past
-week we talked about the 88,000 jobs that didn’t exist. They asked Gina
-Rundo the Secretary of Commerce about this and she just said that’s a
-Trump lie, and they said no actually it’s the Bureau of Labor Statistics
-report that like is under US Secretary of Commerce. She said I’m not
-familiar with that, so you have people running the government who don’t
-even know what their own departments are doing. Now I think it’s just a
-function of the fact that the government is so big and out of control
-that no one even understands what it does. I think it’s more important
-to have someone who at least has some experience in the private sector
-who truly understands how jobs are created, how wealth is created, what
-causes inflation, okay. We’ve talked about this before, what causes
-inflation is the printing of too much money, it’s government spending
-too much, it is not corporate greed, because corporate greed as a
-constant, it’s not price gouging. - David Sacks</em></p>
-<p><em>And how the free market incentivizes the creation of improved
-productivity which over time translates into improved prosperity for the
-society within which that is taking place that is so critical and we saw
-that happen even in China in the last 30 years when the government
-allowed entrepreneurship to flourish in certain parts of the country. As
-a result there were significant productivity gains and they brought a
-billion people out of poverty - they created a middle class. - David
-Friedberg</em></p>
-<p><strong>― Massive jobs revision, Kamala wealth tax, polls vs
-prediction markets, end of race-based admissions - All-in
-Podcasts</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jSpGiFqL8_E&amp;t=3926s">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Why We Don’t Own Coupang Stock (CPNG) - Chit Chat Stock
-Podcast</strong> [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=fxj83i-HY9k">Link</a>]</p>
-</blockquote>
-<p>Good analysis of CPNG’s business, advantages and disadvantages,
-future and expectation.</p>
-<blockquote>
-<p><strong>Track Record and Risk w/ Guy Spier - We Study
-Billionaires</strong> [<a
-target="_blank" rel="noopener" href="https://open.spotify.com/episode/02nRz018bB8ZO1rxVmdxtN">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong># 361 Estée Lauder - Founders</strong> [<a
-target="_blank" rel="noopener" href="https://open.spotify.com/episode/5KM80mo5fMv2JIxzP9Zk5s">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Joe Carlsmith - Otherness and control in the age of AGI -
-Dwarkesh Podcast</strong> [<a
-target="_blank" rel="noopener" href="https://www.dwarkeshpatel.com/p/joe-carlsmith">Link</a>]</p>
-</blockquote>
-<h3 id="paper-and-reports">Paper and Reports</h3>
-<blockquote>
-<p><strong>Gradient Boosting Reinforcement Learning</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.08250v1">Link</a>]</p>
-</blockquote>
-<p>Gradient-Boosting RL (GBRL) brings the advantages of GradientBoosting
-Trees (GBT) to reinforcement learning.</p>
-<blockquote>
-<p><strong>SpreadsheetLLM: Encoding Spreadsheets for Large Language
-Models</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.09025">Link</a>]</p>
-</blockquote>
-<p>Microsoft releases SpreadsheetLLM, a model designed to optimize LLMs’
-powerful understanding on spreadsheets. It’s a great paper that outlines
-how you can turn a spreadsheet into a representation that is useful to a
-modern LLM. This can be used for Q/A, formatting, and other data
-operations.</p>
-<p>The core innovation in SpreadsheetLLM is the SheetCompressor module,
-which efficiently compresses and encodes spreadsheets. It includes 1)
-Structural-anchor-based compression, 2) Inverse index translation, 3)
-Data-format-aware aggregation.</p>
-<blockquote>
-<p><strong>OpenAI Revenue</strong> [<a
-target="_blank" rel="noopener" href="https://futuresearch.ai/openai-revenue-report">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>The Llama 3 Herd of Models - Meta Research</strong> [<a
-target="_blank" rel="noopener" href="https://ai.meta.com/research/publications/the-llama-3-herd-of-models/">Link</a>]</p>
-</blockquote>
-<p>This is a 92 pages paper, a comprehensive guide for LLM researchers
-and engineers.</p>
-<blockquote>
-<p><strong>SPIQA: A Dataset for Multimodal Question Answering on
-Scientific Papers</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.09413v1">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>KAN or MLP: A Fairer Comparison</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.16674">Link</a>]</p>
-</blockquote>
-<p>Controlled study finds MLP generally outperforms KAN across various
-tasks. MLP outperformed KAN in machine learning (86.16% vs. 85.96%),
-computer vision (85.88% vs. 77.88%), NLP (80.45% vs. 79.95%), and audio
-processing (17.74% vs. 15.49%). KAN excelled only in symbolic formula
-representation (1.2e-3 RMSE vs. 7.4e-3).</p>
-<blockquote>
-<p><strong>NeedleBench: Can LLMs Do Retrieval and Reasoning in 1 Million
-Context Window?</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.11963">Link</a>]</p>
-</blockquote>
-<p>The problem of current evaluation methods is that they are inadequate
-for assessing LLM performance on long context, however reasoning on long
-texts becomes more and more demanded. So they present a framework called
-NeedleBench for evaluating the long-context capabilities of LLMs across
-extensive text lengths. By some experiments, they find that current LLMs
-are struggling with complex reasoning tasks when it comes to long texts,
-showing a potential improvement room for LLMs.</p>
-<blockquote>
-<p><strong>Retrieval Augmented Generation or Long-Context LLMs? A
-Comprehensive Study and Hybrid Approach</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.16833">Link</a>]</p>
-</blockquote>
-<p>This study investigates how large language models handle
-question-answering tasks under two conditions: when they receive
-comprehensive context information (long-context) versus when they are
-given only selected chunks of the necessary information (RAG). It shows
-that long context surpasses RAG significantly for Gemini-1.5-Pro, GPT-4O
-and GPT-3.5-Turbo.</p>
-<blockquote>
-<p><strong>A Survey of Prompt Engineering Methods in Large Language
-Models for Different NLP Tasks</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.12994v2">Link</a>]</p>
-</blockquote>
-<p>This paper summarizes 38 prompt engineering techniques for LLM
-reasoning and lists the types of problems and datasets they have been
-used with.</p>
-<blockquote>
-<p><strong>Can Long-Context Language Models Subsume Retrieval, RAG, SQL,
-and More?</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.13121">Link</a>]</p>
-</blockquote>
-<p>This paper explores the capabilities of long-context language models
-(LCLMs) in handling tasks traditionally dependent on external tools like
-retrieval systems, RAG (Retrieval-Augmented Generation), and SQL
-databases. It reveals that LCLMs, such as Gemini 1.5 Pro, GPT-4o, and
-Claude 3 Opus, can perform competitively with specialized models in
-tasks like retrieval and RAG. In particular, at the 128k token context
-length, LCLMs rival the performance of state-of-the-art retrieval
-systems and even surpass some multi-modal retrieval models. However,
-LCLMs struggle significantly with more complex tasks requiring multi-hop
-compositional reasoning, such as SQL-like tasks. The findings also
-highlight the importance of prompt design, as performance can vary
-greatly depending on the prompting strategies used.</p>
-<blockquote>
-<p><strong>Apple Intelligence Foundation Language Models -
-Apple</strong> [<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.21075">Link</a>]</p>
-</blockquote>
-<p>This report describes the architecture, the data used to train the
-model, the training process, how the models are optimized for inference,
-and the evaluation results, for the foundation language model developed
-to power Apple Intelligence features.</p>
-<p>Notice that Apple includes the fundamentals of their RL methods,
-including a different type of soft margin loss for the reward model,
-regularizing binary preferences with absolute scores, their rejection
-sampling algorithm (iTeC) that is very similar to Meta’s approach, and
-their leave-one-out Mirror Descent RL algorithm, MDLOO.</p>
-<blockquote>
-<p><strong>Model Merging in LLMs, MLLMs, and Beyond: Methods, Theories,
-Applications and Opportunities</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.07666v1">Link</a>]</p>
-</blockquote>
-<p>This survey provides an in-depth review of model merging techniques,
-an increasingly popular method in machine learning that doesn’t require
-raw training data or expensive computation.</p>
-<blockquote>
-<p><strong>Causal Agent based on Large Language Model</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.06849v1">Link</a>]</p>
-</blockquote>
-<p>Causal Agent is an agent framework equipped with tools, memory, and
-reasoning modules to handle causal problems.</p>
-<blockquote>
-<p><strong>Transformer Explainer</strong> [<a
-target="_blank" rel="noopener" href="https://poloclub.github.io/transformer-explainer">Link</a>] [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.04619">Paper</a>] [<a
-target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ECR4oAwocjs&amp;ab_channel=PoloClubofDataScience">video</a>]</p>
-</blockquote>
-<p>Interactive visualization tool designed for non-experts to learn
-about Transformers.</p>
-<blockquote>
-<p><strong>The AI Scientist: Towards Fully Automated Open-Ended
-Scientific Discovery - Sakana.AI</strong> [<a
-target="_blank" rel="noopener" href="https://sakana.ai/ai-scientist/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Transformers in music recommendation - Google
-Research</strong> [<a
-target="_blank" rel="noopener" href="https://research.google/blog/transformers-in-music-recommendation/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>A Comprehensive Overview of Large Language Models</strong>
-[<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2307.06435">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>A Survey on Benchmarks of Multimodal Large Language
-Models</strong> [<a
-target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.08632v1">Link</a>]</p>
-</blockquote>
-<p>This paper provides an extensive review of 180 benchmarks used to
-evaluate Multimodal Large Language Models.</p>
-<blockquote>
-<p><strong>Qwen2-VL: To See the World More Clearly - QwenLM</strong>
-[Link]</p>
-</blockquote>
-<p>The model comes in three sizes : 2B and 7B (open-sourced under Apache
-2.0 license), and 72B (available via API).</p>
-<p>Performance:</p>
-<ul>
-<li>Qwen2-VL demonstrates state-of-the-art performance on visual
-understanding benchmarks. The 72B model surpasses GPT-4o and Claude
-3.5-Sonnet on most metrics.</li>
-<li>The 7B model achieves top performance in document understanding and
-multilingual text comprehension. Even the 2B model shows strong
-performance in video-related tasks and document understanding.</li>
-</ul>
-<p>Key Capabilities:</p>
-<ul>
-<li>Processing videos over 20 minutes long</li>
-<li>Complex reasoning for device operation (e.g., mobile phones,
-robots)</li>
-<li>Multilingual text understanding in images (European languages,
-Japanese, Korean, Arabic, Vietnamese)</li>
-<li>Function calling for integration with external tools</li>
-<li>Document understanding and general scenario question-answering</li>
-<li>Integrates with Hugging Face Transformers and vLLM.</li>
-<li>Supports various tools for quantization, deployment, and
-fine-tuning, making it accessible for ML engineers and researchers to
-implement and customize.</li>
-</ul>
-<p>Two key architectural innovations:</p>
-<ul>
-<li><strong>Naive Dynamic Resolution</strong> support allows Qwen2-VL to
-handle arbitrary image resolutions by mapping them to a dynamic number
-of visual tokens. This ensures consistency between input and image
-information.</li>
-<li><strong>Multimodal Rotary Position Embedding (M-ROPE)</strong>
-enables concurrent capture of 1D textual, 2D visual, and 3D video
-positional information.</li>
-</ul>
-<h3 id="github">GitHub</h3>
-<blockquote>
-<p><strong>Multimodal Report Generation Agent - Llamaindex</strong> [<a
-target="_blank" rel="noopener" href="https://github.com/run-llama/llama_parse/blob/main/examples/multimodal/multimodal_report_generation_agent.ipynb">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Building a RAG Pipeline over Legal Documents -
-Llamaindex</strong> [<a
-target="_blank" rel="noopener" href="https://github.com/run-llama/llama_parse/blob/main/examples/multimodal/legal_rag.ipynb">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>How to generate images with FLUX: the most photorealistic
-text-to-image model available</strong></p>
-</blockquote>
-<p>Simple Method: Use <a
-target="_blank" rel="noopener" href="https://y1mnw3w8.r.us-east-1.awstrack.me/L0/https:%2F%2Flink.alphasignal.ai%2FocUXNN/1/010001914bdfb8dc-cb490fbf-a7e7-43ba-9b23-fb5a8234308c-000000/hK6AWLCJMvupI6H-Ehmvy0zZviY=387">Replicate</a>
-or <a
-target="_blank" rel="noopener" href="https://y1mnw3w8.r.us-east-1.awstrack.me/L0/https:%2F%2Flink.alphasignal.ai%2FCZQwnF/1/010001914bdfb8dc-cb490fbf-a7e7-43ba-9b23-fb5a8234308c-000000/LDL-GsnSKSeqVKB-0eCr188joMo=387">FAL</a>
-for inference via your browser.</p>
-<p>HuggingFace Method</p>
-<ol type="1">
-<li>Clone this <a
-target="_blank" rel="noopener" href="https://y1mnw3w8.r.us-east-1.awstrack.me/L0/https:%2F%2Flink.alphasignal.ai%2FkHG68u/1/010001914bdfb8dc-cb490fbf-a7e7-43ba-9b23-fb5a8234308c-000000/-h6_XgCvSpyzigNlXK91B8Y45I8=387">Google
-Colab notebook</a>.</li>
-<li>Change the Runtime to A100 GPU: FLUX.1 requires 32GB of GPU RAM to
-run, so ensure you select the A100 GPU runtime.</li>
-<li>Run the notebook.</li>
-<li>Change the prompt, currently set to: “A modern, minimalist house
-with large windows and a flat roof.”</li>
-</ol>
-<blockquote>
-<p><strong>GraphRAG Implementation with LlamaIndex</strong> [<a
-target="_blank" rel="noopener" href="https://github.com/run-llama/llama_index/blob/main/docs/docs/examples/cookbooks/GraphRAG_v1.ipynb">Link</a>]</p>
-</blockquote>
-<p>LlamaIndex releases notebook implementation of Microsoft’s
-GraphRAG.</p>
-<blockquote>
-<p><strong>Step-By-Step Tutorial: How to Fine-tune Llama 3 (8B) with
-Unsloth + Google Colab &amp; deploy it to Ollama - reddit</strong> [<a
-target="_blank" rel="noopener" href="https://www.reddit.com/r/LocalLLaMA/comments/1e416fo/stepbystep_tutorial_how_to_finetune_llama_3_8b/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Notebooks: Using Mistral Nemo with 60% less memory -
-Nvidia</strong> [<a
-target="_blank" rel="noopener" href="https://colab.research.google.com/drive/17d3U-CAIwzmbDRqbZ9NnpHxCkmXB6LZ0?usp=sharing">Notebook1</a>]
-[<a
-target="_blank" rel="noopener" href="https://www.kaggle.com/code/danielhanchen/kaggle-mistral-nemo-12b-unsloth-notebook">Notebook2</a>]</p>
-</blockquote>
-<p>Nvidia has released two free notebooks for Mistral NeMo 12b, enabling
-2x faster finetuning with 60% less memory. Mistral’s latest free LLM is
-the largest multilingual open-source model that fits in a free Colab
-GPU.</p>
-<blockquote>
-<p><strong>Prompt Engineering Interactive Tutorial - Anthropics</strong>
-[<a
-target="_blank" rel="noopener" href="https://github.com/anthropics/courses/tree/master/prompt_engineering_interactive_tutorial/Anthropic%201P">Link</a>]</p>
-</blockquote>
-<h3 id="news">News</h3>
-<blockquote>
-<p><strong>Google has an illegal monopoly on search, judge rules. Here’s
-what’s next - CNN</strong> [<a
-target="_blank" rel="noopener" href="https://amp-cnn-com.cdn.ampproject.org/c/s/amp.cnn.com/cnn/2024/08/05/business/google-loses-antitrust-lawsuit-doj">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Berkshire Hathaway sells off large share of Apple and
-increases cash holdings - The Guardian</strong> [<a
-target="_blank" rel="noopener" href="https://www.theguardian.com/business/article/2024/aug/03/berkshire-hathaway-warren-buffett-sells-off-apple-increases-cash-holdings">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><em>Having accurate, reliable benchmarks for AI models matters, and
-not just for the bragging rights of the firms making them. Benchmarks
-“define and drive progress”, telling model-makers where they stand and
-incentivising them to improve, says Percy Liang of the Institute for
-Human-Centred Artificial Intelligence at Stanford University. Benchmarks
-chart the field’s overall progress and show how AI systems compare with
-humans at specific tasks. They can also help users decide which model to
-use for a particular job and identify promising new entrants in the
-space, says Clémentine Fourrier, a specialist in evaluating LLMs at
-Hugging Face, a startup that provides tools for AI developers.</em></p>
-<p><strong>― GPT, Claude, Llama? How to tell which AI model is best -
-The Economist</strong> [<a
-target="_blank" rel="noopener" href="https://www.economist.com/science-and-technology/2024/07/31/gpt-claude-llama-how-to-tell-which-ai-model-is-best">Link</a>]</p>
-</blockquote>
-<p>Current benchmark MMLU (massive multi-task language understanding)
-has a few problems: 1) too easy for today’s models leading to the
-problem of ‘saturation’. New alternatives are developed such as
-MMLU-Pro, GPQA, MUSR, etc, 2) training data comes from internet which is
-a source of questions and answers for MMLU, resulting in a problem
-called “contamination”, 3) answers in MMLU tests are sometimes wrong or
-correct answers are more than one, 4) small changes in the way questions
-are posed to models can significantly affect their scores.</p>
-<p>There are some trustworthy automated testing systems other than
-ChatBotArena leaderboard: HELM (holistic evaluation of language models)
-built by Dr Liang’s team at Stanford, and EleutherAI Harness uses by Dr
-Fourrier’s teams at Hugging Face for open source models.</p>
-<p>As model gain new skills, new benchmarks are being developed to
-assess them. For example, GAIA tests model on real world problem
-solving, NoCha provides novel challenge, etc. However, new benchmarks
-are expensive to develop because they require human experts to create a
-detailed set of questions and answers. Dr Liang is working on project
-AutoBencher, Anthropic started funding the creation of benchmarks with a
-focus of AI safety.</p>
-<blockquote>
-<p><strong>GPT-4o mini: advancing cost-efficient intelligence - OpenAI
-News</strong> [<a
-target="_blank" rel="noopener" href="https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/">Link</a>]</p>
-</blockquote>
-<p>GPT-4o is small and intelligent. It’s probably distilled from current
-or unreleased version of OpenAI’s models, similar to what Claude did
-with Claude Haiku and Google with Gemini Flash.</p>
-<blockquote>
-<p><strong>Made by Google 2024: Pixel 9, Gemini, a new foldable and
-other things to expect from the event - TechCrunch</strong> [<a
-target="_blank" rel="noopener" href="https://techcrunch.com/2024/08/06/made-by-google-2024-pixel-9-gemini-a-new-foldable-and-other-things-to-expect-from-the-event/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>MIT releases comprehensive database of AI risks -
-VentureBeat</strong> [<a
-target="_blank" rel="noopener" href="https://venturebeat.com/ai/mit-releases-comprehensive-database-of-ai-risks/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Apple will let other digital wallets into Apple Pay, and even
-be the default - ars technica</strong> [<a
-target="_blank" rel="noopener" href="https://arstechnica.com/gadgets/2024/08/apple-will-let-other-digital-wallets-into-apple-pay-and-even-be-the-default/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Apple Aiming to Launch Tabletop Robotic Home Device as Soon
-as 2026 With Pricing Around $1,000</strong> [<a
-target="_blank" rel="noopener" href="https://www.macrumors.com/2024/08/14/apple-tabletop-robotic-home-device-2026/">Link</a>]</p>
-</blockquote>
-<blockquote>
-<p><strong>Sakana AI’s ‘AI Scientist’ conducts research autonomously,
-challenging scientific norms - VentureBeat</strong> [<a
-target="_blank" rel="noopener" href="https://venturebeat.com/ai/sakana-ai-scientist-conducts-research-autonomously-challenging-scientific-norms/">Link</a>]</p>
-</blockquote>
-<p>Sakana AI unveils world’s first fully automatic ‘AI-Scientist’
-generating complete research papers.</p>
-<blockquote>
-<p><strong>Scaling Laws, Economics and the AI “Game of Emperors.” -
-Gavin Baker</strong> [<a
-target="_blank" rel="noopener" href="https://x.com/gavinsbaker/status/1828862999836102800?s=12&amp;utm_source=tldrnewsletter">Link</a>]</p>
 </blockquote>
 
       
