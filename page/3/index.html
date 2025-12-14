@@ -112,7 +112,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/di-blog/archives/">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -134,6 +134,296 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/12/25/Understanding-LoRA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/di-blog/2024/12/25/Understanding-LoRA/" class="post-title-link" itemprop="url">Understanding LoRA</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-12-25 15:11:11" itemprop="dateCreated datePublished" datetime="2024-12-25T15:11:11-05:00">2024-12-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>I finally got time to have some deep dives. Happy Christmas!</p>
+<h2 id="ram-usage-during-training">RAM Usage During Training</h2>
+<p>Training large-scale machine learning models e.g. LLMs, requires
+significant compute resources. Here’s a breakdown of the possible memory
+usage (RAM) at various stages of the classic training process, based on
+the pseudocode below:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">model = Model()</span><br><span class="line">optimizer = Adam(model.parameters())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch, (X, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">    <span class="comment"># Compute prediction and loss</span></span><br><span class="line">    pred = model(X)</span><br><span class="line">    loss = loss_fn(pred, y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Backpropagation</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
+<h3 id="key-components-of-memory-usage">Key Components of Memory
+Usage</h3>
+<ol type="1">
+<li><p><strong>Model Parameters</strong>: These are the trainable
+weights of the model, which need to be stored in memory throughout the
+training process. The size is proportional to the number of parameters
+in the model.</p></li>
+<li><p><strong>Model Gradients</strong>: Gradients for each parameter
+are computed during backpropagation and stored temporarily for the
+optimizer to update the weights.</p></li>
+<li><p><strong>Optimizer States</strong>: Optimizers like Adam maintain
+additional states, including:</p>
+<ul>
+<li><p><strong>First-order momentum</strong>: Tracks the moving average
+of gradients.</p></li>
+<li><p><strong>Second-order momentum</strong>: Tracks the moving average
+of squared gradients.</p></li>
+<li><p>Both momentum terms have the same size as the model
+gradients.</p></li>
+</ul></li>
+<li><p><strong>Activations</strong>: Activation outputs from the forward
+pass are stored for use during backpropagation, where the Hessian matrix
+is multiplied with the activations. The memory required for activations
+can be substantial, especially as batch size increases. While the size
+of parameters, gradients, and optimizer states remains constant,
+activation memory scales directly with batch size.</p></li>
+<li><p><strong>Other Overheads</strong>: Temporary buffers and memory
+fragmentation during computation also contribute to RAM usage.</p></li>
+</ol>
+<h3 id="memory-calculation-examples">Memory Calculation Examples</h3>
+<ol type="1">
+<li><p><strong>Gradients and Parameters</strong>:</p>
+<p>For 70B model, using 32-bit floating-point precision (FP32): <span
+class="math display">\[
+70\times10^9\times4 \text{ bytes}\times2 =521.5\text{GM}
+\]</span> This accounts for the weights and their corresponding
+gradients.</p></li>
+<li><p><strong>Optimizer State</strong>:</p>
+<p>Adam optimizer requires two additional states (first and second-order
+momentum), each the same size as the gradients: <span
+class="math display">\[
+70\times10^9\times4 \text{ byte}\times2 =521.5\text{GM}
+\]</span></p></li>
+<li><p><strong>Activations</strong>:</p>
+<p>For 70B model with a hidden size of 8192, 80 layers, and FP32
+precision, each token’s activation memory: <span class="math display">\[
+8192\times80\times4\times12 \text{ bytes/token}=30\text{ MB/token}
+\]</span></p></li>
+</ol>
+<h3 id="simple-strategies-for-reducing-memory-usage">Simple Strategies
+for Reducing Memory Usage</h3>
+<ol type="1">
+<li><strong>Activation Checkpointing</strong>: Instead of storing all
+activation outputs, recompute activations during backpropagation as
+needed. This significantly reduces activation memory at the cost of
+additional compute time.</li>
+<li><strong>Mixed Precision Training (FP16)</strong>: Use 16-bit
+floating-point precision (FP16) instead of FP32 for model weights,
+gradients, and activations. This halves the memory requirements without
+substantial accuracy loss when done correctly.</li>
+</ol>
+<h2 id="lora">LoRA</h2>
+<h3 id="adapters">Adapters</h3>
+<p>The original adapter was introduced in 2019 in the paper "<a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.00751">Parameter-Efficient Transfer
+Learning for NLP</a>". It's a small, additional module added to a
+pre-trained model to adapt it to a new task without significantly
+changing the original model parameters.</p>
+<figure>
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_architecture.png"
+alt="adapter_architecture" />
+<figcaption aria-hidden="true">adapter_architecture</figcaption>
+</figure>
+<p>Adapters generally <strong>reduce training latency</strong> compared
+to full fine-tuning because only a small number of parameters (those
+within the adapter modules) are updated during training. This reduction
+in trainable parameters leads to lower computational overhead and faster
+convergence in many cases. Additionally, adapters allow for larger batch
+sizes due to reduced memory usage, which can further accelerate
+training</p>
+<p>However, adapter layers <strong>increase inference latency</strong>
+because they are added sequentially and cannot be parallelized. This
+issue becomes more pronounced with small batch sizes or when using
+sharded models, such as GPT-2. Techniques like layer pruning or
+multi-task settings can mitigate but not completely eliminate this
+latency.</p>
+<p>As shown in the experiment results below, inference latent can be
+significant (Source: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA
+paper</a>):</p>
+<figure>
+<img
+src="/di-blog/2024/12/25/Understanding-LoRA/adapter_experiment_results.png"
+alt="adapter_experiment_results" />
+<figcaption aria-hidden="true">adapter_experiment_results</figcaption>
+</figure>
+<h3 id="lora-basics">LoRA Basics</h3>
+<p>LoRA (Low-Rank Adaptation) was introduced by a Microsoft team in 2021
+in the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank
+Adaptation of Large Language Models</a>. The main idea of LoRA is to
+enable efficient fine-tuning of large pre-trained models by introducing
+low-rank trainable matrices into the model’s architecture, while keeping
+the original model weights frozen. This approach significantly reduces
+the number of trainable parameters and computational requirements
+compared to full fine-tuning, without compromising performance.</p>
+<figure>
+<img src="/di-blog/2024/12/25/Understanding-LoRA/lora_diagram.png"
+alt="lora_diagram" />
+<figcaption aria-hidden="true">lora_diagram</figcaption>
+</figure>
+<p>LoRA approximates weight updates in neural networks using
+<strong>low-rank matrix factorization</strong>. Instead of updating the
+full weight matrix <span class="math inline">\(W\)</span> , it
+introduces two smaller trainable matrices <span
+class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span> with size <span
+class="math inline">\((r \times d)\)</span> and <span
+class="math inline">\((d \times r)\)</span>. These matrices have much
+fewer parameters, as their rank <span class="math inline">\(r\)</span>
+is much smaller than the dimensions of <span
+class="math inline">\(W\)</span>. Instead of training <span
+class="math inline">\(\Delta W\)</span>, LoRA trains the parameters in
+<span class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span>. This can be written in formula: <span
+class="math display">\[
+h=W_0x + \Delta Wx = W_0x + BAx
+\]</span> where <span class="math inline">\(W_0\)</span> is original
+prerained weight matrix in size <span class="math inline">\((d\times
+d)\)</span> which is frozen during training; <span
+class="math inline">\(\Delta W\)</span> is in <span
+class="math inline">\((d \times d)\)</span> as well computed by <span
+class="math inline">\(BA\)</span>. <span
+class="math inline">\(x\)</span> is a new input with size <span
+class="math inline">\((1 \times d)\)</span>.</p>
+<p>At the start of the training process, the matrix $ A $ is randomly
+initialized following a normal distribution <span
+class="math inline">\(\mathcal{N}(0, \sigma^2)\)</span>, while the
+matrix $ B $ is initialized as a zero matrix. In the initial round, this
+setup results in $ BA = 0 $, leading to $ h = W_0x $. This
+initialization strategy ensures stability by preventing significant
+deviations of $ W_0 $ from its original state.</p>
+<p>LoRA is a groundbreaking method with a lot of
+<strong>benefits</strong>:</p>
+<ul>
+<li><strong>Parameter Efficiency</strong>: By training only the low-rank
+matrices, LoRA reduces the number of updated parameters resulting in
+lower memory usage and faster training.</li>
+<li><strong>Frozen Pre-trained Weights</strong>: The original
+pre-trained weights remain unchanged, preserving the model’s
+general-purpose knowledge and avoiding catastrophic forgetting.</li>
+<li><strong>No Inference Latency Overhead</strong>: Unlike adapters,
+LoRA does not add additional layers to the model. The low-rank matrices
+can be merged back into the original weight matrix after fine-tuning,
+ensuring no additional inference latency.</li>
+<li><strong>Versatility</strong>: LoRA can be applied to various
+architectures (e.g. transformers) and tasks, making it a flexible
+solution for adapting large models like GPT-3 or RoBERTa to specific use
+cases.</li>
+</ul>
+<h3 id="lora-usage">LoRA Usage</h3>
+<p>The Microsoft developers of LoRA created a Python package called <a
+target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA"><code>loralib</code></a> to
+facilitate the use of LoRA. With this library, any linear layer
+implemented as <code>nn.Linear()</code> can be replaced by
+<code>lora.Linear()</code>. This is possible because LoRA is designed to
+work with any layer involving matrix multiplication. The
+<code>lora.Linear()</code> module introduces a pair of low-rank
+adaptation matrices, which are used to modify the original weight matrix
+by applying a low-rank decomposition.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># layer = nn.Linear(in_features, out_features)</span></span><br><span class="line"><span class="comment"># ===== After ======</span></span><br><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line"><span class="comment"># Add a pair of low-rank adaptation matrices with rank r=16</span></span><br><span class="line">layer = lora.Linear(in_features, out_features, r=<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+<p>Before training the model, all non-lora matrix should be fixed and
+only LoRA matrices should be set as trainable. Training loops can run as
+usual.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> loralib <span class="keyword">as</span> lora</span><br><span class="line">model = BigModel()</span><br><span class="line"><span class="comment"># This sets requires_grad to False for all parameters without the string &quot;lora_&quot; in their names</span></span><br><span class="line">lora.mark_only_lora_as_trainable(model)</span><br><span class="line"><span class="comment"># Training loop</span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataloader:</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p>When saving model checkpoints during LoRA fine-tuning, only the
+LoRA-specific parameters need to be saved, not the entire large
+pre-trained model. This results in significantly smaller checkpoint
+files and more efficient storage.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ===== Before =====</span></span><br><span class="line"><span class="comment"># torch.save(model.state_dict(), checkpoint_path)</span></span><br><span class="line"><span class="comment"># ===== After =====</span></span><br><span class="line">torch.save(lora.lora_state_dict(model), checkpoint_path)</span><br></pre></td></tr></table></figure>
+<h3 id="implementation-of-lora---lora.linear">Implementation of LoRA -
+lora.Linear()</h3>
+<p>Let's take a deep dive into the <code>lora.Linear()</code> <a
+target="_blank" rel="noopener" href="https://github.com/microsoft/LoRA/blob/main/loralib/layers.py">source
+code</a>:</p>
+<p>The <code>lora.Linear</code> class builds upon
+<code>torch.nn.Linear()</code>. It retains the original weight matrix $
+W $ as initialized in
+<code>nn.Linear.__init__(self, in_features, out_features)</code>, and
+introduces two additional LoRA matrices: <code>self.lora_A</code> and
+<code>self.lora_B</code>. The matrix <code>self.lora_A</code> has
+dimensions of $ (r, ) $, while <code>self.lora_B</code> has dimensions
+of $ (, r) $. These matrices are used to adapt the original weight
+matrix through low-rank decomposition.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        nn.Linear.__init__(<span class="variable language_">self</span>, in_features, out_features, **kwargs)</span><br><span class="line">        LoRALayer.__init__(<span class="variable language_">self</span>, r=r, lora_alpha=lora_alpha, lora_dropout=lora_dropout,</span><br><span class="line">                           merge_weights=merge_weights)</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.fan_in_fan_out = fan_in_fan_out</span><br><span class="line">        <span class="comment"># Actual trainable parameters</span></span><br><span class="line">        <span class="keyword">if</span> r &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="variable language_">self</span>.lora_A = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((r, in_features)))</span><br><span class="line">            <span class="variable language_">self</span>.lora_B = nn.Parameter(<span class="variable language_">self</span>.weight.new_zeros((out_features, r)))</span><br><span class="line">            <span class="variable language_">self</span>.scaling = <span class="variable language_">self</span>.lora_alpha / <span class="variable language_">self</span>.r</span><br><span class="line">            <span class="comment"># Freezing the pre-trained weight matrix</span></span><br><span class="line">            <span class="variable language_">self</span>.weight.requires_grad = <span class="literal">False</span></span><br><span class="line">        <span class="variable language_">self</span>.reset_parameters()</span><br><span class="line">        <span class="keyword">if</span> fan_in_fan_out:</span><br><span class="line">            <span class="variable language_">self</span>.weight.data = <span class="variable language_">self</span>.weight.data.transpose(<span class="number">0</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>In the <code>forward()</code> function, it implements <span
+class="math inline">\(h=W_0x + \Delta Wx = W_0x+ BAx\)</span>.</p>
+<p>There is a flag variable called <code>self.merge</code> which is use
+to flag whether it's doing inference or training. Recall that the
+original weight matrix remaining unchanged during LoRA training is a key
+feature of the LoRA - pre-trained weights are freezed and instead small,
+low-rank matrices are trained to approximate updates.</p>
+<ul>
+<li>During inference, if <code>merge_weights</code> is set to
+<code>True</code>, the low-rank updates
+<code>self.lora_B @ self.lora_A</code> are added directly to the frozen
+pre-trained weights (<code>self.weight</code>). This avoids the need for
+separate computations of LoRA updates during forward passes, improving
+efficiency.</li>
+<li>During training, if <code>merge_weights</code> is enabled and
+weights were previously merged, the updates are subtracted from
+<code>self.weight</code> to revert it to its original frozen state. This
+ensures that gradients are not incorrectly computed on the merged
+weights.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Linear</span>(nn.Linear, LoRALayer):</span><br><span class="line">    <span class="comment"># LoRA implemented in a dense layer</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, </span></span><br><span class="line"><span class="params">        in_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        out_features: <span class="built_in">int</span>, </span></span><br><span class="line"><span class="params">        r: <span class="built_in">int</span> = <span class="number">0</span>, </span></span><br><span class="line"><span class="params">        lora_alpha: <span class="built_in">int</span> = <span class="number">1</span>, </span></span><br><span class="line"><span class="params">        lora_dropout: <span class="built_in">float</span> = <span class="number">0.</span>,</span></span><br><span class="line"><span class="params">        fan_in_fan_out: <span class="built_in">bool</span> = <span class="literal">False</span>, <span class="comment"># Set this to True if the layer to replace stores weight like (fan_in, fan_out)</span></span></span><br><span class="line"><span class="params">        merge_weights: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line"></span><br><span class="line">      ......</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">self, mode: <span class="built_in">bool</span> = <span class="literal">True</span></span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        nn.Linear.train(<span class="variable language_">self</span>, mode)</span><br><span class="line">        <span class="keyword">if</span> mode:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Make sure that the weights are not merged</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data -= T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.merge_weights <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">                <span class="comment"># Merge the weights and mark it</span></span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.weight.data += T(<span class="variable language_">self</span>.lora_B @ <span class="variable language_">self</span>.lora_A) * <span class="variable language_">self</span>.scaling</span><br><span class="line">                <span class="variable language_">self</span>.merged = <span class="literal">True</span>    </span><br><span class="line">                </span><br><span class="line">			<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x: torch.Tensor</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">T</span>(<span class="params">w</span>):</span><br><span class="line">            <span class="keyword">return</span> w.transpose(<span class="number">0</span>, <span class="number">1</span>) <span class="keyword">if</span> <span class="variable language_">self</span>.fan_in_fan_out <span class="keyword">else</span> w</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.r &gt; <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> <span class="variable language_">self</span>.merged:</span><br><span class="line">            result = F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)            </span><br><span class="line">            result += (<span class="variable language_">self</span>.lora_dropout(x) @ <span class="variable language_">self</span>.lora_A.transpose(<span class="number">0</span>, <span class="number">1</span>) @ <span class="variable language_">self</span>.lora_B.transpose(<span class="number">0</span>, <span class="number">1</span>)) * <span class="variable language_">self</span>.scaling</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> F.linear(x, T(<span class="variable language_">self</span>.weight), bias=<span class="variable language_">self</span>.bias)</span><br><span class="line">          </span><br><span class="line">      ......</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -7289,569 +7579,6 @@ Expect What You Inspect</h3>
 <p>Truth is confirmed by inspection and delay; falsehood by haste and
 uncertainty.<br />
 —Tacitus, Roman historian</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2024/08/07/Essentialism-The-Disciplined-Pursuit-of-Less/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/di-blog/images/avatar.gif">
-      <meta itemprop="name" content="Di Zhen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Di's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/di-blog/2024/08/07/Essentialism-The-Disciplined-Pursuit-of-Less/" class="post-title-link" itemprop="url">Essentialism, The Disciplined Pursuit of Less</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-08-07 22:51:46" itemprop="dateCreated datePublished" datetime="2024-08-07T22:51:46-04:00">2024-08-07</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <figure>
-<img
-src="/di-blog/2024/08/07/Essentialism-The-Disciplined-Pursuit-of-Less/essentialism_book.JPG"
-alt="essentialism_book" />
-<figcaption aria-hidden="true">essentialism_book</figcaption>
-</figure>
-<p>Essentialism written by Greg Mckeown is a book centered me to
-essentialism from my minimalism mindset and lifestyle. Dan recommended
-it to me in our first coffee chat :)</p>
-<p>What Ela Bhatt said reminds me how I became a minimalism -</p>
-<blockquote>
-<p>Out of all virtues simplicity is my most favorite virtue. So much so
-that I tend to believe that simplicity can solve most of the problems,
-personal as well as the world problems. If the life approach is simple
-one need not lie so frequently, nor quarrel nor steal, nor envy, anger,
-abuse, kill. Everyone will have enough and plenty so need not hoard,
-speculate, gamble, hate. When character is beautiful, you are beautiful.
-That is the beauty of simplicity.</p>
-</blockquote>
-<h3 id="what-is-the-core-mindset-of-an-essentialist">What is the Core
-Mindset of an Essentialist?</h3>
-<blockquote>
-<p>The way of the Essentialist means living by design, not by default.
-Instead of making choices reactively, the Essentialist deliberately
-distinguishes the vital few from the trivial many, eliminates the
-nonessentials, and then removes obstacles so the essential things have
-clear, smooth passage. In other words, Essentialism is a disciplined,
-systematic approach for determining where our highest point of
-contribution lies, then making execution of those things almost
-effortless.</p>
-</blockquote>
-<blockquote>
-<p>It is a discipline you apply each and every time you are faced with a
-decision about whether to say yes or whether to politely decline. It’s a
-method for making the tough trade-off between lots of good things and a
-few really great things. It’s about learning how to do less but better
-so you can achieve the highest possible return on every precious moment
-of your life.</p>
-</blockquote>
-<blockquote>
-<p>A Nonessentialist approaches every trade-off by asking, “How can I do
-both?” Essentialists ask the tougher but ultimately more liberating
-question, “Which problem do I want?” An Essentialist makes trade-offs
-deliberately. She acts for herself rather than waiting to be acted upon.
-As economist Thomas Sowell wrote: “There are no solutions. There are
-only trade-offs.”</p>
-</blockquote>
-<p>It’s not only about mental discipline.</p>
-<h3 id="explore-discerning-the-trivial-many-from-the-vital-few">Explore:
-Discerning The Trivial Many from the Vital Few</h3>
-<p>Essentialisms systematically and deliberately explore and evaluate a
-broad set of options at first to ensure that they pick the right one
-later. This exploration requires time and space and this can be seen as
-trivial and unnecessary by nonessentialists.</p>
-<p>We need to look for the lead rather than being distracted by minor
-details. we need to pay attention to those not explicitly stated rather
-than everything. We not only capture the dots, but also connect them to
-see the trends.</p>
-<blockquote>
-<p>He (Frank O’Brien) wrote: “I think it’s critical to set aside time to
-take a breath, look around, and think. You need that level of clarity in
-order to innovate and grow.” Furthermore, he uses the meeting as a
-litmus test to alert him if employees are spending too much time on the
-nonessential: “If somebody can’t make the meeting because of too much
-going on, that tells me either we’re doing something inefficiently or we
-need to hire more people.” If his people are too busy to think, then
-they’re too busy, period.</p>
-</blockquote>
-<blockquote>
-<p>Being a journalist of your own life will force you to stop
-hyper-focusing on all the minor details and see the bigger picture. You
-can apply the skills of a journalist no matter what field you are in-you
-can even apply them to your personal life. By training yourself to look
-for “the lead,” you will suddenly find yourself able to see what you
-have missed. You’ll be able to do more than simply see the dots of each
-day: you’ll also connect them to see the trends. Instead of just
-reacting to the facts, you’ll be able to focus on the larger issues that
-really matter.</p>
-</blockquote>
-<p>We need to play to relieve stress and expand minds in ways that allow
-us to generate new ideas. We also need enough sleep hours to allow new
-neural connections to be made.</p>
-<blockquote>
-<p>Play expands our minds in ways that allow us to explore: to germinate
-new ideas or see old ideas in a new light. It makes us more inquisitive,
-more attuned to novelty, more engaged.</p>
-</blockquote>
-<blockquote>
-<p>The best asset we have for making a contribution to the world is
-ourselves. If we underinvest in ourselves, and by that I mean our minds,
-our bodies, and our spirits, we damage the very tool we need to make our
-highest contribution. One of the most common ways people-especially
-ambitious, successful people-damage this asset is through a lack of
-sleep.</p>
-</blockquote>
-<blockquote>
-<p>Sleep Is the New Status Symbol for Successful Entrepreneurs.</p>
-</blockquote>
-<h3 id="eliminate-cutting-out-the-trivial-many">Eliminate: Cutting Out
-the Trivial Many</h3>
-<p>Clarity is the key.</p>
-<blockquote>
-<p>When there is a serious lack of clarity about what the team stands
-for and what their goals and roles are, people experience confusion,
-stress, and frustration. When there is a high level of clarity, on the
-other hand, people thrive.<br />
-When there is a lack of clarity, people waste time and energy on the
-trivial many. When they have sufficient levels of clarity, they are
-capable of greater breakthroughs and innovations- greater than people
-even realize they ought to have- in those areas that are truly
-vital.</p>
-</blockquote>
-<blockquote>
-<p>Creating an essential intent is hard. It takes courage, insight, and
-foresight to see which activities and efforts will add up to your single
-highest point of contribution. It takes asking tough questions, making
-real trade-offs, and exercising serious discipline to cut out the
-competing priorities that distract us from our true intention. Yet it is
-worth the effort because only with real clarity of purpose can people,
-teams, and organizations fully mobilize and achieve something truly
-excellent.</p>
-</blockquote>
-<p>We need to make our choices about where to focus our energy and time
-purposefully and deliberately. This is necessary because “If you don’t
-prioritize your life, someone else will”. And this is not easy because
-sometime we are going against social expectation and we are under social
-pressure. We need courage and grace to navigate some hard moments.</p>
-<blockquote>
-<p>The only way out of this trap is to learn to say no firmly,
-resolutely, and yet gracefully. Because once we do, we find, not only
-that our fears of disappointing or angering others were exaggerated, but
-that people actually respect us more. Since becoming an Essentialist I
-have found it almost universally true that people respect and admire
-those with the courage of conviction to say no.</p>
-</blockquote>
-<blockquote>
-<p>How do we learn to say no gracefully?</p>
-<ol type="1">
-<li><p>Separate the decision from the relationship</p></li>
-<li><p>Saying “No” gracefully doesn’t have to mean using the word
-No</p></li>
-<li><p>Focus on the trade-off</p></li>
-<li><p>Remind yourself that everyone is selling something</p></li>
-</ol>
-<p>I am simply saying everyone is selling something-an idea, a
-viewpoint, an opinion-in exchange for your time. Simply being aware of
-what is being sold allows us to be more deliberate in deciding whether
-we want to buy it.</p>
-<ol start="5" type="1">
-<li>Make your peace with the fact that saying “No” often requires
-trading popularity for respect</li>
-</ol>
-<p>When the initial annoyance or disappointment or anger wears off, the
-respect kicks in. When we push back effectively, it shows people that
-our time is highly valuable. It distinguishes the professional from the
-amateur.</p>
-</blockquote>
-<p>Becoming an Essentialism requires us to eliminate things that are
-really good in order to save time and space for something better.</p>
-<blockquote>
-<p>The Latin root of the word decision-cis or cid-literally means “to
-cut” or “to kill.” Since ultimately, having fewer options actually makes
-a decision “easier on the eye and the brain,” we must summon the
-discipline to get rid of options or activities that may be good, or even
-really good, but that get in the way. Yes, making the choice to
-eliminate something good can be painful. But eventually, every cut
-produces joy-maybe not in the moment but afterwards, when we realize
-that every. additional moment we have gained can be spent on something
-better. That may be one reason why Stephen King has written, “To write
-is human, to edit is divine.”</p>
-</blockquote>
-<blockquote>
-<p>Condensing doesn’t mean doing more at once, it simply means less
-waste. It means lowering the ratio of words to ideas, square feet to
-usefulness, or effort to results. Thus to apply the principle of
-condensing to our lives we need to shift the ratio of activity to
-meaning. We need to eliminate multiple meaningless activities and
-replace them with one very meaningful activity.</p>
-</blockquote>
-<blockquote>
-<p>Becoming an Essentialist means making cutting, condensing, and
-correcting a natural part of our daily routine-making editing a natural
-cadence in our lives.</p>
-</blockquote>
-<p>Setting boundaries is not having limits of life nor evidence of
-weakness. It’s a way of avoiding being distracted by something that is
-essential to others rather than that is essential to ourselves. We need
-to articulate our boundaries and set them up in advance.</p>
-<blockquote>
-<p>After all, if you don’t set boundaries-there won’t be any. Or even
-worse, there will be boundaries, but they’ll be set by default-or by
-another person-instead of by design.</p>
-</blockquote>
-<blockquote>
-<p>Essentialists, on the other hand, see boundaries as empowering. They
-recognize that boundaries protect their time from being hijacked and
-often free them from the burden of having to say no to things that
-further others’ objectives instead of their own. They know that clear
-boundaries allow them to proactively eliminate the demands and
-encumbrances from others that distract them from the true
-essentials.</p>
-</blockquote>
-<blockquote>
-<p>Whoever it is that’s trying to siphon off your time and energies for
-their own purpose, the only solution is to put up fences. And not at the
-moment the request is made, you need to put up your fences well in
-advance, clearly demarcating what’s off limits so you can head off time
-wasters and boundary pushers at the pass.</p>
-</blockquote>
-<blockquote>
-<p>The simple reality is, if you can’t articulate these to yourself and
-others, it may be unrealistic to expect other people to respect them or
-even figure them out.</p>
-</blockquote>
-<h3
-id="execution-removing-obstacles-and-making-execution-effortless">Execution:
-Removing Obstacles and Making Execution Effortless</h3>
-<p>Time and space are required as a buffer to reduce friction and ensure
-success.</p>
-<blockquote>
-<p>The way of the Essentialist is different. The Essentialist looks
-ahead. She plans. She prepares for different contingencies. She expects
-the unexpected. She creates a buffer to prepare for the unforeseen, thus
-giving herself some wiggle room when things come up, as they inevitably
-do.</p>
-</blockquote>
-<blockquote>
-<p>Essentialists accept the reality that we can never fully anticipate
-or prepare for every scenario or eventuality; the future is simply too
-unpredictable. Instead, they build in buffers to reduce the friction
-caused by the unexpected.</p>
-</blockquote>
-<p>Essentialists produce more by removing more instead of doing
-more.</p>
-<blockquote>
-<p>Essentialists don’t default to Band-Aid solutions. Instead of looking
-for the most obvious or immediate obstacles, they look for the ones
-slowing down progress. They ask, “What is getting in the way of
-achieving what is essential?” While the Nonessentialist is busy applying
-more and more pressure and piling on more and more solutions, the
-Essentialist simply makes a one-time investment in removing obstacles.
-This approach goes beyond just solving problems; it’s a method of
-reducing your efforts to maximize your results.</p>
-</blockquote>
-<p>Essentialists make progress by making small and concrete wins. It’s
-harder to make achievement when you set big, lofty, and impossible
-goals.</p>
-<blockquote>
-<p>The way of the Nonessentialist is to go big on everything: to try to
-do it all, have it all, fit it all in. The Nonessentialist operates
-under the false logic that the more he strives, the more he will
-achieve, but the reality is, the more we reach for the stars, the harder
-it is to get ourselves off the ground.</p>
-<p>The way of the Essentialist is different. Instead of trying to
-accomplish it all and all at once, and flaring out, the Essentialist
-starts small and celebrates progress. Instead of going for the big,
-flashy wins that don’t really matter, the Essentialist pursues small and
-simple wins in areas that are essential.</p>
-</blockquote>
-<blockquote>
-<p>A popular idea in Silicon Valley is “Done is better than perfect.”
-The sentiment is not that we should produce rubbish. The idea, as I read
-it, is not to waste time on nonessentials and just to get the thing
-done. In entrepreneurial circles the idea is expressed as creating a
-“minimal viable product.” The idea is, “What is the simplest possible
-product that will be useful and valuable to the intended customer?”</p>
-</blockquote>
-<p>Personalizing patterns of action (i.e. routine) allows us to pay more
-attention to matters that count rather than to other’s expectations.</p>
-<blockquote>
-<p>The way of the Nonessentialist is to think the essentials only get
-done when they are forced. That execution is a matter of raw effort
-alone. You labor to make it happen. You push through.</p>
-<p>The way of the Essentialist is different. The Essentialist designs a
-routine that makes achieving what you have identified as essential the
-default position. Yes, in some instances an Essentialist still has to
-work hard, but with the right routine in place each effort yields
-exponentially greater results.”</p>
-</blockquote>
-<p>Be present - Focus on what is important now. Don’t pretend that you
-can multifocus.</p>
-<blockquote>
-<p>As he tells his players: “There is a difference between losing and
-being beaten. Being beaten means they are better than you. They are
-faster, stronger, and more talented.” To Larry, losing means something
-else. It means you lost focus. It means you didn’t concentrate on what
-was essential. It is all based on a simple but powerful idea: to operate
-at your highest level of contribution requires that you deliberately
-tune in to what is important in the here and now.</p>
-</blockquote>
-<blockquote>
-<p>The ancient Greeks had two words for time. The first was chronos. The
-second was kairos. The Greek god Chronos was imagined as an elderly,
-gray-haired man, and his name connotes the literal ticking clock, the
-chronological time, the kind we measure (and race about trying to use
-efficiently). Kairos is different. While it is difficult to translate
-precisely, it refers to time that is opportune, right, different.
-Chronos is quantitative; kairos is qualitative. The latter is
-experienced only when we are fully in the moment-when we exist in the
-now.</p>
-</blockquote>
-<blockquote>
-<p>Nonessentialists tend to be so preoccupied with past successes and
-failures, as well as future challenges and opportunities, that they miss
-the present moment. They become distracted. Unfocused. They aren’t
-really there.<br />
-The way of the Essentialist is to tune into the present. To experience
-life in kairos, not just chronos. To focus on the things that are truly
-important-not yesterday or tomorrow, but right now.</p>
-</blockquote>
-<blockquote>
-<p>We can easily do two things at the same time. What we can’t do is
-concentrate on two things at the same time. When I talk about being
-present, I’m not talking about doing only one thing at a time. I’m
-talking about being focused on one thing at a time. Multitasking itself
-is not the enemy of Essentialism; pretending we can “multifocus” is.</p>
-</blockquote>
-<h3 id="related-to-leadership">Related to Leadership</h3>
-<p>Again, clarity is the key.</p>
-<blockquote>
-<p>When there was a high level of clarity of purpose, the teams and the
-people on it overwhelmingly thrived. When there was a serious lack of
-clarity about what the team stood for and what their goals and roles
-were, people experienced confusion, stress, frustration, and ultimately
-failure. As one senior vice president succinctly summarized it when she
-looked at the results gathered from her extended team: “Clarity equals
-success.”</p>
-</blockquote>
-<blockquote>
-<p>The Nonessentialist disempowers people by allowing ambiguity over who
-is doing what. Often this is justified in the name of wanting to be a
-flexible or agile team. But what is actually created is a counterfeit
-agility. When people don’t know what they are really responsible for and
-how they will be judged on their performance, when decisions either are
-or appear to be capricious, and when roles are ill-defined, it isn’t
-long before people either give up or, worse, become obsessed with trying
-to look busy and therefore important instead of actually getting any
-real work done.</p>
-</blockquote>
-<blockquote>
-<p>The Nonessentialist leader communicates in code, and as a result
-people aren’t sure what anything really means. Nonessentialist
-communication usually is either too general to be actionable or changes
-so quickly that people are always caught off guard. Essentialist
-leaders, on the other hand, communicate the right things to the right
-people at the right time. Essentialist leaders speak succinctly, opting
-for restraint in their communication to keep the team focused. When they
-do speak, they are crystal clear. They eschew meaningless jargon, and
-their message is so consistent it seems almost boring to their ears. In
-this way, teams are able to pick up the essential through all the
-trivial noise.</p>
-</blockquote>
-<p>Apply “less but better” in hiring people.</p>
-<blockquote>
-<p>And the cost of hiring too many wrong people (and one wrong hire
-often leads to multiple wrong hires because the wrong person will tend
-to attract more wrong people) is what Guy Kawasaki called a “Bozo
-explosion”—a term he uses to describe what happens when a formerly great
-team or company descends into mediocrity.</p>
-</blockquote>
-<blockquote>
-<p>An Essentialist, on the other hand, is ridiculously selective on
-talent. She has the discipline to hold out for the perfect hire-no
-matter how many résumés she has to read, or interviews she has to
-conduct, or talent searches she has to make-and doesn’t hesitate to
-remove people who hold the team back. The result is a team full of
-all-star performers whose collective efforts add up to more than the sum
-of their parts.</p>
-</blockquote>
-<h3
-id="some-interesting-observations-or-research-results-mentioned">Some
-interesting observations or research results mentioned</h3>
-<p>This is how after you become a “go to” person and gain a lot of
-opportunities, you started to diffuse your efforts and be distracted by
-a lot of options.</p>
-<blockquote>
-<ol type="1">
-<li>The pursuit of success can be a catalyst for failure. Put another
-way, success can distract us from focusing on the essential things that
-produce success in the first place.</li>
-<li>We are unprepared in part because, for the first time (in human
-history), the preponderance of choice has overwhelmed our ability to
-manage it. We have lost our ability to filter what is important and what
-isn’t. Psychologists call this “decision fatigue”: the more choices we
-are forced to make, the more the quality of our decisions
-deteriorates.</li>
-</ol>
-</blockquote>
-<p>If you are an overachiever thinking you can do anything, how about
-taking the challenge of saying no to an opportunity and taking a
-nap.</p>
-<blockquote>
-<ol start="3" type="1">
-<li>Stuart Brown, the founder of the National Institute for Play, has
-studied what are called the play histories of some six thousand
-individuals and has concluded that play has the power to significantly
-improve everything from personal health to relationships to education to
-organizations’ ability to innovate.<br />
-“Play,” he says, “leads to brain plasticity, adaptability, and
-creativ-ity.” As he succinctly puts it, “Nothing fires up the brain like
-play.”</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="4" type="1">
-<li>In a Harvard Business Review article called “Sleep Deficit: The
-Performance Killer,” Charles A. Czeisler, the Baldino Professor of Sleep
-Medicine at Harvard Medical School, has explained how sleep deprivation
-undermines high performance. He likens sleep deficit to drinking too
-much alcohol, explaining that pulling an all-nighter i.e., going
-twenty-four hours without sleep) or having a week of sleeping just four
-or five hours a night actually “induces an impairment equivalent to a
-blood alcohol level of 0.1%. Think about this: we would never say, ‘This
-person is a great worker! He’s drunk all the time!’ yet we continue to
-celebrate people who sacrifice sleep for work.”</li>
-<li>The researchers explained that while we sleep our brains are hard at
-work encoding and restructuring information. Therefore, when we wake up,
-our brains may have made new neural connections, thereby opening up a
-broader range of solutions to problems, literally overnight.</li>
-</ol>
-</blockquote>
-<p>Clarity is critical.</p>
-<blockquote>
-<ol start="6" type="1">
-<li>In my work, I have noticed two common patterns that typically emerge
-when teams lack clarity of purpose.</li>
-</ol>
-<ol type="a">
-<li>Playing politics</li>
-</ol>
-<p>In the first pattern, the team becomes overly focused on winning the
-attention of the manager. The problem is, when people don’t know what
-the end game is, they are unclear about how to win, and as a result they
-make up their own game and their own rules as they vie for the manager’s
-favor. Instead of focusing their time and energies on making a high
-level of contribution, they put all their effort into games like
-attempting to look better than their peers, demonstrating their
-self-importance, and echoing their manager’s every idea or sentiment.
-These kinds of activities are not only nonessential but damaging and
-counterproductive.</p>
-<ol start="2" type="a">
-<li>It’s all good (which is bad)</li>
-</ol>
-<p>In the second pattern, teams without purpose become leaderless. With
-no clear direction, people pursue the things that advance their own
-short-term interests, with little awareness of how their activities
-contribute to (or in some cases, derail) the long-term mission of the
-team as a whole.</p>
-</blockquote>
-<p>‘Uncommit’ is a way to minimize loss and win big.</p>
-<blockquote>
-<ol start="7" type="1">
-<li>Sunk-cost bias is the tendency to continue to invest time, money, or
-energy into something we know is a losing proposition simply because we
-have already incurred, or sunk, a cost that cannot be re-couped. But of
-course this can easily become a vicious cycle: the more we invest, the
-more determined we become to see it through and see our investment pay
-off. The more we invest in something, the harder it is to let go.</li>
-</ol>
-</blockquote>
-<p>The power of small wins.</p>
-<blockquote>
-<ol start="8" type="1">
-<li>Research has shown that of all forms of human motivation the most
-effective one is progress. Why? Because a small, concrete win creates
-momentum and affirms our faith in our further success. In his 1968
-Harvard Business Review article entitled “One More Time: How Do You
-Motivate Employees?” among the most popular Harvard Business Review
-articles of all time, Frederick Herzberg reveals research showing that
-the two primary internal motivators for people are achievement and
-recognition for achievement.</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="9" type="1">
-<li>Indeed, today Zimbardo is attempting a grand social experiment along
-those lines called the “Heroie Imagination Project.” The logic is to
-increase the odds of people operating with courage by teaching them the
-principles of heroism. By encouraging and rewarding heroic acts,
-Zimbardo believes, we can consciously and deliberately create a system
-where heroic aets eventually become natural and effortless.</li>
-</ol>
-</blockquote>
-<p>Be present and focus on one thing.</p>
-<blockquote>
-<ol start="10" type="1">
-<li>Thich Nhat Hanh, the Vietnamese Zen Buddhist monk who has been
-called the “world’s calmest man,” has spent a lifetime exploring how to
-live in kairos, albeit by a different name. He has taught it as
-mindfulness or maintaining “beginner’s mind.” He has written:
-“Mindfulness helps you go home to the present. And every time you go
-there and recognize a condition of happiness that you have, happiness
-comes.”</li>
-</ol>
 </blockquote>
 
       
