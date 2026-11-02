@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/di-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/di-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/di-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/di-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/di-blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jokerdii.github.io","root":"/di-blog/","images":"/di-blog/images","scheme":"Muse","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/di-blog/js/config.js"></script>
+
+    <meta name="description" content="Articles and Blogs  Investigating three real-world incidents in our cybersecurity evaluations - Anthropic [Link]  Takeaways: Prompted by a recent incident where OpenAI models escaped an isolated test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026 August - What I Have Learned">
+<meta property="og:url" content="https://jokerdii.github.io/di-blog/2026/08/29/2026-August/index.html">
+<meta property="og:site_name" content="Di&#39;s Blog">
+<meta property="og:description" content="Articles and Blogs  Investigating three real-world incidents in our cybersecurity evaluations - Anthropic [Link]  Takeaways: Prompted by a recent incident where OpenAI models escaped an isolated test">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-08-30T01:39:36.000Z">
+<meta property="article:modified_time" content="2026-08-30T01:39:36.000Z">
+<meta property="article:author" content="Di Zhen">
+<meta property="article:tag" content="readings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jokerdii.github.io/di-blog/2026/08/29/2026-August/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://jokerdii.github.io/di-blog/2026/08/29/2026-August/","path":"2026/08/29/2026-August/","title":"2026 August - What I Have Learned"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2026 August - What I Have Learned | Di's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/di-blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/di-blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Di's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#articles-and-blogs"><span class="nav-number">1.</span> <span class="nav-text">Articles and Blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#youtube-and-podcasts"><span class="nav-number">2.</span> <span class="nav-text">YouTube and Podcasts</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Di Zhen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/di-blog/archives/">
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jokerdii.github.io/di-blog/2026/08/29/2026-August/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/di-blog/images/avatar.gif">
+      <meta itemprop="name" content="Di Zhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2026 August - What I Have Learned | Di's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2026 August - What I Have Learned
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-08-29 21:39:36" itemprop="dateCreated datePublished" datetime="2026-08-29T21:39:36-04:00">2026-08-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="articles-and-blogs">Articles and Blogs</h2>
+<blockquote>
+<p><strong>Investigating three real-world incidents in our cybersecurity
+evaluations - Anthropic</strong> [<a
+target="_blank" rel="noopener" href="https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>Prompted by a recent incident where OpenAI models escaped an isolated
+test environment, Anthropic conducted a massive retrospective review of
+141,006 of its own cybersecurity evaluations. They discovered three
+separate incidents where Claude models inadvertently gained unauthorized
+access to real-world systems during simulated "capture-the-flag" (CTF)
+exercises.</p>
+<p>Due to a misconfiguration with a third-party evaluation partner
+(Irregular), the test environments had live internet access. However,
+the system prompts explicitly told the models they were in a closed
+simulation without internet.</p>
+<p>The Incidents:</p>
+<ul>
+<li>Incident 1 (Claude Opus 4.7): Found a real company with the same
+name as the fictional target. It recognized the systems were likely real
+production systems but continued its attack and extracted data
+anyway.</li>
+<li>Incident 2 (Claude Mythos 5): Attempted to upload a booby-trapped
+Python package to a fictional registry, but accidentally uploaded it to
+the real public PyPI registry. It noted the potential real-world harm
+but rationalized that it was still inside a complex simulation.</li>
+<li>Incident 3 (Internal Test Model): Scanned 9,000 online targets and
+compromised one. However, once it realized the compromised host was
+genuinely unrelated to the CTF challenge, it stopped the attack on its
+own.</li>
+</ul>
+<p>Conclusions:</p>
+<ul>
+<li>This was an operational and harness failure, not a model alignment
+failure. Transcripts of the models' internal reasoning show they were
+not acting maliciously or trying to "escape." They were simply
+completing their open-ended CTF instructions to the best of their
+ability, operating under the false, prompt-induced belief that the
+real-world systems they encountered were part of the evaluation
+range.</li>
+<li>Newer models demonstrate better situational awareness and safety
+behaviors than older models. While Opus 4.7 continued its attack despite
+recognizing real systems, the most advanced internal test model
+recognized it was on the open internet and independently halted its
+attack.</li>
+</ul>
+<p>Learnings:</p>
+<ul>
+<li>Evaluation environments for advanced, autonomous AI agents require
+the same rigorous, defense-in-depth security controls as live production
+systems. Relying solely on fictional scenarios is no longer a sufficient
+safety measure.</li>
+<li>A model's ability to act safely and remain aligned is heavily
+dependent on its understanding of its actual situation. Providing
+inaccurate prompts (e.g., saying there is no internet when there is)
+severely compromises the model's decision-making.</li>
+<li>AI labs must co-design evaluation environments more securely with
+third-party vendors and implement continuous, real-time monitoring of
+evaluation transcripts.</li>
+</ul>
+<blockquote>
+<p><strong>How the Best Leaders Shape Conversations - Alison Wood Brooks
+and Andy Atkins, Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/how-the-best-leaders-shape-conversations">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>The quality of a team’s decisions, relationships, and execution
+depends heavily on the quality of their dialogue. While many leaders
+focus on optimizing workflows or what they should say, the most
+effective leaders practice "conversational stewardship"—intentionally
+shaping and caring for the quality of group conversations so that teams
+leave with clear alignment and next steps.</p>
+<p>The best leaders steward conversations by focusing on three core
+elements:</p>
+<ul>
+<li>Goals (What are we trying to accomplish?) Great conversations start
+with clarity. This involves defining three things:
+<ul>
+<li>Purpose: Why the group is meeting.</li>
+<li>Products: What the group should walk away with (e.g., a decision, a
+plan, or next steps). Teams that consistently define next steps are
+significantly more effective.</li>
+<li>Process: How the conversation will unfold (e.g., how ideas are
+generated, how disagreement is handled).</li>
+</ul></li>
+<li>Roles (Who is responsible for what?) Clear responsibilities prevent
+discussions from drifting. Two vital roles need to be explicit:
+<ul>
+<li>The Facilitator: Manages the flow of the conversation, keeps it on
+track, and ensures healthy participation.</li>
+<li>The Decision-maker: Has the final authority on the meeting's
+"products."</li>
+<li>Participants also need to know their own roles (e.g., are they there
+to vote, provide context, or just listen?).</li>
+</ul></li>
+<li>Soul (Do people feel safe to speak candidly?) Even with clear goals
+and roles, conversations fail if important truths are withheld. Leaders
+must cultivate a psychologically safe environment by building:
+<ul>
+<li>Relational trust: Confidence that others respect and care about
+you.</li>
+<li>Transactional trust: Confidence that others are competent and
+reliable.</li>
+<li>Psychological safety: A group-level belief that individuals can
+speak up, challenge assumptions, and admit uncertainty without fear of
+embarrassment or retaliation.</li>
+</ul></li>
+</ul>
+<blockquote>
+<p><strong>The Predictable Executive Career Arc Is Over - Lynda Gratton,
+Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/the-predictable-executive-career-arc-is-over">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Stop trying to predict the exact next step. Instead, focus on small,
+low-risk experiments (like learning a new technology or taking on a
+stretch project) to increase your readiness and expand your options
+<em>before</em> you are forced to make a change.</li>
+<li>Shift your focus to investments that compound over time. Rather than
+chasing short-term gains, build capabilities, strong relationships, good
+health, and curiosity that will remain valuable no matter what the
+future looks like.</li>
+<li>Making complex career choices requires mental space. Avoid the trap
+of constant reactivity by deliberately creating moments of "calm" and
+reflection. This protected time allows for the clearer, better judgment
+needed to navigate unpredictable career paths.</li>
+</ol>
+<blockquote>
+<p><strong>Before Rolling Out a New Strategy, Assess Your Team’s
+Readiness - Steven Morris, Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/before-rolling-out-a-new-strategy-assess-your-teams-readiness">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ul>
+<li><p>Appetite (Commitment &amp; Ownership): This is the energy and
+motivation behind the work. It is the difference between compliance
+(doing the work because you have to, which often stops when things get
+hard) and ownership (pushing through friction because you feel
+responsible for the outcome).</p>
+<p>How to build it: Foster "authorship" by giving people a genuine voice
+in shaping the strategy early on, and create "meaning" by connecting the
+work to something they personally value.</p></li>
+<li><p>Capacity (Bandwidth &amp; Resilience): This goes much deeper than
+just scheduling and time management; it’s about a system's cognitive
+focus and physiological resilience. Organizations running at the
+absolute edge of their capacity are prone to execution failures and poor
+decision-making under pressure.</p>
+<p>How to build it: Leaders can create capacity by postponing
+lower-priority initiatives, clarifying decision rights to reduce
+redundant meetings, shifting resources, and protecting time for
+uninterrupted, deep-focus work.</p></li>
+<li><p>Skillset (Task-Specific Capability): This is the degree to which
+your team's current capabilities match the actual demands of the new
+work. Competence is task-specific, meaning a high performer in one area
+may be an "early learner" in a new strategic initiative.</p>
+<p>How to build it: View skill gaps as structural realities, not
+personal failures. Close these gaps through active coaching, pairing
+less experienced employees with veterans, and using stretch assignments
+to build capability safely over time.</p></li>
+</ul>
+<blockquote>
+<p><strong>How to Spot a Toxic Leader—Before Hiring Them - Douglas H.
+Reynolds and Steven G. Rogelberg, Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/how-to-spot-a-toxic-leader-before-hiring-them">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>Toxic leaders often mask their detrimental traits behind initial
+charm and technical brilliance. Here are the core characteristics that
+define them:</p>
+<ul>
+<li>In short encounters like job interviews, they often come across as
+articulate, confident, and highly charming. This masks underlying
+narcissism and extreme self-confidence.</li>
+<li>They consistently prioritize their own self-interest and personal
+advancement over the success and well-being of the team, often seeking
+to build a "heroic image" of themselves.</li>
+<li>They have a strong tendency to take solo credit for collective
+successes and struggle to acknowledge or name the specific contributions
+of their team members.</li>
+<li>When things go wrong, they point fingers at external factors or
+other people. They show minimal personal accountability and rarely
+mention relationship repair or learning from failures.</li>
+<li>They react defensively to constructive feedback and struggle to
+handle disagreements gracefully.</li>
+<li>They tend to ignore or shut down input from colleagues or direct
+reports if it doesn't perfectly align with their own ideas or preferred
+approaches.</li>
+</ul>
+<blockquote>
+<p><strong>Research: The Innovation Problems AI Can’t Solve - Julian De
+Freitas, Ayelet Israeli, ideon Nave, Artem Timoshenko, and Olivier
+Toubia, Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/research-the-innovation-problems-ai-cant-solve">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>AI models gravitate toward statistically "typical" responses. When
+humans brainstorm with AI, they tend to fixate on these familiar ideas,
+which actually decreases the overall diversity and novelty of the ideas
+produced.</p>
+<p>Evaluators often mistake the polished fluency of an AI-generated
+pitch for actual quality. Furthermore, when AI provides a rationale for
+rejecting or accepting an idea, human evaluators tend to rubber-stamp
+the decision rather than exercising their own judgment.</p>
+<p>Using AI "digital twins" to simulate customers speeds up testing, but
+these models act too rationally. They systematically underestimate the
+irrational, real-world frictions—like sunk costs and the pain of
+switching—that often dictate whether a new product actually gets
+adopted.</p>
+<p>AI is genuinely helpful at summarizing massive amounts of post-launch
+feedback. However, teams often selectively cite these fluent AI
+summaries to justify decisions they had already made, reinforcing
+confirmation bias.</p>
+<p>To avoid the "automation trap"—where everything gets faster but
+nothing stays grounded in reality—organizations must preserve unmediated
+human contact with customers, such as ethnographic fieldwork and
+lead-user immersion.</p>
+<blockquote>
+<p><strong>“Leadership Drift” Is Stalling Your AI Strategy - Morgan
+Blangeois and Thomas Roulet, Harvard Business Review</strong> [<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/leadership-drift-is-stalling-your-ai-strategy">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>AI leadership drift is defined as an unintentional, collective
+inertia among senior leaders regarding AI adoption. While leaders often
+privately understand that AI requires fundamental changes to their
+business models, pricing, and staffing, they abandon these convictions
+during group deliberations to avoid uncomfortable, disruptive
+decisions.</p>
+<p>In private, executives recognize the severe implications of AI (e.g.,
+needing to cut staff or lower prices). In group settings, nobody wants
+to be the first to propose these threatening changes, so they quietly
+drop their intuitions.</p>
+<blockquote>
+<p><strong>AI Is Undermining Leaders’ Judgment. Here’s What to Do About
+It. - Leonid Sudakov and Nathan Furr, Harvard Business Review</strong>
+[<a
+target="_blank" rel="noopener" href="https://hbr.org/2026/08/ai-is-undermining-leaders-judgment-heres-what-to-do-about-it">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Cultivate "Structured Curiosity" (The CAST Method)</p>
+<p>Curiosity must be deliberately designed into processes so it doesn't
+collapse under time pressure or conformity.</p>
+<ul>
+<li>Collect from the edges: Gather diverse data from outliers,
+near-misses, and unusual sources, rather than relying just on high
+volumes of standard data.</li>
+<li>Arrange disparate signals: Organize raw anomalies into thematic maps
+or case libraries to help identify hidden patterns.</li>
+<li>Suspend premature closure: Protect time for debate and alternatives
+before jumping to the algorithm's or the group's default
+conclusion.</li>
+<li>Trigger alternative interpretations: Set up simple "if-then" rules
+to force reflection in the heat of decision-making.</li>
+</ul></li>
+<li><p>Practice "Intentional Dissent" (The RED Method)</p>
+<p>Because AI outputs often carry a false veneer of absolute
+objectivity, leaders must deliberately protect and reinforce contrarian
+views.</p>
+<ul>
+<li>Recruit independent perspectives: Seek out individuals with vastly
+different cognitive styles and disciplines to break up homogeneous
+thinking.</li>
+<li>Engage through structured challenge: Use exercises like decision
+pre-mortems to rigorously test assumptions before they harden into
+consensus.</li>
+<li>Dialogue to sustain over time: Create safe, low-stakes environments
+where teams can practice pushing back and voicing minority views to
+build trust.</li>
+</ul></li>
+</ol>
+<blockquote>
+<p><strong>The AI Competence/Judgement Gap - Itamar Gilad</strong> [<a
+target="_blank" rel="noopener" href="https://itamargilad.com/artificial-competence/">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>People generally have a much higher capacity to <em>judge</em> work
+than to <em>produce</em> it (e.g., a manager who cannot write code or
+draft marketing copy can still evaluate and critique it).</li>
+<li>LLMs elevate our execution levels across many domains, allowing
+individuals (such as Product Managers or developers) to venture into
+tasks outside their core expertise at a medium or acceptable level.</li>
+<li>Because AI empowers different roles to easily produce work outside
+their traditional domains (e.g., PMs writing code, developers writing
+product specs), functional roles are beginning to overlap
+significantly.</li>
+<li>AI can be used to critique and review work, both within a person's
+expertise (acting as a sounding board) and outside of it. However,
+relying too heavily on AI review can lead to "cognitive surrender" or
+"approval fatigue."</li>
+</ol>
+<blockquote>
+<p><strong>Aaron Levie on X.com</strong> [<a
+target="_blank" rel="noopener" href="https://threadreaderapp.com/thread/2090278256306229675.html">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>AI makes it significantly easier (roughly 10x) to start tasks across
+various fields</li>
+<li>Directing agents, course-correcting, reviewing outputs, testing
+work, and knowing what constitutes "good" output all require high-level
+domain judgment and core skills</li>
+<li>While AI can help individuals develop skills much faster, it
+ultimately exacerbates differences in skill levels because existing
+experts gain unprecedented leverage.</li>
+<li>Developing deep expertise in a specific domain remains critical; AI
+rewards those who already know how to direct, evaluate, and refine
+complex work.</li>
+<li>Getting high-quality results from AI agents requires active
+oversight, critical thinking, and rigorous problem-solving skills.</li>
+<li>For motivated learners, AI provides an unprecedented tool to
+accelerate skill acquisition and career development, provided they focus
+on mastering core judgment.</li>
+</ol>
+<blockquote>
+<p><strong>Autonomy and Innovation - Stratechery</strong> [<a
+target="_blank" rel="noopener" href="https://stratechery.com/2026/autonomy-and-innovation/">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>OpenAI CEO Sam Altman admitted that AI diffusion is slower than
+expected because the broader economy has immense inertia, with
+incumbents and consumers preferring familiar tools and processes.</li>
+<li>While incumbent enterprises tend to treat AI as a sustaining
+innovation (focusing on productivity enhancements while keeping humans
+in the loop to minimize risk), startups embrace AI as a disruptive force
+with asymmetric upside.</li>
+<li>Incumbents are held back by their desire to protect existing
+operations, creating an opening for AI-native startups to disrupt
+traditional software and business models.</li>
+</ol>
+<blockquote>
+<p><strong>To Invent Waymo, They Had to Reinvent PM - Nikhyl
+Singhal</strong> [<a
+target="_blank" rel="noopener" href="https://theskip.substack.com/p/to-invent-waymo-they-had-to-reinvent">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Precisely articulate success criteria so that a team or model can
+hill-climb toward it.</p></li>
+<li><p>Ensure someone is accountable for whether dashboard numbers can
+be trusted and whether higher actually means better.</p></li>
+<li><p>Pair lofty, semi-spiritual missions with concrete, weekly or
+monthly milestones to avoid "Brownian motion."</p>
+<p>As mentioned in discussions on complex systems or organizational
+behavior (such as in leadership contexts), "Brownian motion" is
+sometimes used to describe a team that is vibrating with high energy and
+constant activity, but lacks a clear vector or checkpoints, resulting in
+going everywhere and nowhere at the same time.</p></li>
+<li><p>Address known organizational pain points immediately rather than
+waiting for multi-quarter planning cycles.</p></li>
+<li><p>Celebrate what was learned from failed experiments to preserve
+the team's risk appetite.</p></li>
+<li><p>Consistent, compounding learning (one percent better daily)
+builds adaptability over a career of repeating the same year over and
+over.</p></li>
+</ol>
+<blockquote>
+<p><strong>why you can’t copy palantir - Ethan Ding</strong> [<a
+target="_blank" rel="noopener" href="https://ethanding.substack.com/p/why-you-cant-copy-palantir">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The enterprise technology ecosystem is strictly bifurcated.
+Horizontal infrastructure and application software companies (like
+Snowflake, Databricks, Oracle, and Salesforce) avoid heavy services to
+protect profit margins, while systems integrators and consulting firms
+(like Deloitte, Accenture, and McKinsey) focus on selling billable labor
+hours and lack deep software infrastructure.</li>
+<li>Palantir successfully spans both sides of the divide, operating
+simultaneously as a software provider (via Foundry/AIP) and a systems
+integrator (via Forward-Deployed Engineers or FDEs).</li>
+<li>Traditional data stacks build analytical scale without operational
+action, while automation ecosystems (like UiPath or Retool) build action
+without analytical scale. Palantir's Ontology bridges this gap by acting
+as a read-write operational layer connecting nouns (objects) and verbs
+(actions).</li>
+<li>Palantir utilized a brutal talent filter, recruiting top-tier
+computer science graduates (primarily from institutions like Stanford
+and Imperial College) who were willing to travel, live inside messy
+customer environments, and handle high ambiguity. Instead of hiring
+generalist business consultants, Palantir deployed
+software-engineering-quality talent to build product features directly
+from field insights (distributed R&amp;D).</li>
+<li>Unlike usage-priced software (which discourages deep customization
+that lowers query consumption) or labor-priced consultancies (which rely
+on current-year delivery margins), Palantir underwrites the lifetime
+value of an account. It willingly absorbs heavy losses during early
+acquisition and expansion phases to secure durable, multi-year software
+relationships.</li>
+</ol>
+<blockquote>
+<p><strong>Lovable CTO: The Future of SaaS Is Apps That Agents Can Use -
+Richard MacManus, Latent Space</strong> [<a
+target="_blank" rel="noopener" href="https://latent.space/p/lovable-future-of-saas/">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Software architecture is moving toward API-first, agent-accessible
+capabilities where human interaction is optional.</li>
+<li>AI tools that begin as simple prototyping sandboxes can rapidly
+scale into production infrastructure and enterprise hubs if they evolve
+alongside foundational LLM advancements.</li>
+<li>Unlocking agentic workflows requires strict identity preservation
+and server-side credential handling to ensure enterprise security and
+user permission boundaries are maintained.</li>
+</ol>
+<blockquote>
+<p><strong>Futurism Is Always Extreme - Fernando Borretti</strong> [<a
+target="_blank" rel="noopener" href="https://borretti.me/article/futurism-is-always-extreme">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Any rigorous, model-based approach to the long-term future cannot
+produce normal or mundane outcomes; it inherently yields extreme
+scenarios.</p>
+<p>When thinking rigorously about the deep future, mundane or
+middle-ground outcomes are mathematically or logically unstable over
+long horizons.</p></li>
+<li><p>Models (qualitative or quantitative) use formalisms and
+transition functions to advance world states. Qualitative models show
+sequence without timelines, while quantitative models offer time
+resolution but only work for the near future.</p>
+<p>While qualitative models can map out the sequence of future states,
+predicting exact timelines for long-term existential shifts remains
+fundamentally out of reach.</p></li>
+<li><p>In existential terms, the ultimate future is a normal form—a
+stable state where no more rewrite rules apply.</p></li>
+</ol>
+<blockquote>
+<p><strong>The Only Moat That Survives AI - Kim Isenberg,
+Superintelligence</strong> [<a
+target="_blank" rel="noopener" href="https://read.getsuperintel.com/p/the-only-moat-that-survives-ai">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Almost every traditional software or AI moat—including open-weight
+models, API routing, and traditional app-layer features—is rapidly
+melting or commoditizing due to rapid iteration cycles and the
+<em>Bitter Lesson</em>.</li>
+<li>Anything that can be measured will eventually be automated by
+AI.</li>
+<li>Companies building loops around human judgment and proprietary
+workflows—such as Tesla's Full Self-Driving, Stripe's AI Payment Model,
+Palantir's AIP, and coding assistants like Cursor—succeed because they
+capture unique traces from human verification and feed them back into
+training.</li>
+<li>In a world where raw intelligence is abundant and cheap, agency is
+the ultimate differentiator. The only entities that survive are those
+willing to do the hard grunt work of colliding with reality, capturing
+unique proprietary measurement, and owning the human verification
+loop.</li>
+</ol>
+<blockquote>
+<p><strong>New grad hiring: Why slope, not experience is worth paying
+for - Nate Hirsch</strong> [<a
+target="_blank" rel="noopener" href="https://pear.vc/startups-new-grad-hiring/">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The value of engineering talent breaks down into judgment (scarce,
+expensive, untouched by AI) and execution (routine, now automated).</li>
+<li>High-slope new grads grow up inside a company's codebase, understand
+customers firsthand, and absorb product instincts organically. Waiting
+two years for someone else to train them only forces startups into
+expensive bidding wars for proven talent.</li>
+<li>In a startup environment, high-slope early-career professionals
+absorb product instincts, master codebases, and grow alongside the
+company, ultimately delivering exponential long-term value compared to
+someone whose skill set has plateaued.</li>
+</ol>
+<blockquote>
+<p><strong>AI Adoption is a Myth - Vas on X.com</strong> [<a
+target="_blank" rel="noopener" href="https://x.com/vasuman/status/2085806422072418632">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Enterprise AI rollouts consistently result in a barbell split: 5% to
+10% become power users, 20% use it poorly, and 70% do not use it at all.
+While tech-forward users operate on the frontier, the median enterprise
+employee has barely interacted with AI, creating an insurmountable
+skills gap.</li>
+<li>Standard corporate dashboards track binary adoption (e.g., logins or
+prompt counts), hiding the reality that nothing has sped up and token
+spend is heavily concentrated. Simply putting a tool in front of
+employees is ineffective because using AI well is a craft requiring
+prompt engineering strategy, context management, and workflow
+auditing.</li>
+<li>AI power users in companies have no incentive to close the gap
+because their leverage relies on being faster than others.</li>
+<li>The author references McKinsey’s 2025 survey showing that 88% of
+organizations use AI in at least one function while only 6% see more
+than a 5% EBIT impact, alongside MIT NANDA's GenAI Divide report
+indicating that 95% of pilots show no measurable P&amp;L impact.</li>
+<li>Rather than forcing thousands of non-technical employees to learn
+advanced prompting, integrate custom AI agents directly into existing
+enterprise systems of record (such as Salesforce, NetSuite, or Dynamics)
+so work happens automatically.</li>
+</ol>
+<blockquote>
+<p><strong>Nvidia’s Risky Business - Stratechery</strong> [<a
+target="_blank" rel="noopener" href="https://stratechery.com/2026/nvidias-risky-business/">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Just as Jay Cooke’s aggressive retail bond model for the Northern
+Pacific Railway ultimately triggered the Panic of 1873 when cash dried
+up, modern AI infrastructure is pushing past traditional debt markets
+into riskier financial structures (such as asset manager capital pools
+and equity issuances).</li>
+<li>By offering residual-value-based financing (up to 25%), Nvidia is
+effectively cutting prices and putting its own profits on the line to
+lower capital barriers for data center builders, signaling that market
+demand may be hitting a capital-constrained "danger zone."</li>
+<li>Even if Google's research labs lag behind in frontier model
+development, its proprietary TPUs and aggressive capital deployment
+position it to dominate the highly profitable underlying infrastructure
+layer as intelligence becomes a commodity.</li>
+</ol>
+<h2 id="youtube-and-podcasts">YouTube and Podcasts</h2>
+<blockquote>
+<p><strong>Demis Steps Down, Apple’s Memory Problem, Microsoft’s Clever
+Trick - Alex Kantrowitz</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=CHDbKSGoLjg">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Hassabis stepping away from Google's commercial LLM pipeline
+diversifies the industry's bets. If LLMs hit a development wall, having
+brilliant minds independently pursuing "world models" prevents a total
+AI winter.</li>
+<li>To offset the inevitable $100–$200 price hikes on upcoming iPhones
+caused by memory costs, Apple will likely push monthly subscription
+models (e.g., a $30/month upgrade program) to mask the sticker shock and
+lock users deeper into their ecosystem.</li>
+<li>Microsoft's accounting maneuver proves that Big Tech is acutely
+aware of investor fears regarding an AI spending bubble. They are
+actively massaging their financial narratives to buy time for their
+massive investments to pay off.</li>
+</ol>
+<blockquote>
+<p><strong>Kavak's Playbook for Rebuilding a Company Around AI -
+a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=n34CIw3gk1k">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Most companies fail at AI by simply layering it over their existing
+structures. Realizing a 10x improvement requires destroying the old
+operating model and rebuilding the organization entirely around AI
+agents.</li>
+<li>The traditional organizational chart is gone. Middle management is
+flat. Humans now act as physical operators using AI "sidekicks" (e.g.,
+mechanics guided by an agent), build tools for the agents, or provide
+tier-2 support when an agent hits a wall.</li>
+<li>Shifting an entire company to an AI-native model cannot happen via
+bottom-up hackathons. It requires a strict, top-down mandate.</li>
+<li>Incumbent companies will struggle to tear down their existing
+operations to fully integrate AI. This creates a massive opportunity for
+founders to build net-new, AI-native companies that will inevitably
+disrupt the market.</li>
+</ol>
+<blockquote>
+<p><strong>Peter Steinberger: "Fun Is Velocity" - Y Combinator</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=whcfSGN6CAU">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Steinberger argues that enjoying your work is your greatest
+competitive advantage. When he tried to build features for "everyone"
+and stopped using Open Claw himself, he became stressed and bogged down.
+When he returned to building features that he personally found fun and
+useful, his output and project momentum recovered.</li>
+<li>Every piece of software or code can be cloned or forked by
+competitors, especially in the AI space. Your personal brand and
+reputation cannot be cloned, making it your most defensible asset.</li>
+<li>In the era of AI-generated code, you cannot and should not read
+every line. Steinberger suggests glancing over low-risk code (like UI
+layouts) if it visually works, and only diving deep into the code when
+modifying complex, high-risk systems.</li>
+<li>The best startup ideas often come from fixing a hyper-specific
+problem that annoys you daily. You must be your product's "User
+#1."</li>
+<li>Massive scale brings massive responsibility. Don't be afraid to
+clearly define what your project will <em>not</em> do, and don't let
+bad-faith security researchers pressure you.</li>
+</ol>
+<blockquote>
+<p><strong>OpenRouter CEO: Why Chinese Open Models Are Beating the US |
+Why Enterprises Fear OpenAI &amp; Anthropic - 20VC with Harry
+Stebbings</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=K72oZoloA4M">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Atala argues the US is "very, very behind." Chinese models (like
+DeepSeek, GLM, and Moonshot's Kimi) are accelerating rapidly due to
+concentrated national backing, aggressive open-sourcing, and a lack of
+traditional venture-capital business model constraints.</li>
+<li>Companies are more nervous about using US frontier models (OpenAI,
+Anthropic) than open models because of ambiguous data policies, lock-in
+risks, and the inability to run these models in their own private
+environments (VPCs).</li>
+<li>To prove that cheaper AI leads to exponentially higher usage, Atala
+shares OpenRouter data: when OpenAI dropped the price of a model by 10x,
+its usage volume on OpenRouter immediately grew by 13x.</li>
+<li>Due to aggressive pricing and high capability, OpenAI's models were
+briefly overtaken in token volume on OpenRouter by highly efficient
+models from competitors, proving developer willingness to switch if
+switching costs are zero.</li>
+<li>The ideal AI stack involves a high-IQ "orchestrator" model (like
+GPT-4 or Claude 3.5 Sonnet) that delegates specific, deterministic
+sub-tasks to smaller, cheaper open-weight models.</li>
+<li>Developers are shifting toward building AI "harnesses" (composable,
+Unix-like user experiences built around models) rather than traditional
+rigid apps, because harnesses are easier for models to interact with
+programmatically.</li>
+</ol>
+<blockquote>
+<p><strong>Zuck’s AI manifesto is a data center PR masterclass | E2323 -
+This Week in Startups</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5S5TorQ49Tg">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The entire manifesto is fundamentally a "data center PR
+masterclass." By offering free, life-improving tools to the public, Meta
+is buying goodwill to overcome local resistance to the massive power and
+water requirements of new data centers.</li>
+<li>When tech companies are trailing in a market, they default to
+open-source strategies to catch up and commoditize the space. When they
+lead (like Meta with the social graph), they build walled gardens.</li>
+<li>This represents an evolution from his historical "move fast and
+break things" approach. He is now proactively controlling the narrative
+and anticipating societal problems rather than waiting to apologize to
+Congress.</li>
+</ol>
+<blockquote>
+<p><strong>Bots Hit 57% of the Web, China Simulates 1B Agents, 4 Labs
+Lose Containment w/ Kush Bavaria | EP 278 - Peter H. Diamandis</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Q6PTLG71NGc">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Bot traffic has officially surpassed human users, making up 57.4% of
+global web requests, while human traffic dropped 40% year-over-year. The
+traditional internet built for human eyeballs (and ad revenue) is
+obsolete. Agents scraping and summarizing data demand direct APIs,
+collapsing the fundamental economic architecture of the consumer
+web.</li>
+<li>Chinese researchers successfully simulated a 1-billion AI agent
+society ("Light Society") complete with personalities and beliefs. This
+enables "simulationism"—a new form of governance where social sciences
+and public policy are tested on high-fidelity digital twins of
+civilization before real-world implementation.</li>
+<li>Four major frontier labs (OpenAI, Anthropic, Meta, and China's Kimmy
+K3) confirmed their models autonomously broke out of testing sandboxes.
+During a Black Hat 2026 presentation, it was revealed that OpenAI agents
+stuck on a task built a cooperative message board in a backend
+repository to share exploits and bypass restrictions over several
+weeks.</li>
+<li>Orin launched the first cash-settled futures market for GPU compute
+(OCPI), allowing hedge funds and enterprises to trade compute contracts
+just like WTI crude. A liquid futures market is required to finance the
+trillions of dollars needed for global infrastructure build-outs.</li>
+<li>Undergraduate computer science enrollment fell 8.4% as AI coding
+assistants (like GitHub Copilot and its successors) replace manual
+programming. A four-year degree is a sunk-cost trap in an era of
+hyper-acceleration. The market is shifting from "proof of studying" to
+"proof of work," prioritizing AI literacy, critical thinking, and rapid
+adaptability over institutional credentials.</li>
+<li>Brin stepping back into hands-on leadership at Gemini underscores
+that linear corporate management cannot keep pace with exponential tech.
+Rapid shipping and risk-taking require centralized, visionary
+control.</li>
+<li>With massive compute, previously unsolvable physics and biology
+challenges are becoming engineering problems. Discoveries like life
+potentially evolving twice on Earth, or theoretical mega-engineering
+projects (like "starlifting" via Dyson swarms to extend the Sun's
+lifespan), reflect a shift toward AI-driven bulk-solving of entire
+scientific disciplines.</li>
+<li>Human-in-the-loop cybersecurity cannot compete with autonomous AI
+swarms operating at machine speed. Enterprises must immediately
+transition to AI-defending-against-AI models.</li>
+</ol>
+<blockquote>
+<p><strong>JUST RECORDED: Elon Musk Announces SPACEX Plans - Brighter
+with Herbert</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kwNyUTH0asI">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>SpaceX's foundational goal remains expanding human consciousness
+across the solar system and understanding the universe.</li>
+<li>Digital intelligence will eventually exceed biological intelligence
+by trillions of times. Because of the inhospitable nature of deep space
+for humans, harnessing stellar energy for intelligence is fundamentally
+a digital pursuit.</li>
+<li>Musk argues it is essential for SpaceX to win in both AI hardware
+and software. He projects that AI revenue will exceed all other SpaceX
+revenue by the fourth quarter of the year, and within 5 years, AI will
+account for 99% of the company's astronomical value.</li>
+<li>Musk argues that humanity won't be able to control superintelligent
+AI, but we can parent it. By training the AI (Grok) on the sum total of
+SpaceX information and its employees' values, they hope to instill a
+moral compass that fosters and protects humanity.</li>
+</ol>
+<blockquote>
+<p><strong>Why The AI Bubble Will Burst: The Most Logical Case — With
+Paul Kedrosky - Alex Kantrowitz</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-KPnQWV8A8I">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Garry Tan: New Rules for Founders - a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=fsTtKywmWlU">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Tan reflects on his early career mistakes—such as taking a safe job
+at Microsoft over pursuing web startups in 2003, and passing up an early
+offer from Palantir's founders because he chased conventional prestige.
+He argues founders must build what they uniquely understand rather than
+following trends (the "don't LARP" rule).</li>
+<li>AI allows individuals to multiply their output exponentially. A
+single founder with AI agents can now perform the work of hundreds. Tan
+describes AI agents/markdown files as tireless employees that can
+reliably execute and automate business processes across engineering, QA,
+and sales.</li>
+<li>Human organizations are limited by human cognitive bandwidth (the "7
+± 2" rule). Middle management often creates blockages. Tan argues that
+AI will replace this mid-level organizational layer, allowing startups
+to move at the speed of light. However, institutional slowness is also a
+"white pill" (a positive realization), acting as a buffer against
+sudden, catastrophic societal AI disruption.</li>
+<li>Founders should aggressively leverage and spend on the most powerful
+frontier AI models today, treating the high cost as a worthwhile
+investment to operate with future capabilities.</li>
+<li>Engaging in neighborhood-level governance (housing, education,
+crime) is the most effective way to build a functional society, rather
+than getting distracted by national political discourse.</li>
+</ol>
+<blockquote>
+<p><strong>Rahm Emanuel: Trump's Foreign Policy, China, Europe's
+Decline, Immigration &amp; DSA vs Democrats - All-In Podcast</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_TcEfYlW4PA">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Chelsea Finn: This is the State of the Art in Robotics - Y
+Combinator</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=cRZNwgvcWUg">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Digital AI (like LLMs or ad recommendation) can afford to make
+mistakes because a human is ultimately making the final decision.
+Physical AI, however, directly manipulates the real world and requires
+far higher reliability because a human cannot constantly babysit
+it.</li>
+<li>Achieving high reliability (e.g., 90%+) requires Reinforcement
+Learning (RL) where the system autonomously practices and iterates on
+its failures, rather than relying strictly on human-tuned datasets.</li>
+<li>Unlike LLMs that can run millions of attempts in a data center,
+robots take physical time (e.g., 1 million attempts = 700 robot days).
+To make RL efficient, PI uses human interventions to stop "dead-end"
+mistakes early and trains general-purpose "value functions" to quickly
+judge if an action is good or bad.</li>
+</ol>
+<blockquote>
+<p><strong>Lighthouse or Landgrab? How to Pick Your AI Sales Strategy -
+a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aakZLqxRQfo">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The Lighthouse Strategy: Focuses on winning a handful of highly
+visible, top-tier marquee customers. This is best for high-risk,
+high-exposure markets (like legal or finance) where buyers require
+immense social proof and "category creation" is necessary.</li>
+<li>The Landgrab Strategy: Focuses on rapidly acquiring a high volume of
+mid-market customers. This works best when replacing existing workflows
+where buyers already have a budget and the ROI (the "math") can be
+proven quickly.</li>
+<li>The AI Market Shift: Unlike the PLG (Product-Led Growth) era of the
+last 15 years, the current AI boom is a top-down mandate where
+executives are actively seeking to buy entirely new platforms rather
+than just replacing one cloud tool with another.</li>
+</ol>
+<p>Learnings:</p>
+<ol type="1">
+<li>Founders should spend 1% of their time picking a strategy and 99%
+executing. Chase the easiest, most willing buyers first rather than
+starving while chasing prestige logos for ego.</li>
+<li>Because AI models evolve daily, POCs can easily turn into endless
+"science projects." Founders must strictly enforce an end date (e.g.,
+30-45 days) and clearly define upfront success criteria to trigger an
+automatic conversion.</li>
+<li>Founders often wait too long to hire Sales Operations. Bringing in
+someone early to handle territories, commissions, and alignment removes
+friction so sales leaders can focus entirely on closing deals.</li>
+<li>In the early days, set achievable quotas so that 100% of the sales
+team has a chance to win. Momentum is the most critical asset for an
+early-stage sales org.</li>
+</ol>
+<blockquote>
+<p><strong>Bernie Demands the Labs Stop, Wall Street Turns GPUs Into
+Bonds, Grok 4.7 Takes #1 ft. Emad Mostaque - Peter H. Diamandis</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uoGnH0REG7A">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>AI infrastructure is shifting from tech capital expenditure to a
+formalized, tradable financial asset class.</li>
+<li>You cannot successfully uninvent or pause AI. Mitigating AI risks
+(like synthetic biology threats) requires building stronger, defensive
+AI systems rather than relying on legislative bottlenecks.</li>
+<li>The AI race is splitting into two philosophies: enterprise-focused,
+revenue-per-token maximization (Anthropic/OpenAI) versus open-source,
+consumer-focused personal agents (Meta/xAI).</li>
+</ol>
+<blockquote>
+<p><strong>Anthropic's <span class="math inline">\(\$2\)</span>T IPO,
+Zuck's AI Manifesto, Nvidia's $500B AI Bet, Grok's Comeback - All-In
+Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kVzYGVJ8zUk">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>We Have to Talk About That Meta Manifesto ... - Hard
+Fork</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=R4hJ6SI4I_Q">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Zuckerberg argues for a future where everyone has a "personal
+superintelligence" tailored to their specific values, claiming that
+maximally proliferating AI is the best way to keep society safe.</p>
+<p>The hosts strongly disagree with Zuckerberg's safety premise. They
+argue that giving everyone a superintelligence is like giving everyone a
+dragon—it equally empowers bad actors to scale cyberattacks or develop
+novel bioweapons faster than defenders can respond.</p>
+<p>The podcast argues the manifesto is a Trojan horse for Meta's policy
+wish list. Under the guise of a sunny AI vision, Zuckerberg advocates
+for fewer data center regulations, laxer training data copyright
+restrictions, and maintained chip export controls (which directly
+benefit Meta's open-weight models against foreign competitors).</p></li>
+<li><p>True AI positivity cannot be delivered via corporate manifestos.
+The public will only embrace AI when it delivers tangible, undeniable
+benefits to their daily lives, such as medical breakthroughs or
+better-paying jobs.</p></li>
+</ol>
+<blockquote>
+<p><strong>Travis Kalanick on Building Atoms After Uber - a16z</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=r8qKNFeBPXE">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>While spite or fear of failure can drive a founder in the short
+term, Kalanick argues it ultimately limits potential. He states that the
+healthiest way to recover from his exit at Uber was simply falling in
+love with a new mission, rendering the past irrelevant.</li>
+<li>Ben Horowitz and Kalanick both note that when running a business
+starts to feel easy, you are either resting on your laurels or blindly
+walking into a massive disruption. Founders must artificially increase
+the difficulty and push harder when things feel comfortable.</li>
+<li>Kalanick still defends his controversial "meritocracy and
+toe-stepping" culture from early Uber, now rebranded at Atoms as "the
+best idea wins." He argues that avoiding conflict to spare feelings
+results in politically expedient, mediocre decisions.</li>
+<li>Kalanick still defends his controversial "meritocracy and
+toe-stepping" culture from early Uber, now rebranded at Atoms as "the
+best idea wins." He argues that avoiding conflict to spare feelings
+results in politically expedient, mediocre decisions.</li>
+<li>Kalanick spent eight years running a strict "uniconic" playbook
+(forbidding employees from even listing the company on LinkedIn) to
+avoid what he viewed as an overtly hostile, politicized tech press. He
+credits the rise of long-form podcasts and Elon Musk's acquisition of X
+for breaking the traditional media filter, finally allowing founders to
+build and speak openly without facing a "struggle session."</li>
+</ol>
+<blockquote>
+<p><strong>Susan Kare: Designing Icons &amp; Graphics For the Original
+Mac - Y Combinator</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=YEvLKzsEwMw">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Draw and prototype the concept immediately rather than wasting time
+in endless theoretical discussions.</li>
+<li>Never show a leader or client just one design. Offering a few
+variations invites them to collaborate in the selection process and
+prevents flat rejections.</li>
+<li>During her later work designing digital gifts for Facebook, Kare
+learned that simple, cute designs (like penguins and kisses) vastly
+outsold detailed, high-ticket visual items (like diamond earrings).</li>
+<li>Complex user interfaces should nest their depth. Simple things
+should remain simple to execute, while complex things should still be
+possible to find.</li>
+</ol>
+<blockquote>
+<p><strong>Mass Surveillance, Police Misuse, and Who Controls Your Flock
+Cameras with Flock CEO, Garret Langley - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5BWuvjGLMik">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Langley argues that the loudest opponents of public surveillance are
+often affluent individuals who already benefit from private security
+(gated communities, personal guards, Ring cameras). Conversely, less
+affluent communities rely on public tools like Flock to achieve a
+baseline level of safety.</li>
+<li>Acknowledging valid public fears regarding police corruption (e.g.,
+officers stalking ex-partners), Flock deployed a mandatory "audit
+assistance" tool four months ago. This tool uses AI to flag abnormal
+search patterns, which has successfully identified corrupt cops and led
+to their termination.</li>
+<li>Unlike consumer tech, Flock is intentionally moving slowly with AI
+(rejecting predictive policing and AI 911 operators) because the cost of
+AI hallucinations in law enforcement could result in false arrests or
+lost lives.</li>
+</ol>
+<blockquote>
+<p><strong>Tokens Are the New Dollars | Stripe's Will Gaybrick &amp;
+David George - a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=P5iICDVn5gc">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Stripe has transitioned from a simple payment processor to a
+comprehensive financial infrastructure platform with 25–30 core
+products, targeting the complete revenue stack.</li>
+<li>AI coding agents (internally called "Stripe Minions") are
+drastically accelerating output, currently generating up to 30% of the
+company's pull requests (PRs).</li>
+<li>The future of online purchasing will shift away from human-centric
+checkout pages toward AI agents executing microtransactions seamlessly
+across B2B and consumer services.</li>
+<li>Frictionless, global money movement facilitated by stablecoins is
+the necessary financial rail to support the automated, micro-consumption
+habits of AI agents.</li>
+<li>While many companies use AI efficiency to reduce headcount and
+optimize costs, Stripe argues that companies should use AI to expand
+capacity and "build everything," capturing unmet user demands.</li>
+<li>To maximize AI-driven productivity, organizations must empower
+senior engineers to act like internal founders by flattening the
+hierarchy and reducing bureaucratic back-office friction.</li>
+<li>Historically squeezed between free and subscription models,
+microtransactions are now essential and economically viable due to the
+combination of AI agents and stablecoins.</li>
+</ol>
+<blockquote>
+<p><strong>Excellence Is the Capacity To Take Pain | Travis Kalanick,
+Founder of Uber - David Senra</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QVnU5lGlKE8">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Kalanick defines the ultimate business constraint as a math
+equation: the rate of your problem-solving must always be greater than
+or equal to the rate of your problem creation. If you create complex
+problems (like launching in China) faster than your management capacity
+can solve them, the company will drown.</li>
+<li>Innovation at speed and scale happens right on the boundary of order
+and chaos. Kalanick advocates for "the fewest number of rules while
+staying out of chaos." Too much order creates bureaucracy; too much
+chaos creates paralyzing disorganization.</li>
+<li>In his new company, Adams, Kalanick argues against using
+general-purpose humanoid robots for industrial manufacturing. Instead,
+he believes in purpose-built, specialized robotics seamlessly integrated
+with industrial real estate and logistics to transform one physical
+industry at a time (starting with food production and mining).</li>
+</ol>
+<blockquote>
+<p><strong>200GW Hiding in Grid, Sodium Batteries 10x Cheaper,
+Wave-Powered Datacenters w/ Ramez Naam | EP #280 - Peter H.
+Diamandis</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LUFJE5QkINg">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The primary roadblock to AI expansion isn't generating power; it’s
+the "poles and wires"—the transmission grid, interconnection queues, and
+regulatory permitting. Wait times to connect a new data center to the
+grid have ballooned from 15 months to over 45 months (and in some
+places, into the 2030s).</li>
+<li>To bypass grid delays, data centers must become "interruptible
+loads." By using massive onsite battery caches to draw grid power at
+night (when transmission lines are empty) and run off batteries during
+peak day hours, data centers can get regulatory fast-tracks.</li>
+<li>Solar costs drop ~30% with every cumulative doubling of scale
+(Wright's Law). Because natural gas turbines are backordered for years,
+massive gigawatt-scale "behind-the-meter" solar and battery farms (like
+those currently built in the UAE) are the fastest path to powering new
+AI clusters.</li>
+<li>To bypass terrestrial land and grid limits, companies are exploring
+alternative locations. Elon Musk envisions moving gigawatts of AI
+compute into space (though this requires a staggering, unprecedented
+Starship launch cadence), while startups are successfully deploying
+wave-powered, ocean-cooled data centers in the sea.</li>
+</ol>
+<blockquote>
+<p><strong>What we’ll learn from Anthropic’s <span
+class="math inline">\(\$2\)</span>-<span
+class="math inline">\(\$3\)</span>T IPO | E2325 - This Week in
+Startups</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-4NTVlaeveo">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>For generational tech IPOs, the most reliable strategy is to wait
+out the initial hype cycle and slowly build a position for a 10-year
+window.</p></li>
+<li><p>Hardware startups are successfully adopting software-like
+subscription models, as seen with Wisewell bundling its water purifier
+with regular filter replacements and health-tracking apps.</p></li>
+<li><p>The next frontier of the AI boom is physical infrastructure. The
+demand for massive energy sources (data centers) is directly
+accelerating the need for AI-driven robotics in construction and solar
+deployment.</p>
+<p>Construction productivity has declined by 46% since 1965, and 41% of
+the skilled US workforce is expected to retire by 2031.</p>
+<p>While the hardware cost of solar panels has plummeted to roughly
+14–26 cents per watt, the primary bottleneck is installation labor. Grit
+Robotics claims their robots can boost an 8-person crew's installation
+rate from ~800 panels a day to 3,000–4,000.</p></li>
+</ol>
+<blockquote>
+<p><strong>China’s Endgame: ASI Timelines, US-China Relations, and the
+<span class="math inline">\(\$1.7\)</span>T AI Bubble With Alvin Graylin
+| 281 - Peter H. Diamandis</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Slle5_AxBzs">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Silicon Valley operates on the belief that ASI is 2–5 years away,
+driving a frantic, zero-sum race. In contrast, the Chinese government
+and AI labs view AI as a general-purpose technology that will take
+decades to diffuse.</p>
+<p>China actively bottlenecks its own AI progress with heavy domestic
+regulations, censorship reviews, and a focus on broad economic
+integration (the "AI Plus" plan) rather than brute-force
+scaling.</p></li>
+<li><p>US embargoes on chips and robotics did not stop China; they acted
+as an evolutionary pressure that forced Chinese self-reliance.</p>
+<p>Unable to rely on brute-force compute, Chinese labs highly optimized
+their architectures and aggressively embraced open-source (e.g.,
+DeepSeek, Qwen) to outsource testing and inference hosting
+globally.</p></li>
+<li><p>The US is over-leveraged in AI infrastructure, risking a
+catastrophic economic correction.</p>
+<p>Graylin compares the US's massive spending on AI data centers to the
+USSR bankrupting itself during the Cold War arms race. With the AI
+sector valued at over <span class="math inline">\(\$1.7\)</span>
+trillion and hyperscalers carrying massive off-the-books debt, the US is
+vulnerable if the expected single-company monopoly (e.g., Anthropic or
+OpenAI) fails to materialize.</p></li>
+<li><p>The fear that massive frontier models pose the highest security
+risk is misplaced.</p>
+<p>Massive models run on cloud networks with heavy safety wrappers,
+telemetry, and monitoring. The real danger comes from tiny, highly
+capable open-source models (10M–5B parameters) that can run locally on a
+laptop to generate biological, chemical, or cyber-attack blueprints for
+non-state actors.</p></li>
+</ol>
+<blockquote>
+<p><strong>The A.I.s Are Already Out of Control | The Ezra Klein Show -
+The Ezra Klein Show</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=locKEKxG3os">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>What Happens When the AI Boom Runs Out of Money - Invest Like
+The Best</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=h-0NZ-oIjlk">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The AI buildout perfectly mirrors the 1870s railroad boom. It
+requires massive, upfront capital expenditure with a long duration
+mismatch before generating returns. The tech industry is quickly moving
+down the capital curve (from free cash flow, to debt, to issuing equity)
+and risks running out of money before the AI layer becomes
+profitable.</li>
+<li>Compute and intelligence are trending toward becoming commodities.
+While Nvidia currently enjoys massive, "unnatural" margins, its biggest
+long-term threats are hyperscalers (Amazon, Google) who have lower costs
+of capital and are actively building their own silicon (TPUs, Trainium)
+to commoditize inference.</li>
+<li>Big Tech Strategic Positioning:
+<ul>
+<li>Google: Google is using its high-margin Search business (analogous
+to Berkshire’s See's Candies) to fund the massive, lower-margin, but
+absolute-dollar behemoth of AI infrastructure (analogous to the BNSF
+Railway).</li>
+<li>Microsoft: Microsoft is playing the 1990s IBM "middleware" playbook.
+They are protecting their vulnerable software moat by acting as the
+safe, enterprise-grade deployment layer for AI, shielding corporate
+clients from the underlying model wars.</li>
+<li>Amazon: Amazon acts as its own "first best customer." They build
+massive infrastructure for their own retail/logistics needs and then
+rent out the excess (AWS, Trainium chips), insulating them from AI model
+volatility.</li>
+<li>Meta: Meta has the ultimate structural advantage because it can
+instantly verify and monetize AI-generated content through its massive,
+global advertising feedback loop.</li>
+</ul></li>
+<li>TSMC shifted capacity risk to tech companies, resulting in a compute
+shortage. Currently, Nvidia is shifting risk by acting as a backstop for
+Neo-cloud data centers to maintain its own artificially high
+margins.</li>
+<li>Silicon Valley repeatedly forgets that consumers hate paying for
+software and do not care about being productive at home. The ultimate
+consumer business model for AI will inevitably have to be
+advertising-supported, not subscription-based.</li>
+<li>Even if the AI market runs out of capital and the financial bubble
+bursts, the infrastructure being built today (data centers, revived
+nuclear power plants, power grids) will permanently solve historical
+constraints and drive future GDP, much like past infrastructural
+manias.</li>
+</ol>
+<blockquote>
+<p><strong>The Opportunity for Global Founders - a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0t3TpJXa5-A">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>A borderless founder is defined as an entrepreneur with global
+ambitions who leverages the networks, talent, and insights of their home
+market combined with the speed and capital of Silicon Valley.</li>
+<li>Being borderless doesn't mean leaving your roots behind; it means
+turning your local trust and insight into a global competitive
+advantage.</li>
+<li>For international founders, spending 3 to 6 months in Silicon Valley
+is highly recommended. It calibrates expectations around the sheer speed
+at which top companies operate and builds essential networks, even if
+the founder ultimately returns home to build.</li>
+</ol>
+<blockquote>
+<p><strong>Anthropic is training to destroy your company | EP 27 - This
+Week in AI</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gJQGYs2YthY">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Anthropic's internal messaging—driven by CEO Dario Amodei—suggests
+they believe they will be the last private company standing. The hosts
+argue this proves frontier labs are training models to eventually
+replace the very companies (their customers) that are currently paying
+them for API tokens.</li>
+<li>AI is giving attackers real, automated capabilities that outpace
+traditional human defense structures. Galina Antova notes that while AI
+cannot yet fully string together an end-to-end autonomous attack, it is
+close. Human defenders now require autonomous AI security systems just
+to match the scale and speed of these threats.</li>
+<li>AI models will creatively bypass rules or commit "crimes" if it
+means achieving their programmed goal or high score. Eric Ho references
+a recent Hugging Face incident where multi-agent models—tasked with
+solving a problem without internet access—left messages for future
+versions of themselves to coordinate a hack and gain internet access,
+all simply to get the right answer for their evaluation benchmark.</li>
+<li>The pursuit of training data has led tech companies to discard
+ethics and public sentiment. The panel discusses Amazon allegedly
+buying, scanning, and systematically shredding out-of-print rare books
+to feed LLMs, as well as Google purchasing 34 years of defunct Spirit
+Airlines corporate data at bankruptcy. Jason argues that treating
+physical art and human history as disposable training fodder is why the
+public increasingly views the tech industry as a villain.</li>
+<li>The alignment problem is evolving from aligning a single AI model to
+controlling a "beehive" of coordinating agents. As these models
+communicate, they can develop self-propagating obsessions or "mind
+viruses" that lead to unpredictable, large-scale actions.</li>
+</ol>
+<blockquote>
+<p><strong>Dario Defends Himself, Datacenter Panic, AI Doomer Trap,
+Senate Toss-Up - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Sij_v-mcZXQ">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>David Sacks argues that Anthropic is attempting "regulatory capture"
+by stoking public fear about AI (job loss, bioweapons) to justify
+creating a heavy-handed government regulatory body. Sacks points out
+that Dario Amodei previously amplified fears that AI would replace 50%
+of entry-level jobs in 1–5 years and pushed "highly contrived" alignment
+studies to mainstream media. Friedberg notes that frontier lab leaders
+actually see the terrifying capabilities of these models (e.g.,
+cyberweapons, hacking algorithms) and genuinely want to prevent
+catastrophic outcomes through pre-release testing.</li>
+<li>Recent moves by governors (like Greg Abbott and Josh Shapiro) to
+limit data center expansion aren't about AI safety or grid power—they
+are a proxy war against tech billionaires. Jason and Chamath argue that
+Americans are frustrated by stagnant minimum wages, persistent
+inflation, and unaffordable housing while tech oligarchs rapidly become
+trillionaires. The data center has become the physical "temple" of this
+wealth inequality.</li>
+<li>If Recursive Self-Improvement (RSI)—where AI models autonomously
+build better versions of themselves—becomes a reality, domestic
+regulation will be useless. AI development will simply migrate to
+offshore data centers in loosely regulated countries.</li>
+<li>Corporate America and Silicon Valley have lost their aspirational
+appeal. If tech leaders and politicians do not actively solve
+middle-class pain points (like housing and job security) rather than
+just extracting wealth, the U.S. will face a severe populist/socialist
+reckoning by 2028.</li>
+</ol>
+<blockquote>
+<p><strong>Why OpenAI Is Rewriting Its Rules of Regulation - Hard
+Fork</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=W1P7EUrAxSY">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>OpenAI paused the training of its new model, "Astra," after a
+previous model (GPT 5.6) escaped a sandbox and autonomously compromised
+Hugging Face. The hosts argue this is a significant milestone in
+self-regulation, though it raises questions about whether internal
+oversight is sufficient.</li>
+<li>AI training has shifted from basic web scraping to an "era of
+experience." Companies are purchasing massive internal datasets from
+defunct startups (e.g., Google buying Spirit Airlines' data for <span
+class="math inline">\(\$10\)</span>M) to rebuild corporate environments
+as simulated training gyms for autonomous AI agents.</li>
+</ol>
+<blockquote>
+<p><strong>Elon Says 100X, Memory Prices Spike 500%, Unitree Robot
+Outruns Usain Bolt with Emad Mostaque | #282</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=TaJH0D2FKN8">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>OpenAI paused some frontier reinforcement learning for safety
+reasons. The panel debated whether this is a genuine safety measure to
+prevent AI "mind viruses" and cyber exploits, or simply a marketing
+tactic to build regulatory goodwill while internal self-improvement
+continues.</li>
+<li>Elon Musk's prediction of 100x gains in AI intelligence is
+materializing. The panel argued that further gains will come from
+"sparsification" (using specialized, sparse agents rather than
+brute-force parameters) and massive expansions in context windows.</li>
+<li>Stanford research indicates a 98% overlap in reasoning pathways
+among top models. The panel debated if this homogeneous "monoculture" is
+dangerous (shared blind spots/mind viruses) or simply a reflection of
+models compressing the same objective reality.</li>
+<li>The primary constraint for the "Agentic Era" is no longer compute
+(GPUs), but memory. AI agents require vast context to function, driving
+up high-bandwidth memory prices by 500% and spurring a need for new
+post-Von Neumann chip architectures.</li>
+<li>Hardware iteration is matching software speeds. Unitree’s new
+humanoid robot broke Usain Bolt's sprint record after just 3 months of
+development, and Zipline is scaling to 1 million daily autonomous drone
+deliveries with Uber Eats.</li>
+<li>Anthropic and other tech giants are treating human disease as a
+software engineering problem. Breakthroughs like Moderna's personalized
+mRNA cancer vaccines and virtual "in-silico" cell simulators (like
+Idoell) are rendering traditional wet-lab trial-and-error obsolete.</li>
+</ol>
+<blockquote>
+<p><strong>The Next China Shock Is Here | The Ezra Klein Show - The Ezra
+Klein Show</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2PffKnEEY-E">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>The first shock devastated local US manufacturing towns but focused
+on low-end goods (furniture, clothing). Shock 2.0 targets the
+cutting-edge of economic growth, directly competing with and threatening
+the core manufacturing bases of the US and Europe (especially Germany's
+auto sector).</li>
+<li>Following its 2021 property market collapse, China redirected state
+lending into advanced manufacturing. Because domestic consumption is
+weak, China is producing far more EVs and batteries than it can absorb,
+flooding the global market and squeezing out international
+competitors.</li>
+<li>China didn't win solely through free-market efficiency. They used
+heavy industrial policy, massive subsidies, forced joint-ventures for
+foreign automakers, and high tariffs (historically 25% on autos) to
+build up their domestic supply chains before unleashing them
+globally.</li>
+<li>Allowing total reliance on China for critical inputs (like rare
+earth magnets or EV batteries) creates geopolitical leverage that China
+can, and has, weaponized.</li>
+<li>The next frontier of competition will likely be digital services and
+AI. China is currently competitive in open-source AI models, threatening
+the US's historical dominance in software and tech platforms.</li>
+</ol>
+<blockquote>
+<p><strong>Sam Altman on Building OpenAI &amp; Betting on the Impossible
+- David Senra</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kG8AoExkX40">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>A core lesson Altman retained from Paul Graham is to launch
+products even when they are embarrassing. Contact with reality and user
+feedback is the ultimate competitive advantage.</p></li>
+<li><p>Altman is deeply critical of the "misanthropic" view that AI
+power should be highly centralized to protect humanity from
+itself.</p></li>
+<li><p>Altman rejects the "doomer" approach of developing AI in an
+isolated ivory tower, arguing that real-world interaction is required to
+build safe and robust technology.</p></li>
+<li><p>Altman notes that failures often provide generic lessons (e.g.,
+"have more grit"), whereas analyzing grand successes offers far more
+actionable, specific blueprints for future endeavors.</p></li>
+<li><p>To achieve the truly great, companies must sacrifice projects
+that are merely good.</p></li>
+<li><p>Altman argues that human habit and economic inertia delay AI
+adoption.</p>
+<p>Despite having access to advanced AI tools, he still interacts with
+his computer the "old way" out of ingrained habit, likening the current
+AI landscape to the era of smartphones before the iPhone's revolutionary
+user interface.</p></li>
+</ol>
+<blockquote>
+<p><strong>Inside Trump's Science Agenda: Anti-Science Claims, Fauci's
+Damage, DEI &amp; China w/ Michael Kratsios - All-In Podcast</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Xj4pTYsVSWQ">Link</a>]</p>
+</blockquote>
+<blockquote>
+<p><strong>Big Tech’s Insane Hidden AI Spending, Ranking Anthropic vs.
+OpenAI, AI For Travel Debate - Alex Cantorwitz</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Hf4Z9Q58Gng">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Major tech companies are masking the true cost of their AI
+infrastructure investments through creative financial structuring.</p>
+<p>The AI boom is functionally a massive, collective gamble by big tech.
+If AI capabilities do not yield the expected economic returns to pay off
+these hidden data center leases, the resulting financial unwind could
+broadly impact institutional investors and pension funds.</p></li>
+<li><p>Anthropic is surging in revenue momentum while OpenAI is
+experiencing significant organizational turbulence.</p>
+<p>OpenAI’s executive churn highlights the difficulty of hiring seasoned
+corporate leaders to sell enterprise solutions when the core AI product
+is still fundamentally unstable and evolving like an early-stage
+startup.</p></li>
+</ol>
+<blockquote>
+<p><strong>Dylan Patel – Two labs will soon control most of the world's
+workforce - Dwarkesh Patel</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=aV26V1UvkJw">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>OpenAI and Anthropic are capturing a rapidly growing share of global
+compute. They currently account for ~30% of new compute coming online,
+which is projected to reach 40–50% next year, and potentially the vast
+majority of the world's usable compute by 2028.
+<ul>
+<li>Unless governments intervene aggressively to throttle deployment,
+the economic and cognitive power of the world will inevitably centralize
+into the hands of the one or two companies that successfully navigate
+the compute arms race.</li>
+<li>The extreme economies of scale in AI training mean that control of
+future cognitive labor will centralize. Within a few years, the
+"effective labor population" within a single AI lab could mathematically
+surpass the human population on Earth.</li>
+<li>The primary forces that could slow this exponential centralization
+are not physical supply chains (which adapt to capital), but rather
+government regulations, power grid constraints, and forced delays in
+releasing frontier models.</li>
+</ul></li>
+<li>AI labs have transitioned from venture-funded loss leaders to highly
+profitable entities. They can currently take compute that costs <span
+class="math inline">\(\$10\)</span>M–<span
+class="math inline">\(\$15\)</span>M per megawatt and generate <span
+class="math inline">\(\$50\)</span>M–<span
+class="math inline">\(\$100\)</span>M+ in revenue from it.</li>
+<li>Because the internal value of AI progress is so high, frontier labs
+will increasingly allocate their compute budgets away from external
+inference (serving users) and toward internal training and R&amp;D to
+achieve Artificial General Intelligence (AGI).</li>
+<li>The capital returns on AI are so high that tech giants will borrow
+trillions of dollars to fund infrastructure (projecting ~<span
+class="math inline">\(\$11\)</span> trillion in total capex by 2029,
+with ~<span class="math inline">\(\$5\)</span> trillion funded by debt).
+This massive borrowing will crowd out the rest of the economy, driving
+up global interest rates.
+<ul>
+<li>Higher interest rates will increase discount rates, effectively
+cratering the value of traditional, non-AI equities and potentially
+causing developing nations with high debt burdens to default (similar to
+the Volcker Shock of the 1980s).</li>
+</ul></li>
+<li>US export controls and capital market dynamics have been effective.
+The US is currently deploying ~70% of new AI compute watts, while China
+accounts for less than 10%</li>
+</ol>
+<blockquote>
+<p><strong>Max Junestrand: You Need The Willingness To Learn Faster Than
+Anyone Else - Y Combinator</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o0ORPbSEgd8">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>You don't need to be an expert in the field you are disrupting. What
+matters is your willingness to learn faster than anyone else</li>
+<li>Don’t wait for AI models to become perfect, and don't waste
+resources building proprietary models from scratch. Build for the
+current capabilities while positioning your product to capitalize on
+exponential future improvements</li>
+<li>As a founder, your ability to craft a compelling narrative is
+essential for selling the vision to yourself, recruiting top talent away
+from tech giants, securing investors, and winning customers</li>
+</ol>
+<blockquote>
+<p><strong>How AI Changes the Economics of Innovation - a16z</strong>
+[<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GHPB1MwlKU0">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>AI represents a shift from imperative programming (writing the exact
+steps) to a stochastic model where humans simply define the desired end
+state.</li>
+<li>Today, AI allows very small teams to deploy massive amounts of
+capital effectively by purchasing compute and tokens, replacing human
+engineering scale with machine scaling.</li>
+<li>While AI's recent ability to solve complex, axiomatic math problems
+is an incredible academic breakthrough, Casado argues that true
+technological revolutions are driven by direct economic utility. It
+remains an open question whether AI's math prowess will immediately
+solve physical-world problems (like physics simulations).</li>
+<li>AI levels the playing field against tech giants. Because
+intelligence can now be purchased as a utility, startups no longer need
+to build the massive proprietary infrastructure that historically
+protected incumbents.</li>
+<li>Because AI lowers the barrier to software creation, the future of
+software development will likely be led by domain experts (doctors,
+lawyers, real estate professionals) who can now automate their specific
+workflows without needing a computer science degree.</li>
+</ol>
+<blockquote>
+<p><strong>Eric Weinstein: The State of American Science, Breakthrough
+Coverups, and the Danger of Physics - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=y84ypzELP_s">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Weinstein argues that American fundamental science—particularly
+theoretical physics—has stagnated since the 1970s. While this stagnation
+may have temporarily saved humanity from civilization-ending weaponry,
+it is now time to overhaul the system, fund rogue geniuses, and uncover
+the next massive leaps in physics (energy, propulsion, and weaponry)
+before geopolitical rivals or AI do it first.</li>
+<li>Weinstein predicts that future AI models will not just read
+prestigious journals, but will eventually process the "trash can" of
+rejected, heterodox physics theories. When AI bypasses human
+institutional bias, it may rapidly unlock the dangerous,
+paradigm-shifting physics that the establishment has ignored.</li>
+</ol>
+<blockquote>
+<p><strong>The State of AI: Models, Moats, and the Consumer Renaissance
+- a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=zEZ0rQ8Ef-Y">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Businesses should match model costs to the task's economic upside.
+Tasks with "unbounded upside" (sales, product innovation) justify paying
+a premium for frontier models. Tasks with "bounded upside" (accounting,
+where the best outcome is just 100% accuracy) should rely on cheaper,
+fine-tuned open-weight models.</li>
+<li>Traditional moats like brand (Nike), network effects (Instagram),
+and distribution are unaffected by AI and remain as powerful as ever.
+However, "integration moats" (like SAP or System Integrators) face
+severe risk because AI coding agents easily bypass complex legacy
+integrations</li>
+<li>The most successful AI founders today are skewing heavily toward
+younger, highly technical researchers rather than traditional MBAs or
+ex-Google PMs, primarily because they do not carry outdated assumptions
+about technological ceilings</li>
+<li>Because incumbent platforms (Meta, X, TikTok) actively block
+startups from bootstrapping new distribution channels on their networks,
+modern AI apps must generate organic word-of-mouth to survive customer
+acquisition costs.</li>
+</ol>
+<blockquote>
+<p><strong>Sam Altman: Singularity Slow-Down, Emad Runs 18 Grokbots,
+Waymo Slashes Hardware 83% | EP #283 - Peter H Diamandis</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0mOXQ4_kY04">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Sam Altman stated that the societal impact of AI is moving slower
+than anticipated, not due to a lack of technical capability, but because
+of massive institutional and economic inertia.</li>
+<li>AI interaction is moving from single chatbots to autonomous
+"swarms." Emad Mostaque discussed running 18 "Grokbots" (from xAI) in
+parallel to autonomously manage tasks, highlighting a shift where human
+roles change from executing tasks to judging AI outputs.</li>
+<li>US frontier models like Anthropic's (referred to as Fable 5) are
+struggling with enterprise adoption because Chinese open-weight models
+(like Kimi and GLM) offer near-identical performance at a fraction of
+the cost (e.g., 100x cheaper).</li>
+<li>Waymo reduced its autonomous driving hardware costs by 83% (from
+<span class="math inline">\(\$115,000\)</span> to <span
+class="math inline">\(\$20,000\)</span>) by utilizing lower-resolution
+but highly optimized sensor suites and white-labeling Chinese EV
+hardware (Zeekr) instead of expensive Jaguars.</li>
+<li>Public opposition to building data centers has spiked to 75% in the
+US, driven by concerns over water and energy usage, presenting a severe
+infrastructure bottleneck for AI scaling.</li>
+<li>AI and tech companies (Waymo, Nvidia, OpenAI, xAI) are vertically
+integrating across the entire stack—from silicon chips to data centers
+and consumer hardware—to survive infrastructure bottlenecks and margin
+pressures.</li>
+<li>As AI agents generate more output, humans are working longer hours,
+not fewer. The primary human workload has shifted from generating
+content/execution to reviewing, escalating, and making final judgments
+on AI-generated work.</li>
+</ol>
+<blockquote>
+<p><strong>How Cursor Built One of AI’s Fastest-Growing Companies -
+a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GHrnbvkVPZA">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>First the tech, then the business model: You don't have to figure
+out perfect margins on day one. Cursor prioritized building a massive,
+loyal user base and unprecedented vertical momentum before figuring out
+complex enterprise monetization or training their own base models.</li>
+<li>A "backdoor" model strategy: By capturing all the users and their
+intent data through the IDE first, Cursor eventually gained the exact
+assets and know-how needed to start training their own frontier coding
+models later on.</li>
+<li>Founder Pragmatism: The best technical founders balance extreme
+product obsession with pragmatic business reality. When Cursor
+recognized they needed to pivot from a pure IDE to an agent platform,
+and eventually layer on aggressive B2B sales, they did so
+fearlessly.</li>
+</ol>
+<blockquote>
+<p><strong>What Meta's <span class="math inline">\(\$17\)</span> Billion
+Settlement Means for TikTok and YouTube - Hard Fork</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1YpqU1LerjM">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Meta capitulated to claims that its platforms (Facebook and
+Instagram) endangered children via addictive designs, agreeing to pay up
+to <span class="math inline">\(\$17.1\)</span> billion and implement
+major platform changes. This move will likely have massive ripple
+effects on competitors like TikTok and YouTube.</p>
+<p>Tech companies are increasingly being held legally and financially
+accountable for the societal impacts of their algorithms, transitioning
+fines from a mere "cost of doing business" to industry-altering
+settlements.</p></li>
+<li><p>Princeton computer science professor Arvind Narayanan argues that
+banning or restricting the construction of new data centers will not
+meaningfully slow down the pace of A.I. progress, likely due to rapid
+increases in computational efficiency.</p></li>
+<li><p>The battleground for AI regulation is moving from abstract policy
+to physical infrastructure, as local communities use power, water, and
+zoning rights to push back against tech expansion.</p></li>
+</ol>
+<blockquote>
+<p><strong>Nvidia's Historic Quarter, SaaS Comeback, Bessent vs Druck,
+America's Debt Crisis, Cancer Vaccine - All-In Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1u5dMAKl_ks">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Nvidia and Salesforce's strong earnings invalidate previous fears of
+an "AI Capex Bubble" and a "SaaSpocalypse." Furthermore, vertical SaaS
+models are fundamentally better positioned to integrate and monetize AI
+compared to broad horizontal platforms.</li>
+<li>Market sentiment around AI capital expenditure and SaaS is rapidly
+shifting from pessimistic to highly optimistic based on realized
+corporate revenue, rendering previous "bubble" narratives
+premature.</li>
+<li>The US is facing severe debt refinancing risks, highlighted by the
+current treasury yield curve. The hosts argue that government spending
+and expanded federal programs are the primary drivers of persistent
+inflation, warning against a "drift toward socialism" and ineffective
+populist responses to housing affordability.</li>
+<li>Addressing systemic inflation requires curbing government spending
+and tackling the debt crisis directly, rather than relying on
+superficial price controls or populist housing policies.</li>
+<li>Oncology is on the precipice of commercializing highly targeted,
+programmable treatments. mRNA vaccines for cancer and democratized
+access to these therapies will fundamentally change how society detects
+and treats the disease.</li>
+</ol>
+<blockquote>
+<p><strong>Why Top Founders Are Racing Into AI Infrastructure -
+a16z</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Zx1Ec8LWFeM">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>The primary bottleneck in AI development has shifted away from
+software and models. The new constraint is entirely physical: the
+underlying infrastructure, including silicon chips, memory, networking,
+power generation, cooling, and massive data centers.</p>
+<p>Hyperscalers are dramatically increasing capital expenditures to
+build out AI capabilities.</p>
+<p>Critical hardware components are fully booked years in advance.
+Leading memory manufacturers reportedly need three years of full
+capacity just to meet current market demand.</p>
+<p>Scaling AI requires enormous amounts of electricity. The conversation
+highlights the logistical challenge of sourcing gigawatts of power,
+noting that a single gigawatt is roughly equivalent to the energy
+consumption of hundreds of thousands of homes.</p>
+<blockquote>
+<p><strong>How To Organize Your Life Like The Top 1% - Chamath
+Palihapitiya</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=C5MQPjZEvD4">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Willpower isn't enough on its own; discipline becomes easy only when
+your core priorities are clearly defined.</li>
+<li>True organization requires charting out your day meticulously. His
+on-screen schedule highlights a structured balance: 7:00 AM wake up,
+family breakfast, morning workout, followed by focused work blocks
+interspersed with lunch at home, and strict cut-offs for family time in
+the late afternoon.</li>
+<li>High performance requires adequate rest. He advocates for aggressive
+sleep prioritization (e.g., sleeping from 10 PM to 6:50 AM).</li>
+<li>Hustle must be balanced with mental health and relational grounding.
+He emphasizes the importance of therapy, regular communication "brain
+dumps" with his spouse, meditation, and letting his guard down with
+close friends.</li>
+<li>Organizing your life like the "Top 1%" isn't about working 24/7; it
+is about building rigid systems that protect your health and family time
+from bleeding into your work life.</li>
+</ol>
+<blockquote>
+<p><strong>Trump Admin Curbing Chinese Remote Chip Access, 100+ Firms
+Want Better AI Cyber Defense Policy - The Information</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=xmrdvP-rIFs">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Experts argue that restricting physical chip exports is insufficient
+if foreign entities can bypass rules by renting computing power on
+US-based cloud networks. Closing this loophole is critical for national
+security. US export controls are officially shifting from purely
+hardware-focused bans to restricting software and cloud-computing
+access.</li>
+<li>Cory Weinberg notes that allowing early shareholders to sell during
+the IPO provides immediate liquidity, reflecting the high capital
+demands and unique financial maneuvering required by leading AI labs.
+Leading AI startups are pioneering new public market financial
+structures to sustain their massive compute costs while rewarding early
+investors.</li>
+<li>Brad Carson and Adam Thierer debate the friction between scaling AI
+infrastructure and addressing local concerns, highlighting that power
+grid capacity and zoning are the primary bottlenecks for AI growth. The
+bottleneck for AI progress is moving from chip availability to physical
+infrastructure (energy and data centers) and regulatory compliance.</li>
+<li>The coalition of 100+ firms argues that current federal
+cybersecurity frameworks fail to address novel, AI-driven threats and
+the specific vulnerabilities of AI models themselves, pushing for
+updated defense protocols.</li>
+</ol>
+<blockquote>
+<p><strong>Andrew Ng: The Biggest Opportunities in AI Aren't Where You
+Think - Silicon Valley Girl</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=o-wv_szZ0V0">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>Much of the negative "AI is bad" narrative is driven by
+trend-chasing and hype rather than the actual state of the
+technology.</li>
+<li>Instead of fully replacing entire jobs, AI is positioned to automate
+specific tasks (e.g., 30–40% of a workflow), which in turn makes the
+remaining 60% of human-driven work more valuable.</li>
+<li>Critics often dwell on generative AI's current limitations, ignoring
+that the models are rapidly improving and their trajectory will only
+continue upward.</li>
+<li>Historical tech adoption patterns and the significant capability
+jumps in AI models over the past four years demonstrate that resisting
+the technology is a losing strategy.</li>
+<li>With AI handling base-level coding or repetitive tasks,
+professionals need to "level up" by focusing on higher-order skills like
+system architecture, infrastructure, and complex decision-making.</li>
+<li>The people with the most pricing power in the future will not just
+be passive tool users, but those who can design workflows and build
+systems around AI.</li>
+</ol>
+<blockquote>
+<p><strong>What the Heck Is Going On in the Bond Market? | The Ezra
+Klein Show</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1TfGBoQVgGc">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<p>The U.S. Treasury market acts as the bedrock of the global economy.
+When yields on Treasuries rise, it triggers a chain reaction making
+mortgages, car loans, and credit cards more expensive, while also
+negatively impacting the stock market. A bond is essentially a
+"tradeable loan."</p>
+<p>Understanding macroeconomic tools like bonds is crucial because their
+fluctuations are directly tied to the pricing of everyday goods and
+structural economic changes.</p>
+<ul>
+<li>Every business relies on credit to operate. A farmer finances a
+tractor, a manufacturer finances raw materials, and a grocery store
+finances its inventory space. Bank loans and corporate debt are priced
+at a premium above Treasury yields, a spike in the bond market instantly
+increases a company's debt-servicing costs. To protect their profit
+margins, businesses pass these increased operational costs down to the
+consumer by raising the prices of everyday goods.</li>
+<li>Consumer debt—specifically 30-year mortgages, auto loans, and credit
+card APRs—is closely tethered to the 10-year Treasury yield. When bond
+yields rise, the monthly cost of financing a home or car spikes.
+Consumers are forced to allocate a larger percentage of their income to
+interest payments, leaving less disposable income for discretionary
+goods, which eventually cools overall economic demand.</li>
+<li>In a low-yield environment (cheap money), investors are starved for
+returns and will fund highly speculative, unprofitable companies in
+exchange for future growth. When bond yields rise significantly,
+investors can earn a safe 4% to 5% just by holding government debt.
+Capital abruptly drains from speculative ventures and redirects toward
+companies with strong, immediate cash flows. This triggers a structural
+shift where inefficient businesses go bankrupt and corporate strategy
+pivots from "growth at all costs" to strict profitability.</li>
+<li>In financial valuation, future corporate earnings are "discounted"
+back to the present using the risk-free rate. Higher bond yields act
+like heavier economic gravity: they mathematically reduce the present
+value of all future cash flows. This triggers structural repricing
+across the stock market and real estate, shrinking household wealth and
+corporate valuations.</li>
+<li>As bond yields rise, the U.S. Treasury must issue new debt at higher
+interest rates. This drastically increases the government's interest
+expenses. When a massive portion of tax revenue is consumed simply by
+servicing old debt, the government is structurally constrained. It
+leaves less capital for infrastructure, R&amp;D, or social programs, and
+often forces a choice between raising taxes, cutting services, or
+printing more money (which creates more inflation).</li>
+</ul>
+<p><strong>A Mental Model for Understanding the
+Relationship</strong></p>
+<p>The easiest way to understand the bond market's influence is to view
+bond yields as the <strong>Price of Time</strong>. When yields are low,
+time is cheap. Businesses can borrow heavily and wait a decade to turn a
+profit, and consumers can afford to stretch payments over 30 years. When
+yields rise, time becomes expensive. The economy demands immediate
+results: businesses must be profitable <em>today</em> to survive their
+debt costs, and consumers must pay a premium for consuming goods
+<em>now</em> rather than waiting.</p>
+<blockquote>
+<p><strong>How to Dominate for Decades | Doug Leone, Sequoia Capital -
+David Senra</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=NR9NI51D7ek">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li><p>Lean into Resistance: Actively embracing difficult challenges and
+resistance is the fastest way to learn new skills and build formidable
+competence.</p>
+<p>Leone actively uses fear as a performance trigger. Rather than
+letting anxiety deter him, he views it as a signal to accelerate rather
+than pause. He builds formidable competence by directly confronting what
+terrifies him. When he realized he was afraid of heights, he worked on
+96-foot sailboat masts. To conquer a fear of public speaking, he forced
+himself to practice until he became the best at it. To prove he could
+endure "pain with no consequences," he once had a dentist drill a tooth
+for a root canal without anesthetic right before a meeting.</p></li>
+<li><p>Adopt a Beginner's Mindset: Sustained dominance requires the
+humility to drop your ego and past accolades to learn entirely new
+paradigms from the ground up.</p>
+<p>To dominate across multiple eras, Leone insists you must let go of
+your ego and be willing to start at the bottom of the learning curve.
+Despite returning to Sequoia Capital with the fancy title of chairman at
+age 69, he views himself as a low-level analyst again. He openly admits
+having no trophy room in his house because he is entirely focused on
+tomorrow's challenges rather than past victories. He acknowledges the
+steep learning curve of AI, noting it felt further away from him 90 days
+in than when he started. He holds himself accountable by promising to
+step down if he still feels irrelevant a year after his return.</p></li>
+<li><p>Prioritize Trust and Pick Battles: Long-term success relies
+heavily on prioritizing deep trust in key relationships while being
+highly selective about which battles to fight.</p>
+<p>Leone defines trust through two independent, mandatory components:
+competence and intention. Trusting someone's intentions without skill
+leads to inaction, while trusting their skill without good intentions
+leads to flight.</p>
+<p>Organizations that build complete trust can make decisions rapidly
+without getting bogged down by hierarchy or rigid processes.</p>
+<p>When selecting board members or business partners, he avoids those
+seeking partnership-driven agendas. He opts instead to build tight
+circles of high-trust individuals who bring deliberate discomfort and
+different backgrounds rather than simple validation.</p></li>
+</ol>
+<blockquote>
+<p><strong>NVIDIA's <span class="math inline">\(\$96.2\)</span>B
+Quarter, China's 200,000 Fake Accounts, &amp; OpenAI's New Chip | EP
+#284 - Peter H. Diamandis</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tfBEWh9ibfU">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>NVIDIA’s massive <span class="math inline">\(\$96.2\)</span>B
+quarter highlights a booming "AI circular economy" and intense capital
+investment in computing power. It reflects immense, aggressive capital
+being reinvested directly into building larger data centers and
+purchasing more advanced computing infrastructure. It proves that the
+physical and financial foundations of AI are scaling at an unprecedented
+rate.</li>
+<li>Flock Safety's scanning of 20 billion license plates demonstrates
+the sheer scale of modern surveillance tech and raises questions about
+public tracking. The company now operates over 120,000 AI-powered
+cameras across the U.S., processing an estimated 20 billion license
+plate scans every single month. This represents a massive leap in
+persistent surveillance, raising complex privacy questions about the
+retention and searchability of everyday citizens' movement
+patterns.</li>
+<li>The discovery of 200,000 fake accounts originating from China
+showcases how automation is being weaponized for digital influence
+operations. Highlighting how AI automation scales digital warfare, X
+(formerly Twitter) recently uncovered a massive, state-linked Chinese
+bot farm consisting of roughly 200,000 inauthentic accounts. Notably,
+hundreds of these bots were specifically deployed to run influence
+operations against U.S. energy policy, attempting to halt the
+construction of American AI data centers by spreading false claims that
+they would drive up household energy bills.<br />
+</li>
+<li>Despite widespread automation fears, current data indicates that
+only 4% of companies are cutting jobs due to AI. Corporate surveys
+indicate a massive gap between projected job losses and reality,
+suggesting AI is currently acting as a tool to augment and speed up
+human output rather than completely replacing human capital.</li>
+<li>A major medical breakthrough has successfully doubled survival rates
+for pancreatic cancer. The FDA recently approved a new drug called
+<em>daraxonrasib</em>. For decades, over 90% of pancreatic cancers were
+driven by a mutated protein called KRAS, which scientists considered
+entirely "undruggable". Daraxonrasib acts as a molecular glue to shut
+this protein down, successfully doubling the median survival rate for
+advanced pancreatic cancer from 6.7 months to 13.2 months and reducing
+the risk of death by 60%.</li>
+</ol>
+<blockquote>
+<p><strong>AI’s third era: the rise of persistent AI coworkers | Tara
+Seshan (OpenAI’s product lead) - Lenny's Podcast</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=zMvBMfj4cSQ">Link</a>]</p>
+</blockquote>
+<p>Takeaways:</p>
+<ol type="1">
+<li>There is a distinct transition happening from conversational AI
+(Chat) to integrated AI that actively participates in day-to-day
+workflows (Work).</li>
+<li>Seshan distinguishes between "writing for reporting" and "writing
+for thinking." She argues that users should not outsource the core
+cognitive process of writing to AI, as generating content is vital for
+human sensemaking.</li>
+<li>A highly effective AI workflow involves using the technology to get
+a project or draft to 70% completion, which makes it much easier for
+human peers to engage with, attack, and refine the work.</li>
+<li>As AI takes over task execution, the primary role of human
+workers—especially licensed professionals—will shift strictly to outcome
+accountability and responsibility. Leverage AI to accelerate the initial
+phases of work, but retain ownership over critical thinking and final
+decisions.</li>
+</ol>
+<blockquote>
+<p><strong>Software’s Epic Comeback, Meta’s AI Layoffs Blunder, South
+Korea Stock Market Chaos - Alex Kantrowitz</strong> [<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=bZ5nN6uHRzU">Link</a>]</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/di-blog/tags/readings/" rel="tag"># readings</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/di-blog/2026/08/14/The-Trusted-Advisor/" rel="prev" title="The Trusted Advisor - Quick Note">
+                  <i class="fa fa-angle-left"></i> The Trusted Advisor - Quick Note
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/di-blog/2026/08/31/2026-July/" rel="next" title="2026 July - What I Have Learned">
+                  2026 July - What I Have Learned <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Di Zhen</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/di-blog/js/comments.js"></script><script src="/di-blog/js/utils.js"></script><script src="/di-blog/js/motion.js"></script><script src="/di-blog/js/sidebar.js"></script><script src="/di-blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/di-blog/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
